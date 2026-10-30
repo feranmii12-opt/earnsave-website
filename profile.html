@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Profile - EarnSave</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f5f7fb;
+    color:#222;
+}
+
+/* HEADER */
+
+header{
+    background:linear-gradient(135deg,#5b2cff,#2878ff);
+    color:white;
+    padding:20px;
+}
+
+.header-inner{
+    max-width:900px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.back-btn{
+    background:white;
+    color:#5b2cff;
+    text-decoration:none;
+    padding:11px 16px;
+    border-radius:9px;
+    font-weight:bold;
+}
+
+/* CONTAINER */
+
+.container{
+    max-width:900px;
+    margin:25px auto;
+    padding:0 15px;
+}
+
+/* LOADING */
+
+#loading{
+    text-align:center;
+    padding:60px 20px;
+    font-size:20px;
+}
+
+/* LOGIN */
+
+#loginMessage{
+    display:none;
+    text-align:center;
+    padding:50px 20px;
+}
+
+.login-btn{
+    display:inline-block;
+    background:#5b2cff;
+    color:white;
+    text-decoration:none;
+    padding:13px 25px;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+/* CONTENT */
+
+#content{
+    display:none;
+}
+
+/* PROFILE CARD */
+
+.profile-card{
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 4px 15px rgba(0,0,0,.06);
+    margin-bottom:25px;
+}
+
+/* PROFILE HEADER */
+
+.profile-top{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.avatar{
+    width:85px;
+    height:85px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#5b2cff,#2878ff);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:0 auto 15px;
+    font-size:34px;
+    font-weight:bold;
+}
+
+.profile-top h1{
+    margin:5px 0;
+}
+
+.profile-top p{
+    margin:0;
+    color:#777;
+}
+
+/* FORM */
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:7px;
+    font-weight:bold;
+}
+
+.form-group input{
+    width:100%;
+    padding:13px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:15px;
+    outline:none;
+}
+
+.form-group input:focus{
+    border-color:#5b2cff;
+}
+
+/* BUTTON */
+
+.primary-btn{
+    width:100%;
+    background:#5b2cff;
+    color:white;
+    border:0;
+    padding:14px;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.primary-btn:disabled{
+    opacity:.6;
+}
+
+/* MESSAGE */
+
+.message{
+    display:none;
+    padding:13px;
+    border-radius:10px;
+    margin-bottom:18px;
+    font-size:14px;
+}
+
+.success{
+    display:block;
+    background:#d4edda;
+    color:#155724;
+}
+
+.error{
+    display:block;
+    background:#f8d7da;
+    color:#721c24;
+}
+
+/* ACCOUNT INFORMATION */
+
+.account-card{
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 4px 15px rgba(0,0,0,.06);
+    margin-bottom:25px;
+}
+
+.account-card h2{
+    margin-top:0;
+    color:#5b2cff;
+}
+
+.info-row{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    padding:14px 0;
+    border-bottom:1px solid #eee;
+}
+
+.info-row:last-child{
+    border-bottom:0;
+}
+
+.info-label{
+    color:#777;
+}
+
+.info-value{
+    font-weight:bold;
+    text-align:right;
+}
+
+/* SECURITY */
+
+.security-card{
+    background:#eef4ff;
+    border-left:5px solid #2878ff;
+    padding:18px;
+    border-radius:12px;
+    margin-bottom:25px;
+}
+
+.security-card h3{
+    margin-top:0;
+    color:#2878ff;
+}
+
+.security-card p{
+    margin-bottom:0;
+    color:#555;
+    line-height:1.5;
+    font-size:14px;
+}
+
+/* CHANGE PASSWORD */
+
+.password-card{
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 4px 15px rgba(0,0,0,.06);
+    margin-bottom:25px;
+}
+
+.password-card h2{
+    margin-top:0;
+    color:#5b2cff;
+}
+
+.password-note{
+    color:#777;
+    font-size:14px;
+    line-height:1.5;
+    margin-bottom:20px;
+}
+
+.password-input{
+    position:relative;
+}
+
+.password-input input{
+    padding-right:50px;
+}
+
+.show-password{
+    position:absolute;
+    right:12px;
+    top:50%;
+    transform:translateY(-50%);
+    border:0;
+    background:none;
+    cursor:pointer;
+    font-size:18px;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    .logo{
+        font-size:21px;
+    }
+
+    .back-btn{
+        padding:9px 12px;
+        font-size:13px;
+    }
+
+    .profile-card,
+    .account-card,
+    .password-card{
+        padding:20px;
+    }
+
+    .info-row{
+        flex-direction:column;
+        gap:5px;
+    }
+
+    .info-value{
+        text-align:left;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="header-inner">
+
+<div class="logo">
+EarnSave
+</div>
+
+<a href="dashboard.html" class="back-btn">
+← Dashboard
+</a>
+
+</div>
+
+</header>
+
+
+<div id="loading">
+Loading your profile...
+</div>
+
+
+<div id="loginMessage">
+
+<h2>
+Login Required
+</h2>
+
+<p>
+Please login before viewing your profile.
+</p>
+
+<a href="login.html" class="login-btn">
+Go to Login
+</a>
+
+</div>
+
+
+<div class="container" id="content">
+
+
+<!-- PROFILE -->
+
+<div class="profile-card">
+
+<div class="profile-top">
+
+<div class="avatar" id="avatar">
+?
+</div>
+
+<h1>
+My Profile
+</h1>
+
+<p id="profileEmail">
+Loading...
+</p>
+
+</div>
+
+
+<div id="profileMessage" class="message"></div>
+
+
+<div class="form-group">
+
+<label>
+Full Name
+</label>
+
+<input
+type="text"
+id="fullName"
+placeholder="Enter your full name"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Email Address
+</label>
+
+<input
+type="email"
+id="email"
+readonly
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Phone Number
+</label>
+
+<input
+type="tel"
+id="phone"
+placeholder="Enter your phone number"
+>
+
+</div>
+
+
+<button
+class="primary-btn"
+id="saveProfile"
+>
+Save Changes
+</button>
+
+</div>
+
+
+<!-- ACCOUNT INFORMATION -->
+
+<div class="account-card">
+
+<h2>
+📋 Account Information
+</h2>
+
+
+<div class="info-row">
+
+<div class="info-label">
+Account Role
+</div>
+
+<div
+class="info-value"
+id="accountRole"
+>
+User
+</div>
+
+</div>
+
+
+<div class="info-row">
+
+<div class="info-label">
+Referral Code
+</div>
+
+<div
+class="info-value"
+id="referralCode"
+>
+-
+</div>
+
+</div>
+
+
+<div class="info-row">
+
+<div class="info-label">
+Activation Plan
+</div>
+
+<div
+class="info-value"
+id="activationPlan"
+>
+No Plan
+</div>
+
+</div>
+
+</div>
+
+
+<!-- CHANGE PASSWORD -->
+
+<div class="password-card">
+
+<h2>
+🔐 Change Password
+</h2>
+
+<p class="password-note">
+Enter a new password for your EarnSave account.
+Your password must be at least 6 characters long.
+</p>
+
+
+<div id="passwordMessage" class="message"></div>
+
+
+<div class="form-group">
+
+<label>
+New Password
+</label>
+
+<div class="password-input">
+
+<input
+type="password"
+id="newPassword"
+placeholder="Enter new password"
+>
+
+<button
+type="button"
+class="show-password"
+onclick="togglePassword('newPassword', this)"
+>
+👁️
+</button>
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Confirm New Password
+</label>
+
+<div class="password-input">
+
+<input
+type="password"
+id="confirmPassword"
+placeholder="Confirm new password"
+>
+
+<button
+type="button"
+class="show-password"
+onclick="togglePassword('confirmPassword', this)"
+>
+👁️
+</button>
+
+</div>
+
+</div>
+
+
+<button
+class="primary-btn"
+id="changePasswordBtn"
+>
+Change Password
+</button>
+
+</div>
+
+
+<!-- SECURITY NOTICE -->
+
+<div class="security-card">
+
+<h3>
+🔒 Account Security
+</h3>
+
+<p>
+Your balance, referral earnings, role, activation status,
+payment information and other protected account information
+cannot be changed from this page.
+</p>
+
+</div>
+
+
+</div>
+
+
+<!-- FIREBASE -->
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+
+<script>
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
+
+    authDomain:
+    "earnsave-e7a88.firebaseapp.com",
+
+    projectId:
+    "earnsave-e7a88",
+
+    storageBucket:
+    "earnsave-e7a88.firebasestorage.app",
+
+    messagingSenderId:
+    "2806298963",
+
+    appId:
+    "1:2806298963:web:f5f6fe584d51c7280be4aa",
+
+    measurementId:
+    "G-3C742ZNKHB"
+
+};
+
+
+firebase.initializeApp(firebaseConfig);
+
+
+const auth = firebase.auth();
+
+const db = firebase.firestore();
+
+
+/* AUTH */
+
+auth.onAuthStateChanged(function(user){
+
+    if(!user){
+
+        document.getElementById("loading")
+        .style.display="none";
+
+        document.getElementById("loginMessage")
+        .style.display="block";
+
+        return;
+
+    }
+
+
+    document.getElementById("loading")
+    .style.display="none";
+
+    document.getElementById("content")
+    .style.display="block";
+
+
+    document.getElementById("email")
+    .value =
+    user.email || "";
+
+
+    document.getElementById("profileEmail")
+    .textContent =
+    user.email || "EarnSave User";
+
+
+    loadProfile(user);
+
+});
+
+
+/* LOAD PROFILE */
+
+function loadProfile(user){
+
+    db.collection("users")
+    .doc(user.uid)
+    .get()
+
+    .then(function(doc){
+
+        if(!doc.exists){
+
+            showMessage(
+                "profileMessage",
+                "Your EarnSave profile was not found.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const data = doc.data();
+
+
+        document.getElementById("fullName")
+        .value =
+        data.fullName || "";
+
+
+        document.getElementById("phone")
+        .value =
+        data.phone || "";
+
+
+        document.getElementById("accountRole")
+        .textContent =
+        data.role || "user";
+
+
+        document.getElementById("referralCode")
+        .textContent =
+        data.referralCode || "-";
+
+
+        document.getElementById("activationPlan")
+        .textContent =
+        data.selectedPlan || "No Plan";
+
+
+        let name =
+        data.fullName ||
+        user.email ||
+        "U";
+
+
+        document.getElementById("avatar")
+        .textContent =
+        name.charAt(0).toUpperCase();
+
+    })
+
+    .catch(function(error){
+
+        showMessage(
+            "profileMessage",
+            "Unable to load profile: " +
+            error.message,
+            "error"
+        );
+
+    });
+
+}
+
+
+/* SAVE PROFILE */
+
+document.getElementById("saveProfile")
+.addEventListener(
+"click",
+function(){
+
+    const user =
+    auth.currentUser;
+
+
+    if(!user){
+
+        return;
+
+    }
+
+
+    const fullName =
+    document.getElementById("fullName")
+    .value
+    .trim();
+
+
+    const phone =
+    document.getElementById("phone")
+    .value
+    .trim();
+
+
+    if(!fullName){
+
+        showMessage(
+            "profileMessage",
+            "Please enter your full name.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const button =
+    document.getElementById("saveProfile");
+
+
+    button.disabled=true;
+
+    button.textContent=
+    "Saving...";
+
+
+    db.collection("users")
+    .doc(user.uid)
+    .update({
+
+        fullName:
+        fullName,
+
+        phone:
+        phone
+
+    })
+
+    .then(function(){
+
+        showMessage(
+            "profileMessage",
+            "Profile update successful.",
+            "success"
+        );
+
+
+        document.getElementById("avatar")
+        .textContent =
+        fullName.charAt(0).toUpperCase();
+
+    })
+
+    .catch(function(error){
+
+        showMessage(
+            "profileMessage",
+            "Profile update failed: " +
+            error.message,
+            "error"
+        );
+
+    })
+
+    .finally(function(){
+
+        button.disabled=false;
+
+        button.textContent=
+        "Save Changes";
+
+    });
+
+});
+
+
+/* CHANGE PASSWORD */
+
+document.getElementById("changePasswordBtn")
+.addEventListener(
+"click",
+function(){
+
+    const user =
+    auth.currentUser;
+
+
+    if(!user){
+
+        return;
+
+    }
+
+
+    const newPassword =
+    document.getElementById("newPassword")
+    .value;
+
+
+    const confirmPassword =
+    document.getElementById("confirmPassword")
+    .value;
+
+
+    if(!newPassword){
+
+        showMessage(
+            "passwordMessage",
+            "Please enter a new password.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if(newPassword.length < 6){
+
+        showMessage(
+            "passwordMessage",
+            "Password must be at least 6 characters long.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if(newPassword !== confirmPassword){
+
+        showMessage(
+            "passwordMessage",
+            "The passwords do not match.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const button =
+    document.getElementById(
+        "changePasswordBtn"
+    );
+
+
+    button.disabled=true;
+
+    button.textContent=
+    "Changing Password...";
+
+
+    user.updatePassword(newPassword)
+
+    .then(function(){
+
+        showMessage(
+            "passwordMessage",
+            "Password changed successfully.",
+            "success"
+        );
+
+
+        document.getElementById(
+            "newPassword"
+        ).value="";
+
+
+        document.getElementById(
+            "confirmPassword"
+        ).value="";
+
+    })
+
+    .catch(function(error){
+
+        let message =
+        "Unable to change password: " +
+        error.message;
+
+
+        if(error.code ===
+        "auth/requires-recent-login"){
+
+            message =
+            "For security, please logout, login again, and then change your password.";
+
+        }
+
+
+        showMessage(
+            "passwordMessage",
+            message,
+            "error"
+        );
+
+    })
+
+    .finally(function(){
+
+        button.disabled=false;
+
+        button.textContent=
+        "Change Password";
+
+    });
+
+});
+
+
+/* PASSWORD VISIBILITY */
+
+function togglePassword(
+    inputId,
+    button
+){
+
+    const input =
+    document.getElementById(inputId);
+
+
+    if(input.type === "password"){
+
+        input.type="text";
+
+        button.textContent="🙈";
+
+    }else{
+
+        input.type="password";
+
+        button.textContent="👁️";
+
+    }
+
+}
+
+
+/* MESSAGE */
+
+function showMessage(
+    elementId,
+    message,
+    type
+){
+
+    const box =
+    document.getElementById(
+        elementId
+    );
+
+
+    box.textContent =
+    message;
+
+
+    box.className =
+    "message " + type;
+
+
+    setTimeout(function(){
+
+        box.className="message";
+
+    },5000);
+
+}
+
+</script>
+
+</body>
+</html>

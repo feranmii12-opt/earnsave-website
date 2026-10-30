@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EarnSave - Task Details</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #080d1c;
+    --panel: #111a30;
+    --panel2: #192541;
+    --blue: #3985ff;
+    --purple: #9065ff;
+    --green: #35e6a1;
+    --text: #f4f7ff;
+    --muted: #9aa8c7;
+    --border: rgba(255,255,255,.09);
+    --red: #ff7185;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(ellipse at top left,
+        rgba(57,133,255,.13), transparent 42%),
+        var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+header {
+    padding: 18px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(8,13,28,.95);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(14px);
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: var(--blue);
+}
+
+.header-link {
+    text-decoration: none;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 11px 13px;
+}
+
+.container {
+    width: 100%;
+    max-width: 850px;
+    margin: auto;
+    padding: 22px 15px 105px;
+}
+
+.back-link {
+    display: inline-block;
+    color: #91b9ff;
+    text-decoration: none;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.hero {
+    padding: 25px 20px;
+    border-radius: 21px;
+    background: linear-gradient(
+        135deg,
+        #182b52,
+        #171c40 60%,
+        #29204b
+    );
+    border: 1px solid rgba(96,143,255,.25);
+    margin-bottom: 18px;
+    overflow-wrap: anywhere;
+}
+
+.tag {
+    display: inline-block;
+    color: var(--green);
+    background: rgba(53,230,161,.10);
+    border: 1px solid rgba(53,230,161,.2);
+    padding: 7px 10px;
+    border-radius: 30px;
+    font-size: 10px;
+    font-weight: bold;
+    margin-bottom: 17px;
+}
+
+.hero h1 {
+    font-size: clamp(25px, 6vw, 35px);
+    line-height: 1.3;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    color: #bdc9e7;
+    font-size: 14px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+}
+
+.reward-card {
+    background: linear-gradient(110deg, #112b38, #14283a);
+    border: 1px solid rgba(53,230,161,.19);
+    border-radius: 17px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.reward-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 8px;
+}
+
+.reward-amount {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--green);
+    overflow-wrap: anywhere;
+}
+
+.reward-note {
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 9px;
+    line-height: 1.6;
+}
+
+.card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 21px;
+    margin-bottom: 18px;
+}
+
+.card h2 {
+    font-size: 18px;
+    margin-bottom: 14px;
+}
+
+.steps {
+    list-style: none;
+    display: grid;
+    gap: 14px;
+}
+
+.steps li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: #c3cde4;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.step-number {
+    flex-shrink: 0;
+    width: 27px;
+    height: 27px;
+    display: grid;
+    place-items: center;
+    background: rgba(57,133,255,.15);
+    color: #80adff;
+    border-radius: 9px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.primary-btn,
+.secondary-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 13px;
+}
+
+.primary-btn {
+    background: linear-gradient(100deg, var(--blue), var(--purple));
+}
+
+.secondary-btn {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+}
+
+button:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+.upload-box {
+    border: 1.5px dashed rgba(110,155,255,.45);
+    border-radius: 15px;
+    background: rgba(57,133,255,.045);
+    padding: 24px 15px;
+    text-align: center;
+    margin: 15px 0;
+}
+
+.upload-icon {
+    font-size: 35px;
+    margin-bottom: 12px;
+}
+
+.upload-box p {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+    margin-top: 7px;
+}
+
+.file-input {
+    width: 100%;
+    margin-top: 15px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.preview {
+    display: none;
+    width: 100%;
+    max-height: 350px;
+    object-fit: contain;
+    background: #080d1c;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    margin-top: 15px;
+}
+
+.status-box {
+    display: none;
+    padding: 13px;
+    border-radius: 11px;
+    margin-top: 14px;
+    font-size: 13px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.status-info {
+    display: block;
+    color: #b6d0ff;
+    background: rgba(57,133,255,.1);
+    border: 1px solid rgba(57,133,255,.2);
+}
+
+.status-success {
+    display: block;
+    color: var(--green);
+    background: rgba(53,230,161,.08);
+    border: 1px solid rgba(53,230,161,.2);
+}
+
+.status-error {
+    display: block;
+    color: var(--red);
+    background: rgba(255,113,133,.08);
+    border: 1px solid rgba(255,113,133,.2);
+}
+
+.status-pending {
+    display: block;
+    color: #ffd580;
+    background: rgba(255,190,80,.08);
+    border: 1px solid rgba(255,190,80,.2);
+}
+
+.small-note {
+    font-size: 11px;
+    line-height: 1.7;
+    color: var(--muted);
+    margin-top: 13px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px 15px;
+    color: #7885a4;
+    font-size: 12px;
+    line-height: 1.8;
+    border-top: 1px solid var(--border);
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    display: flex;
+    justify-content: space-around;
+    background: rgba(12,19,37,.97);
+    border-top: 1px solid var(--border);
+    padding: 11px 5px calc(11px + env(safe-area-inset-bottom));
+    backdrop-filter: blur(15px);
+}
+
+.bottom-nav a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 11px;
+    text-align: center;
+    min-width: 55px;
+}
+
+.bottom-nav a span {
+    display: block;
+    font-size: 19px;
+    margin-bottom: 5px;
+}
+
+.bottom-nav a.current {
+    color: #75a9ff;
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 22px 17px;
+    }
+
+    .card {
+        padding: 17px;
+    }
+
+    .reward-amount {
+        font-size: 28px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Earn<span>Save</span></div>
+    <a href="tasks.html" class="header-link">← All Tasks</a>
+</header>
+
+<main class="container">
+
+    <a href="tasks.html" class="back-link">← Back to available tasks</a>
+
+    <section class="hero">
+        <div class="tag" id="taskBadge">⚡ TASK DETAILS</div>
+        <h1 id="taskTitle">Loading task...</h1>
+        <p id="taskDescription">Please wait while we load the instructions.</p>
+    </section>
+
+    <section class="reward-card">
+        <div class="reward-label">TASK REWARD</div>
+        <div class="reward-amount" id="taskReward">₦—</div>
+        <div class="reward-note">
+            Rewards are subject to task verification and approval.
+            Displayed rewards are not guaranteed until approved.
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>📌 How to complete this task</h2>
+
+        <ol class="steps">
+            <li>
+                <span class="step-number">1</span>
+                <span>Read the task instructions carefully.</span>
+            </li>
+            <li>
+                <span class="step-number">2</span>
+                <span>Tap the button below to open the task link.</span>
+            </li>
+            <li>
+                <span class="step-number">3</span>
+                <span>Complete the task honestly and take a clear screenshot as proof.</span>
+            </li>
+            <li>
+                <span class="step-number">4</span>
+                <span>Upload your screenshot and submit it for admin review.</span>
+            </li>
+        </ol>
+
+        <a
+            id="startTaskBtn"
+            class="primary-btn"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+        >🚀 Start Task</a>
+
+        <div class="small-note">
+            Only open links you trust. Never share your password,
+            payment PIN, or banking security codes to complete a task.
+        </div>
+    </section>
+
+    <section class="card" id="proofSection">
+        <h2>📸 Submit Your Proof</h2>
+
+        <p style="color:var(--muted);font-size:13px;line-height:1.7;">
+            Upload a screenshot showing that you completed the task.
+            Your proof will be sent to the admin for review.
+        </p>
+
+        <div class="upload-box">
+            <div class="upload-icon">🖼️</div>
+            <strong>Select your screenshot</strong>
+            <p>Choose a clear image from your phone.</p>
+
+            <input
+                type="file"
+                id="proofFile"
+                class="file-input"
+                accept="image/jpeg,image/png,image/webp"
+            >
+
+            <img
+                id="imagePreview"
+                class="preview"
+                alt="Screenshot preview"
+            >
+        </div>
+
+        <button id="submitProofBtn" class="primary-btn" disabled>
+            📤 Submit Proof
+        </button>
+
+        <div id="statusBox" class="status-box" role="status"></div>
+
+        <p class="small-note">
+            Please submit genuine proof. A successful upload means
+            your proof was received, not that the task has been approved.
+        </p>
+    </section>
+
+</main>
+
+<footer>
+    EarnSave © 2026<br>
+    Your submitted proof is subject to admin review.
+</footer>
+
+<nav class="bottom-nav">
+    <a href="dashboard.html">
+        <span>⌂</span>Home
+    </a>
+    <a href="tasks.html" class="current">
+        <span>▤</span>Tasks
+    </a>
+    <a href="withdrawal.html">
+        <span>⇧</span>Withdraw
+    </a>
+    <a href="profile.html">
+        <span>◉</span>Profile
+    </a>
+</nav>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+    apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
+    authDomain: "earnsave-e7a88.firebaseapp.com",
+    projectId: "earnsave-e7a88",
+    storageBucket: "earnsave-e7a88.firebasestorage.app",
+    messagingSenderId: "2806298963",
+    appId: "1:2806298963:web:f5f6fe584d51c7280be4aa",
+    measurementId: "G-3C742ZNKHB"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+/*
+ * These are the Cloudinary settings previously used for EarnSave.
+ * Keep the upload preset unsigned and restricted to image uploads.
+ * Never put a Cloudinary API secret in this file.
+ */
+const CLOUDINARY_CLOUD_NAME = "fpcojpnv";
+const CLOUDINARY_UPLOAD_PRESET = "earnsave_proofs";
+
+const taskId = new URLSearchParams(window.location.search).get("id");
+
+const taskTitle = document.getElementById("taskTitle");
+const taskDescription = document.getElementById("taskDescription");
+const taskReward = document.getElementById("taskReward");
+const taskBadge = document.getElementById("taskBadge");
+const startTaskBtn = document.getElementById("startTaskBtn");
+const proofFile = document.getElementById("proofFile");
+const imagePreview = document.getElementById("imagePreview");
+const submitProofBtn = document.getElementById("submitProofBtn");
+const statusBox = document.getElementById("statusBox");
+
+let currentUser = null;
+let currentTask = null;
+let selectedFile = null;
+let alreadySubmitted = false;
+let submitting = false;
+
+function formatNaira(value) {
+    const amount = Number(value);
+
+    if (!Number.isFinite(amount)) {
+        return "₦0";
+    }
+
+    return "₦" + amount.toLocaleString("en-NG", {
+        maximumFractionDigits: 2
+    });
+}
+
+function showStatus(message, type) {
+    statusBox.className = "status-box status-" + type;
+    statusBox.textContent = message;
+}
+
+function clearStatus() {
+    statusBox.className = "status-box";
+    statusBox.textContent = "";
+}
+
+function setTaskUnavailable(message) {
+    taskTitle.textContent = "Task unavailable";
+    taskDescription.textContent = message;
+    taskReward.textContent = "—";
+    taskBadge.textContent = "TASK UNAVAILABLE";
+    startTaskBtn.style.display = "none";
+    proofFile.disabled = true;
+    submitProofBtn.disabled = true;
+}
+
+async function loadTask() {
+    if (!taskId) {
+        setTaskUnavailable(
+            "No task was selected. Please return to the Tasks page and choose a task."
+        );
+        return;
+    }
+
+    try {
+        const doc = await db.collection("tasks").doc(taskId).get();
+
+        if (!doc.exists) {
+            setTaskUnavailable(
+                "This task could not be found. Please choose another task."
+            );
+            return;
+        }
+
+        const data = doc.data();
+
+        if (String(data.status || "").toLowerCase() !== "active") {
+            setTaskUnavailable(
+                "This task is not currently active. Please choose another task."
+            );
+            return;
+        }
+
+        currentTask = {
+            id: doc.id,
+            ...data
+        };
+
+        taskTitle.textContent = data.title || "Untitled Task";
+        taskDescription.textContent =
+            data.description || "Follow the instructions to complete this task.";
+        taskReward.textContent = formatNaira(data.reward);
+        taskBadge.textContent = "⚡ ACTIVE TASK";
+
+        const link = String(data.link || "").trim();
+
+        try {
+            const parsedLink = new URL(link);
+
+            if (parsedLink.protocol === "https:" ||
+                parsedLink.protocol === "http:") {
+                startTaskBtn.href = parsedLink.href;
+                startTaskBtn.style.display = "block";
+            } else {
+                startTaskBtn.style.display = "none";
+            }
+        } catch (error) {
+            startTaskBtn.style.display = "none";
+        }
+
+    } catch (error) {
+        console.error("Task loading error:", error);
+
+        setTaskUnavailable(
+            error.code === "permission-denied"
+                ? "Firebase denied access to this task. Your Firestore rules may need checking."
+                : "Unable to load this task. Check your connection and try again."
+        );
+    }
+}
+
+function setProofLocked(locked, message) {
+    alreadySubmitted = locked;
+    proofFile.disabled = locked;
+    submitProofBtn.disabled = locked || !selectedFile;
+
+    if (locked) {
+        showStatus(message, "pending");
+    }
+}
+
+async function checkExistingSubmission() {
+    if (!currentUser || !currentTask) return;
+
+    try {
+        /*
+         * This check improves the interface but is not a security
+         * guarantee. Firestore rules or trusted backend logic must
+         * prevent duplicate submissions and duplicate rewards.
+         */
+        const snapshot = await db.collection("submissions")
+            .where("userId", "==", currentUser.uid)
+            .where("taskId", "==", currentTask.id)
+            .get();
+
+        if (snapshot.empty) {
+            return;
+        }
+
+        const hasPending = snapshot.docs.some(doc =>
+            doc.data().status === "pending"
+        );
+
+        const hasApproved = snapshot.docs.some(doc =>
+            doc.data().status === "approved"
+        );
+
+        if (hasApproved) {
+            setProofLocked(
+                true,
+                "You have already submitted proof for this task and it was approved."
+            );
+        } else if (hasPending) {
+            setProofLocked(
+                true,
+                "Your proof is already pending review. Please wait for the admin."
+            );
+        } else {
+            showStatus(
+                "A previous submission exists for this task. If you need to submit again, contact the admin.",
+                "info"
+            );
+        }
+
+    } catch (error) {
+        console.error("Submission check error:", error);
+
+        /*
+         * If the check fails, do not claim that the user has no
+         * previous submissions. The database rules still control
+         * whether a submission is accepted.
+         */
+        showStatus(
+            "We could not check your previous submissions. Please try again later.",
+            "error"
+        );
+
+        proofFile.disabled = true;
+        submitProofBtn.disabled = true;
+    }
+}
+
+proofFile.addEventListener("change", () => {
+    clearStatus();
+
+    const file = proofFile.files && proofFile.files[0];
+
+    selectedFile = null;
+    imagePreview.style.display = "none";
+    imagePreview.removeAttribute("src");
+    submitProofBtn.disabled = true;
+
+    if (!file) return;
+
+    const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+    ];
+
+    if (!allowedTypes.includes(file.type)) {
+        showStatus(
+            "Please select a JPG, PNG, or WebP image.",
+            "error"
+        );
+        proofFile.value = "";
+        return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+        showStatus(
+            "Your image is too large. Please select an image smaller than 5 MB.",
+            "error"
+        );
+        proofFile.value = "";
+        return;
+    }
+
+    selectedFile = file;
+
+    const previewUrl = URL.createObjectURL(file);
+    imagePreview.src = previewUrl;
+    imagePreview.style.display = "block";
+
+    if (!alreadySubmitted) {
+        submitProofBtn.disabled = false;
+    }
+});
+
+async function uploadProofToCloudinary(file) {
+    const endpoint =
+        "https://api.cloudinary.com/v1_1/" +
+        encodeURIComponent(CLOUDINARY_CLOUD_NAME) +
+        "/image/upload";
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+
+    const response = await fetch(endpoint, {
+        method: "POST",
+        body: formData
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || !result.secure_url) {
+        console.error("Cloudinary upload error:", result);
+
+        throw new Error(
+            result.error && result.error.message
+                ? result.error.message
+                : "Image upload failed. Check your Cloudinary settings."
+        );
+    }
+
+    return {
+        url: result.secure_url,
+        publicId: result.public_id || ""
+    };
+}
+
+submitProofBtn.addEventListener("click", async () => {
+    if (submitting) return;
+
+    if (!currentUser) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    if (!currentTask) {
+        showStatus("The task has not loaded yet.", "error");
+        return;
+    }
+
+    if (alreadySubmitted) {
+        showStatus(
+            "A submission already exists for this task. Please check its status.",
+            "pending"
+        );
+        return;
+    }
+
+    if (!selectedFile) {
+        showStatus("Please choose a screenshot first.", "error");
+        return;
+    }
+
+    submitting = true;
+    submitProofBtn.disabled = true;
+    proofFile.disabled = true;
+    submitProofBtn.textContent = "Uploading proof...";
+
+    try {
+        const uploaded = await uploadProofToCloudinary(selectedFile);
+
+        submitProofBtn.textContent = "Saving submission...";
+
+        const submission = {
+            userId: currentUser.uid,
+            userEmail: currentUser.email || "",
+            taskId: currentTask.id,
+            taskTitle: String(currentTask.title || "Untitled Task"),
+            reward: Number(currentTask.reward) || 0,
+            proofType: "image",
+            proofImageUrl: uploaded.url,
+            proofImageId: uploaded.publicId,
+            status: "pending",
+            submittedAt: firebase.firestore.FieldValue.serverTimestamp()
+        };
+
+        /*
+         * Do not credit the user's balance here.
+         * Admin approval and trusted backend logic must control rewards.
+         */
+        await db.collection("submissions").add(submission);
+
+        selectedFile = null;
+        proofFile.value = "";
+        imagePreview.style.display = "none";
+        imagePreview.removeAttribute("src");
+
+        setProofLocked(
+            true,
+            "Proof submitted successfully! Your submission is pending admin review."
+        );
+
+        submitProofBtn.textContent = "✓ Proof Submitted";
+
+    } catch (error) {
+        console.error("Proof submission error:", error);
+
+        const message =
+            error.code === "permission-denied"
+                ? "Firebase denied the submission. Your Firestore rules may need checking."
+                : error.message || "Something went wrong. Please try again.";
+
+        showStatus(message, "error");
+
+        submitProofBtn.disabled = !selectedFile;
+        proofFile.disabled = false;
+        submitProofBtn.textContent = "📤 Submit Proof";
+
+    } finally {
+        submitting = false;
+    }
+}
+
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+    .then(() => {
+        auth.onAuthStateChanged(async user => {
+            if (!user) {
+                window.location.replace("login.html");
+                return;
+            }
+
+            currentUser = user;
+
+            await loadTask();
+
+            if (currentTask) {
+                await checkExistingSubmission();
+            }
+        });
+    })
+    .catch(error => {
+        console.error("Authentication setup error:", error);
+
+        setTaskUnavailable(
+            "We could not verify your login. Please return to the login page and try again."
+        );
+    });
+</script>
+
+</body>
+</html>

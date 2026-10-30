@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create Account | EarnSave</title>
+
+<style>
+:root {
+    --bg: #080d1c;
+    --card: #111a30;
+    --blue: #3984ff;
+    --purple: #8758ff;
+    --text: #f4f7ff;
+    --muted: #a0abc4;
+    --border: rgba(255,255,255,.09);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(ellipse at top left, #17265a 0%, transparent 45%),
+        radial-gradient(ellipse at bottom right, #29134d 0%, transparent 40%),
+        var(--bg);
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    padding: 22px 7%;
+    border-bottom: 1px solid var(--border);
+    background: rgba(8,13,28,.65);
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: -.7px;
+}
+
+.logo span {
+    color: #55a0ff;
+}
+
+.page {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 35px 18px;
+}
+
+.card {
+    width: 100%;
+    max-width: 460px;
+    padding: 32px 25px;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    background: rgba(17,26,48,.94);
+    box-shadow: 0 25px 80px rgba(0,0,0,.35);
+}
+
+.icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    font-size: 30px;
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    box-shadow: 0 10px 30px rgba(57,132,255,.25);
+}
+
+h1 {
+    margin: 0;
+    text-align: center;
+    font-size: 28px;
+}
+
+.subtitle {
+    margin: 12px 0 25px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+label {
+    display: block;
+    margin-bottom: 9px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #dce5ff;
+}
+
+.input-wrap {
+    position: relative;
+    margin-bottom: 18px;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    color: white;
+    background: #0b1225;
+    border: 1px solid #27334e;
+    border-radius: 12px;
+    outline: none;
+    font-size: 15px;
+}
+
+input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(57,132,255,.12);
+}
+
+input::placeholder {
+    color: #697692;
+}
+
+.password-input {
+    padding-right: 75px;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    border: 0;
+    background: transparent;
+    color: #78aaff;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.ref-box {
+    display: none;
+    margin-bottom: 20px;
+    padding: 14px;
+    border: 1px solid rgba(77,170,255,.3);
+    border-radius: 12px;
+    background: rgba(57,132,255,.1);
+    color: #b9d7ff;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.register-button {
+    width: 100%;
+    margin-top: 7px;
+    padding: 16px;
+    border: 0;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    background: linear-gradient(100deg, var(--blue), var(--purple));
+    box-shadow: 0 10px 25px rgba(57,132,255,.2);
+}
+
+.register-button:disabled {
+    opacity: .65;
+    cursor: wait;
+}
+
+.message {
+    display: none;
+    margin-top: 18px;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.message.error {
+    display: block;
+    color: #ffb6bf;
+    background: rgba(255,70,95,.1);
+    border: 1px solid rgba(255,70,95,.2);
+}
+
+.message.success {
+    display: block;
+    color: #8ff5c0;
+    background: rgba(35,210,130,.1);
+    border: 1px solid rgba(35,210,130,.2);
+}
+
+.links {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 2.2;
+    color: var(--muted);
+}
+
+.links a {
+    color: #75aaff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+.security-note {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    color: #8996b2;
+    text-align: center;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+footer {
+    padding: 18px;
+    text-align: center;
+    color: #697692;
+    font-size: 11px;
+}
+
+@media (max-width: 380px) {
+    .card {
+        padding: 27px 19px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Earn<span>Save</span></div>
+</header>
+
+<main class="page">
+<section class="card">
+
+    <div class="icon">✨</div>
+
+    <h1>Create Account</h1>
+
+    <p class="subtitle">
+        Join EarnSave and create your account.
+    </p>
+
+    <div id="refBox" class="ref-box"></div>
+
+    <form id="registerForm">
+
+        <label for="fullName">Full Name</label>
+
+        <div class="input-wrap">
+            <input
+                type="text"
+                id="fullName"
+                placeholder="Enter your full name"
+                autocomplete="name"
+                maxlength="100"
+                required
+            >
+        </div>
+
+        <label for="email">Email Address</label>
+
+        <div class="input-wrap">
+            <input
+                type="email"
+                id="email"
+                placeholder="you@example.com"
+                autocomplete="email"
+                required
+            >
+        </div>
+
+        <label for="password">Password</label>
+
+        <div class="input-wrap">
+            <input
+                type="password"
+                id="password"
+                class="password-input"
+                placeholder="At least 6 characters"
+                autocomplete="new-password"
+                minlength="6"
+                required
+            >
+
+            <button
+                type="button"
+                class="toggle-password"
+                data-target="password"
+            >SHOW</button>
+        </div>
+
+        <label for="confirmPassword">Confirm Password</label>
+
+        <div class="input-wrap">
+            <input
+                type="password"
+                id="confirmPassword"
+                class="password-input"
+                placeholder="Enter password again"
+                autocomplete="new-password"
+                minlength="6"
+                required
+            >
+
+            <button
+                type="button"
+                class="toggle-password"
+                data-target="confirmPassword"
+            >SHOW</button>
+        </div>
+
+        <button
+            type="submit"
+            id="registerBtn"
+            class="register-button"
+        >
+            Create My Account
+        </button>
+
+    </form>
+
+    <div id="message" class="message" role="status" aria-live="polite"></div>
+
+    <div class="links">
+        Already have an account?
+        <a href="login.html">Login</a>
+
+        <br>
+
+        <a href="index.html">← Back to Home</a>
+    </div>
+
+    <div class="security-note">
+        🔒 Your account is created using Firebase Authentication.
+    </div>
+
+</section>
+</main>
+
+<footer>
+    EarnSave &copy; <span id="year"></span>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+    apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
+    authDomain: "earnsave-e7a88.firebaseapp.com",
+    projectId: "earnsave-e7a88",
+    storageBucket: "earnsave-e7a88.firebasestorage.app",
+    messagingSenderId: "280629896863",
+    appId: "1:280629896863:web:f5f6fe584d51c7280be4aa",
+    measurementId: "G-3C742ZNKHB"
+};
+
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+const params = new URLSearchParams(window.location.search);
+const referralCode = params.get("ref");
+const referralUid = params.get("refuid");
+
+const refBox = document.getElementById("refBox");
+const form = document.getElementById("registerForm");
+const button = document.getElementById("registerBtn");
+const message = document.getElementById("message");
+
+function showMessage(text, type) {
+    message.textContent = text;
+    message.className = "message " + type;
+}
+
+if (referralCode) {
+    refBox.style.display = "block";
+
+    const title = document.createElement("strong");
+    title.textContent = "Referral code: ";
+
+    refBox.appendChild(title);
+    refBox.appendChild(
+        document.createTextNode(referralCode)
+    );
+} else if (referralUid) {
+    refBox.style.display = "block";
+    refBox.textContent = "You joined through a referral link.";
+}
+
+document.querySelectorAll(".toggle-password").forEach(function(toggle) {
+    toggle.addEventListener("click", function() {
+        const input = document.getElementById(toggle.dataset.target);
+        const show = input.type === "password";
+
+        input.type = show ? "text" : "password";
+        toggle.textContent = show ? "HIDE" : "SHOW";
+        toggle.setAttribute(
+            "aria-label",
+            show ? "Hide password" : "Show password"
+        );
+    });
+});
+
+function friendlyError(error) {
+    switch (error.code) {
+        case "auth/email-already-in-use":
+            return "An account already uses this email. Try logging in instead.";
+
+        case "auth/invalid-email":
+            return "Please enter a valid email address.";
+
+        case "auth/weak-password":
+            return "Please choose a stronger password.";
+
+        case "auth/network-request-failed":
+            return "Network error. Check your internet connection.";
+
+        case "auth/operation-not-allowed":
+            return "Email and password registration is not enabled in Firebase Authentication.";
+
+        case "permission-denied":
+        case "firestore/permission-denied":
+            return "Your account was created, but Firestore blocked saving your profile. Please contact the administrator before trying to register again.";
+
+        default:
+            return "Registration failed: " + (error.message || "Unknown error");
+    }
+}
+
+form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const fullName = document.getElementById("fullName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (!fullName) {
+        showMessage("Please enter your full name.", "error");
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        showMessage("Your passwords do not match.", "error");
+        return;
+    }
+
+    if (password.length < 6) {
+        showMessage("Your password must contain at least 6 characters.", "error");
+        return;
+    }
+
+    button.disabled = true;
+    button.textContent = "Creating account...";
+    message.className = "message";
+
+    let createdUser = null;
+
+    try {
+        await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+
+        const result = await auth.createUserWithEmailAndPassword(
+            email,
+            password
+        );
+
+        createdUser = result.user;
+
+        const newReferralCode =
+            "ES" + createdUser.uid.substring(0, 8).toUpperCase();
+
+        const userData = {
+            fullName: fullName,
+            email: email,
+            role: "user",
+            balance: 0,
+            referralCode: newReferralCode,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        };
+
+        if (referralCode) {
+            userData.referredBy = referralCode;
+        }
+
+        if (referralUid) {
+            userData.referredByUid = referralUid;
+        }
+
+        await db.collection("users")
+            .doc(createdUser.uid)
+            .set(userData);
+
+        showMessage(
+            "Your account was created successfully! Taking you to the login page...",
+            "success"
+        );
+
+        form.style.display = "none";
+
+        setTimeout(function() {
+            window.location.href = "login.html";
+        }, 2200);
+
+    } catch (error) {
+        console.error("EarnSave registration error:", error);
+
+        if (createdUser) {
+            showMessage(
+                "Your Firebase account was created, but saving your profile failed. Do not register again with the same email. Check Firestore rules or contact the administrator.",
+                "error"
+            );
+        } else {
+            showMessage(friendlyError(error), "error");
+        }
+
+        button.disabled = false;
+        button.textContent = "Create My Account";
+    }
+});
+</script>
+
+</body>
+</html>

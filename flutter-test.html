@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>EarnSave Flutterwave Test</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .box {
+      max-width: 400px;
+      margin: 50px auto;
+      background: white;
+      padding: 30px 25px;
+      border-radius: 18px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    .amount {
+      font-size: 30px;
+      font-weight: bold;
+      margin: 25px 0;
+    }
+
+    .status {
+      margin: 15px 0;
+      padding: 12px;
+      border-radius: 10px;
+      background: #f1f5f9;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 10px;
+      background: #2563eb;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    button:disabled {
+      background: #94a3b8;
+    }
+
+    .ref {
+      margin-top: 15px;
+      font-size: 12px;
+      color: #64748b;
+      word-break: break-all;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+
+  <h1>EarnSave</h1>
+
+  <p>Flutterwave Test Payment</p>
+
+  <div class="amount">₦1,000</div>
+
+  <div class="status" id="status">
+    Checking your EarnSave account...
+  </div>
+
+  <form
+    id="paymentForm"
+    method="POST"
+    action="https://checkout.flutterwave.com/v3/hosted/pay"
+    style="display:none;"
+  >
+
+    <input
+      type="hidden"
+      name="public_key"
+      value="FLWPUBK_TEST-55de6215176e49a45db948756c3d7aac-X"
+    >
+
+    <input
+      type="hidden"
+      name="tx_ref"
+      id="tx_ref"
+    >
+
+    <input
+      type="hidden"
+      name="amount"
+      value="1000"
+    >
+
+    <input
+      type="hidden"
+      name="currency"
+      value="NGN"
+    >
+
+    <input
+      type="hidden"
+      name="payment_options"
+      value="card, banktransfer, ussd"
+    >
+
+    <input
+      type="hidden"
+      name="customer[name]"
+      id="customerName"
+    >
+
+    <input
+      type="hidden"
+      name="customer[email]"
+      id="customerEmail"
+    >
+
+    <button type="submit">
+      Test Payment
+    </button>
+
+  </form>
+
+  <div class="ref" id="reference"></div>
+
+</div>
+
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
+<script>
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
+    authDomain: "earnsave-e7a88.firebaseapp.com",
+    projectId: "earnsave-e7a88",
+    storageBucket: "earnsave-e7a88.firebasestorage.app",
+    messagingSenderId: "2806298963",
+    appId: "1:2806298963:web:f5f6fe584d51c7280be4aa",
+    measurementId: "G-3C742ZNKHB"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+
+  const auth = firebase.auth();
+
+  const statusBox = document.getElementById("status");
+  const paymentForm = document.getElementById("paymentForm");
+  const txRefInput = document.getElementById("tx_ref");
+  const customerNameInput =
+    document.getElementById("customerName");
+  const customerEmailInput =
+    document.getElementById("customerEmail");
+  const referenceBox =
+    document.getElementById("reference");
+
+
+  auth.onAuthStateChanged(function(user) {
+
+    if (!user) {
+
+      statusBox.textContent =
+        "Please login to your EarnSave account first.";
+
+      paymentForm.style.display = "none";
+
+      return;
+    }
+
+
+    const email = user.email || "";
+
+    const name =
+      user.displayName ||
+      "EarnSave User";
+
+
+    if (!email) {
+
+      statusBox.textContent =
+        "Your EarnSave account does not have an email.";
+
+      paymentForm.style.display = "none";
+
+      return;
+    }
+
+
+    /*
+      Create a unique transaction reference
+      for every test payment.
+    */
+
+    const txRef =
+      "EARNSAVE_TEST_" +
+      Date.now();
+
+
+    txRefInput.value = txRef;
+
+    customerNameInput.value = name;
+
+    customerEmailInput.value = email;
+
+
+    statusBox.textContent =
+      "Logged in as: " + email;
+
+
+    referenceBox.textContent =
+      "Transaction reference: " + txRef;
+
+
+    paymentForm.style.display = "block";
+
+  });
+
+</script>
+
+</body>
+</html>

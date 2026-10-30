@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login | EarnSave</title>
+
+<style>
+:root {
+    --bg: #080d1c;
+    --card: #111a30;
+    --blue: #3984ff;
+    --purple: #8758ff;
+    --text: #f4f7ff;
+    --muted: #a0abc4;
+    --border: rgba(255,255,255,.09);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(ellipse at top left, #17265a 0%, transparent 45%),
+        radial-gradient(ellipse at bottom right, #29134d 0%, transparent 40%),
+        var(--bg);
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    padding: 22px 7%;
+    border-bottom: 1px solid var(--border);
+    background: rgba(8,13,28,.65);
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: -.7px;
+}
+
+.logo span {
+    color: #55a0ff;
+}
+
+.page {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 18px;
+}
+
+.card {
+    width: 100%;
+    max-width: 430px;
+    padding: 32px 25px;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    background: rgba(17,26,48,.94);
+    box-shadow: 0 25px 80px rgba(0,0,0,.35);
+}
+
+.icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    font-size: 30px;
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    box-shadow: 0 10px 30px rgba(57,132,255,.25);
+}
+
+h1 {
+    margin: 0;
+    text-align: center;
+    font-size: 29px;
+}
+
+.subtitle {
+    margin: 12px 0 30px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+label {
+    display: block;
+    margin-bottom: 9px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #dce5ff;
+}
+
+.input-wrap {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    color: white;
+    background: #0b1225;
+    border: 1px solid #27334e;
+    border-radius: 12px;
+    outline: none;
+    font-size: 15px;
+}
+
+input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(57,132,255,.12);
+}
+
+input::placeholder {
+    color: #697692;
+}
+
+.password-input {
+    padding-right: 75px;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    border: 0;
+    background: transparent;
+    color: #78aaff;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login-button {
+    width: 100%;
+    margin-top: 5px;
+    padding: 16px;
+    border: 0;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    background: linear-gradient(100deg, var(--blue), var(--purple));
+    box-shadow: 0 10px 25px rgba(57,132,255,.2);
+}
+
+.login-button:disabled {
+    opacity: .65;
+    cursor: wait;
+}
+
+.message {
+    display: none;
+    margin-top: 18px;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.message.error {
+    display: block;
+    color: #ffb6bf;
+    background: rgba(255,70,95,.1);
+    border: 1px solid rgba(255,70,95,.2);
+}
+
+.message.success {
+    display: block;
+    color: #8ff5c0;
+    background: rgba(35,210,130,.1);
+    border: 1px solid rgba(35,210,130,.2);
+}
+
+.links {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 2;
+    color: var(--muted);
+}
+
+.links a {
+    color: #75aaff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+.security-note {
+    margin-top: 25px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    color: #8996b2;
+    text-align: center;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+footer {
+    padding: 18px;
+    text-align: center;
+    color: #697692;
+    font-size: 11px;
+}
+
+@media (max-width: 380px) {
+    .card {
+        padding: 27px 19px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Earn<span>Save</span></div>
+</header>
+
+<main class="page">
+    <section class="card">
+
+        <div class="icon">🔐</div>
+
+        <h1>Welcome Back</h1>
+
+        <p class="subtitle">
+            Sign in to access your EarnSave account.
+        </p>
+
+        <form id="loginForm">
+
+            <label for="loginEmail">Email Address</label>
+
+            <div class="input-wrap">
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="you@example.com"
+                    autocomplete="email"
+                    required
+                >
+            </div>
+
+            <label for="loginPassword">Password</label>
+
+            <div class="input-wrap">
+                <input
+                    type="password"
+                    id="loginPassword"
+                    class="password-input"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+
+                <button
+                    type="button"
+                    class="toggle-password"
+                    id="togglePassword"
+                    aria-label="Show password"
+                >SHOW</button>
+            </div>
+
+            <button
+                type="submit"
+                class="login-button"
+                id="loginButton"
+            >
+                Login to EarnSave
+            </button>
+
+        </form>
+
+        <div id="message" class="message" role="status" aria-live="polite"></div>
+
+        <div class="links">
+            <p>
+                New to EarnSave?
+                <a href="register.html">Create an account</a>
+            </p>
+
+            <p>
+                <a href="index.html">← Back to Home</a>
+            </p>
+        </div>
+
+        <div class="security-note">
+            🔒 Sign in using the email and password associated
+            with your EarnSave account.
+        </div>
+
+    </section>
+</main>
+
+<footer>
+    EarnSave &copy; <span id="year"></span>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+    apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
+    authDomain: "earnsave-e7a88.firebaseapp.com",
+    projectId: "earnsave-e7a88",
+    storageBucket: "earnsave-e7a88.firebasestorage.app",
+    messagingSenderId: "2806298963",
+    appId: "1:2806298963:web:f5f6fe584d51c7280be4aa",
+    measurementId: "G-3C742ZNKHB"
+};
+
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+
+const auth = firebase.auth();
+
+const form = document.getElementById("loginForm");
+const emailInput = document.getElementById("loginEmail");
+const passwordInput = document.getElementById("loginPassword");
+const loginButton = document.getElementById("loginButton");
+const message = document.getElementById("message");
+const togglePassword = document.getElementById("togglePassword");
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+function showMessage(text, type) {
+    message.textContent = text;
+    message.className = "message " + type;
+}
+
+function friendlyError(error) {
+    switch (error.code) {
+        case "auth/invalid-email":
+            return "Please enter a valid email address.";
+
+        case "auth/invalid-credential":
+        case "auth/user-not-found":
+        case "auth/wrong-password":
+            return "Incorrect email or password. Please check your details.";
+
+        case "auth/too-many-requests":
+            return "Too many attempts. Please wait a while before trying again.";
+
+        case "auth/network-request-failed":
+            return "Network error. Check your internet connection and try again.";
+
+        case "auth/user-disabled":
+            return "This account has been disabled. Please contact the administrator.";
+
+        case "auth/operation-not-allowed":
+            return "Email and password login is not enabled in Firebase Authentication.";
+
+        default:
+            return "Login failed. Please try again. Error: " +
+                (error.message || "Unknown error");
+    }
+}
+
+togglePassword.addEventListener("click", function() {
+    const isHidden = passwordInput.type === "password";
+
+    passwordInput.type = isHidden ? "text" : "password";
+    togglePassword.textContent = isHidden ? "HIDE" : "SHOW";
+    togglePassword.setAttribute(
+        "aria-label",
+        isHidden ? "Hide password" : "Show password"
+    );
+});
+
+form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+
+    if (!email || !password) {
+        showMessage("Please enter your email and password.", "error");
+        return;
+    }
+
+    loginButton.disabled = true;
+    loginButton.textContent = "Signing in...";
+    message.className = "message";
+    message.textContent = "";
+
+    try {
+        await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+
+        await auth.signInWithEmailAndPassword(email, password);
+
+        showMessage("Login successful! Opening your dashboard...", "success");
+
+        window.location.replace("dashboard.html");
+
+    } catch (error) {
+        console.error("EarnSave login error:", error);
+
+        showMessage(friendlyError(error), "error");
+
+        loginButton.disabled = false;
+        loginButton.textContent = "Login to EarnSave";
+    }
+});
+
+auth.onAuthStateChanged(function(user) {
+    if (user) {
+        console.log("Firebase user is signed in.");
+    }
+});
+</script>
+
+</body>
+</html>
