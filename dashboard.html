@@ -1,31 +1,721 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#078447">
-<title>Dashboard - EarnSave</title>
-<style>
-:root{--green:#078447;--green2:#10a85b;--mint:#e9f8ef;--bg:#f5f9f6;--white:#fff;--ink:#183126;--muted:#718078;--line:#e3eee7;--orange:#ffb547;--shadow:0 8px 25px rgba(13,92,52,.07)}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif;padding-bottom:88px}a,button{-webkit-tap-highlight-color:transparent}a{color:inherit;text-decoration:none}button{font:inherit}header{background:var(--white);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}.header-inner{max-width:1050px;margin:auto;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:10px}.logo-icon{width:43px;height:43px;border-radius:14px;background:linear-gradient(145deg,#0ca45a,#056a3b);color:white;display:grid;place-items:center;font-size:24px;font-weight:900;box-shadow:0 5px 13px #07844724}.logo{font-size:22px;font-weight:900;letter-spacing:-.6px}.logo span{color:var(--green)}.subtitle{font-size:10px;color:var(--muted);margin-top:3px;letter-spacing:.5px}.header-actions{display:flex;align-items:center;gap:8px}.icon-button{width:39px;height:39px;border-radius:12px;display:grid;place-items:center;background:var(--mint);border:1px solid #d4efdf;font-size:18px}.logout{border:0;background:#fff0ef;color:#c64c44;padding:11px 12px;border-radius:11px;font-size:12px;font-weight:700}.container{max-width:1050px;margin:auto;padding:19px 15px}#loading{text-align:center;padding:70px 20px;color:var(--green)}.spinner{width:34px;height:34px;border:3px solid #d8eee0;border-top-color:var(--green);border-radius:50%;margin:0 auto 14px;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}#loginMessage{display:none;text-align:center;margin:65px auto;padding:25px;max-width:400px}.login-btn,.primary-btn{display:inline-block;background:var(--green);color:#fff;padding:12px 17px;border-radius:11px;font-weight:700;font-size:13px}.error{display:none;background:#fff0ef;border:1px solid #ffd3cf;color:#b43f38;padding:13px;border-radius:12px;margin-bottom:15px;overflow-wrap:anywhere}.welcome{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:4px 0 19px}.welcome h1{font-size:24px;margin:0 0 6px;letter-spacing:-.6px}.welcome p{font-size:12px;color:var(--muted);margin:0;overflow-wrap:anywhere}.badge{white-space:nowrap;background:var(--mint);border:1px solid #d4efdf;color:var(--green);border-radius:20px;padding:8px 10px;font-size:10px;font-weight:700}.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#0caf63;margin-right:5px}
-.setup-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:18px}.setup-card{display:flex;align-items:center;gap:11px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:15px;padding:13px 11px;min-width:0}.setup-icon{width:40px;height:40px;flex-shrink:0;display:grid;place-items:center;border-radius:12px;background:var(--mint);font-size:20px}.setup-card strong{display:block;font-size:12px;margin-bottom:5px}.setup-card small{display:block;color:var(--muted);font-size:10px;line-height:1.4}.chevron{margin-left:auto;color:var(--green);font-size:20px}
-.wallet-heading{display:flex;align-items:center;justify-content:space-between;margin:23px 2px 12px}.wallet-heading h2,.section-heading h2{font-size:17px;margin:0}.wallet-heading span{font-size:11px;color:var(--muted)}.wallet-track{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 1px 12px;scrollbar-width:none}.wallet-track::-webkit-scrollbar{display:none}.wallet-card{scroll-snap-align:start;flex:0 0 86%;min-height:188px;max-width:390px;position:relative;overflow:hidden;border-radius:21px;padding:21px;color:#fff;background:linear-gradient(125deg,#078447,#10a85b);box-shadow:0 12px 25px #07844724}.wallet-card.blue{background:linear-gradient(125deg,#176f53,#149b75)}.wallet-card.light{background:linear-gradient(125deg,#167c4a,#45b96e)}.wallet-card:after{content:"";position:absolute;width:190px;height:190px;border-radius:50%;border:1px solid #ffffff28;right:-60px;top:-85px;box-shadow:0 0 0 22px #ffffff0c,0 0 0 44px #ffffff09}.wallet-top,.wallet-amount,.wallet-bottom{position:relative;z-index:1}.wallet-top{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#e4fff0}.eye{border:1px solid #ffffff4d;background:#ffffff1c;color:#fff;border-radius:9px;padding:6px 9px;font-size:11px}.wallet-amount{font-size:clamp(29px,7vw,37px);font-weight:900;letter-spacing:-1px;margin:21px 0 19px;overflow-wrap:anywhere}.wallet-bottom{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #ffffff40;padding-top:13px;font-size:11px;color:#e4fff0}.wallet-bottom a{background:#fff;color:var(--green);padding:9px 12px;border-radius:9px;font-weight:800}.dots{text-align:center;color:#9fb6a8;font-size:12px;letter-spacing:4px;margin:-2px 0 15px}.section-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:24px 1px 12px}.section-heading a{font-size:11px;color:var(--green);font-weight:700}.shortcuts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.shortcut{background:#fff;border:1px solid var(--line);border-radius:14px;text-align:center;padding:13px 3px 12px;box-shadow:var(--shadow);min-width:0}.shortcut-icon{width:43px;height:43px;border-radius:14px;margin:0 auto 9px;display:grid;place-items:center;background:var(--mint);color:var(--green);font-size:21px}.shortcut span:last-child{font-size:10px;font-weight:700;display:block;overflow-wrap:anywhere}.shortcut.disabled{opacity:.65}.overview{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.stat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:14px 10px;min-width:0;box-shadow:var(--shadow)}.stat-icon{font-size:20px;margin-bottom:10px}.stat h3{font-size:clamp(13px,3.5vw,19px);margin:0 0 6px;overflow-wrap:anywhere}.stat p{font-size:10px;color:var(--muted);margin:0;line-height:1.4}.layout{display:grid;gap:17px}.panel,.referral-panel,.plan-panel,.no-plan{background:#fff;border:1px solid var(--line);border-radius:17px;padding:17px;box-shadow:var(--shadow);min-width:0}.notification-count{background:var(--mint);color:var(--green);border-radius:20px;padding:5px 9px;font-size:11px;font-weight:800}.notification-item{padding:12px;background:#fbfdfb;border:1px solid var(--line);border-radius:12px;margin-top:10px;overflow-wrap:anywhere}.notification-item.unread{border-left:3px solid var(--green);background:#f1fbf5}.notification-title{font-size:12px;font-weight:800;margin-bottom:5px}.notification-message{font-size:11px;color:#56675e;line-height:1.6}.notification-date{font-size:10px;color:#8a988f;margin-top:7px}.no-notifications{color:var(--muted);font-size:12px;text-align:center;padding:17px 4px}.referral-panel{background:linear-gradient(135deg,#eaf9ef,#fff);border-color:#d4efdf}.referral-amount{font-size:29px;color:var(--green);font-weight:900;margin:15px 0 7px;overflow-wrap:anywhere}.note{font-size:11px;color:var(--muted);line-height:1.6}.referral-btn{display:inline-block;margin-top:13px;padding:11px 14px;border-radius:10px;background:var(--green);color:#fff;font-size:12px;font-weight:800}.plan-status{display:inline-block;background:#fff7df;border:1px solid #f5e7b9;color:#946c0a;border-radius:20px;padding:6px 8px;font-size:9px;font-weight:800}.plan-name{font-size:22px;font-weight:900;margin:15px 0}.plan-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.plan-detail{background:#f6faf7;border:1px solid var(--line);border-radius:11px;padding:11px;min-width:0}.plan-detail span{display:block;font-size:10px;color:var(--muted);margin-bottom:7px}.plan-detail strong{font-size:14px;overflow-wrap:anywhere}.plan-note{margin-top:12px;background:#fff9e8;border:1px solid #f6ebc9;color:#786329;border-radius:10px;padding:11px;font-size:10px;line-height:1.6}.action-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.action-card{display:flex;align-items:flex-start;gap:10px;padding:13px 11px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);min-width:0}.action-icon{flex-shrink:0;width:38px;height:38px;display:grid;place-items:center;border-radius:11px;background:var(--mint);font-size:19px}.action-card h3{font-size:12px;margin:2px 0 5px}.action-card p{font-size:10px;color:var(--muted);line-height:1.5;margin:0}.activity-row{padding:12px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;font-size:11px}.activity-row:last-child{border-bottom:0}.activity-row strong{display:block;font-size:12px;margin-bottom:4px}.activity-row small{color:var(--muted)}.activity-status{color:#946c0a;background:#fff7df;border-radius:20px;padding:5px 8px;font-size:9px;height:max-content}footer{text-align:center;color:#89968e;font-size:10px;padding:25px 8px 14px}.bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:space-around;background:#fff;border-top:1px solid var(--line);padding:9px 3px calc(9px + env(safe-area-inset-bottom));box-shadow:0 -5px 20px #123c1c08}.bottom-nav a{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px;color:#89968e;font-size:10px}.bottom-nav .nav-icon{font-size:20px}.bottom-nav a.active{color:var(--green);font-weight:800}.toast{display:none;position:fixed;bottom:85px;left:50%;transform:translateX(-50%);z-index:50;background:#183126;color:#fff;border-radius:12px;padding:12px 16px;font-size:12px;max-width:90%;box-shadow:var(--shadow)}
-@media(min-width:760px){.container{padding-top:27px}.wallet-card{flex-basis:330px}.layout{grid-template-columns:1.1fr .9fr;align-items:start}.layout-main,.layout-side{min-width:0}.setup-card{padding:15px}.shortcuts{gap:13px}}@media(max-width:380px){.container{padding-left:11px;padding-right:11px}.logo{font-size:19px}.logo-icon{width:38px;height:38px}.logout{padding:10px 8px}.setup-card{gap:7px;padding:11px 7px}.setup-icon{width:34px;height:34px;font-size:17px}.setup-card strong{font-size:11px}.shortcuts{gap:6px}.shortcut-icon{width:38px;height:38px}.stat{padding:12px 7px}.action-card{gap:7px;padding:11px 8px}.action-icon{width:33px;height:33px}}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080F24">
+<title>Dashboard | EarnSave</title><style>
+:root{
+--bg:#080F24;
+--panel:#101B35;
+--panel2:#142344;
+--blue:#2563EB;
+--cyan:#38BDF8;
+--purple:#8B5CF6;
+--gold:#FBBF24;
+--white:#F8FAFC;
+--muted:#91A3C5;
+--line:#243657;
+--shadow:0 12px 30px rgba(0,0,0,.20);
+}
+*{box-sizing:border-box}
+body{
+margin:0;
+background:var(--bg);
+color:var(--white);
+font-family:Arial,Helvetica,sans-serif;
+padding-bottom:100px;
+}
+a,button{-webkit-tap-highlight-color:transparent}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+header{
+position:sticky;top:0;z-index:10;
+background:#0B1530;
+border-bottom:1px solid var(--line);
+}
+.header-inner{
+max-width:1100px;margin:auto;padding:13px 16px;
+display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.brand{display:flex;align-items:center;gap:10px}
+.logo-icon{
+width:44px;height:44px;border-radius:15px;
+background:linear-gradient(145deg,var(--cyan),var(--blue),var(--purple));
+display:grid;place-items:center;color:white;
+font-size:25px;font-weight:900;
+box-shadow:0 5px 20px #2563eb55;
+}
+.logo{font-size:22px;font-weight:900;letter-spacing:-.7px}
+.logo span{color:var(--cyan)}
+.subtitle{font-size:9px;letter-spacing:1px;color:var(--muted);margin-top:4px}
+.header-actions{display:flex;align-items:center;gap:8px}
+.icon-button{
+width:40px;height:40px;border-radius:13px;
+display:grid;place-items:center;background:#172747;
+border:1px solid var(--line);font-size:20px;
+}
+.logout{
+border:1px solid #63343D;background:#351C2A;color:#FF9AA8;
+padding:11px 13px;border-radius:12px;font-size:12px;font-weight:800;
+}
+.container{max-width:1100px;margin:auto;padding:20px 15px}
+#loading{text-align:center;padding:75px 20px;color:var(--cyan)}
+.spinner{
+width:35px;height:35px;border:3px solid #243657;
+border-top-color:var(--cyan);border-radius:50%;
+margin:0 auto 14px;animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+#loginMessage{display:none;text-align:center;margin:65px auto;padding:25px;max-width:400px}
+.login-btn,.primary-btn{
+display:inline-block;background:linear-gradient(120deg,var(--blue),var(--purple));
+color:white;padding:12px 17px;border-radius:12px;
+font-weight:800;font-size:13px;
+}
+.error{
+display:none;background:#351C2A;border:1px solid #713746;
+color:#FFADB8;padding:13px;border-radius:12px;
+margin-bottom:15px;overflow-wrap:anywhere;
+}
+.welcome{
+background:linear-gradient(125deg,#0B1530,#123D85,#1764C5);
+border:1px solid #2859A0;border-radius:23px;
+padding:23px 19px;color:white;display:flex;
+align-items:center;justify-content:space-between;
+gap:12px;margin:3px 0 18px;position:relative;overflow:hidden;
+box-shadow:0 12px 30px #0b3b8a35;
+}
+.welcome:after{
+content:"";position:absolute;width:180px;height:180px;
+border:1px solid #ffffff30;border-radius:50%;
+right:-50px;top:-90px;
+box-shadow:0 0 0 25px #ffffff0c,0 0 0 50px #ffffff08;
+}
+.welcome h1{font-size:23px;margin:0 0 7px;letter-spacing:-.6px}
+.welcome p{font-size:12px;color:#D8E9FF;margin:0;overflow-wrap:anywhere}
+.welcome-badge{
+position:relative;z-index:1;white-space:nowrap;
+background:#ffffff18;border:1px solid #ffffff40;
+border-radius:30px;padding:9px 11px;font-size:10px;font-weight:800;
+}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#5DF5B0;margin-right:5px}
+.setup-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-bottom:20px}
+.setup-card{
+display:flex;align-items:center;gap:10px;
+background:var(--panel);border:1px solid var(--line);
+box-shadow:var(--shadow);border-radius:16px;padding:13px 11px;min-width:0;
+}
+.setup-icon{
+width:40px;height:40px;flex-shrink:0;display:grid;place-items:center;
+border-radius:13px;background:#172E58;font-size:20px;
+}
+.setup-card strong{display:block;font-size:12px;margin-bottom:5px}
+.setup-card small{display:block;color:var(--muted);font-size:10px;line-height:1.4}
+.chevron{margin-left:auto;color:var(--cyan);font-size:22px}
+.section-heading,.wallet-heading{
+display:flex;align-items:center;justify-content:space-between;
+gap:10px;margin:23px 1px 12px;
+}
+.section-heading h2,.wallet-heading h2{font-size:17px;margin:0;letter-spacing:-.3px}
+.section-heading a{font-size:11px;color:var(--cyan);font-weight:800}
+.wallet-heading span{font-size:10px;color:var(--muted)}
+.wallet-track{
+display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;
+padding:2px 1px 13px;scrollbar-width:none;
+}
+.wallet-track::-webkit-scrollbar{display:none}
+.wallet-card{
+scroll-snap-align:start;flex:0 0 86%;min-height:184px;
+max-width:390px;position:relative;overflow:hidden;
+border-radius:21px;padding:20px;color:white;
+background:linear-gradient(125deg,#10265C,#2563EB,#38BDF8);
+box-shadow:0 12px 25px #2563eb30;
+}
+.wallet-card.blue{background:linear-gradient(125deg,#30206D,#6346D9,#8B5CF6)}
+.wallet-card.light{background:linear-gradient(125deg,#075985,#0284C7,#38BDF8)}
+.wallet-card:after{
+content:"";position:absolute;width:180px;height:180px;
+border-radius:50%;border:1px solid #ffffff35;
+right:-60px;top:-85px;
+box-shadow:0 0 0 22px #ffffff0c,0 0 0 44px #ffffff09;
+}
+.wallet-top,.wallet-amount,.wallet-bottom{position:relative;z-index:1}
+.wallet-top{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#E4F3FF}
+.eye{
+border:1px solid #ffffff55;background:#ffffff1c;color:white;
+border-radius:9px;padding:6px 9px;font-size:11px;
+}
+.wallet-amount{
+font-size:clamp(29px,7vw,37px);font-weight:900;
+letter-spacing:-1px;margin:22px 0 19px;overflow-wrap:anywhere;
+}
+.wallet-bottom{
+display:flex;justify-content:space-between;align-items:center;
+gap:8px;border-top:1px solid #ffffff40;
+padding-top:13px;font-size:10px;color:#E4F3FF;
+}
+.wallet-bottom a{background:white;color:#1747A5;padding:9px 12px;border-radius:9px;font-weight:800}
+.dots{text-align:center;color:#60769C;font-size:12px;letter-spacing:4px;margin:-2px 0 14px}
+.shortcuts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.shortcut{
+background:var(--panel);border:1px solid var(--line);
+border-radius:16px;text-align:center;padding:14px 3px 12px;
+box-shadow:var(--shadow);min-width:0;
+}
+.shortcut-icon{
+width:43px;height:43px;border-radius:14px;margin:0 auto 9px;
+display:grid;place-items:center;background:#172E58;font-size:21px;
+}
+.shortcut span:last-child{font-size:10px;font-weight:800;display:block;overflow-wrap:anywhere}
+.stat{
+background:var(--panel);border:1px solid var(--line);
+border-radius:16px;padding:14px 10px;min-width:0;box-shadow:var(--shadow);
+}
+.overview{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.stat-icon{font-size:20px;margin-bottom:10px}
+.stat h3{font-size:clamp(13px,3.5vw,19px);margin:0 0 6px;overflow-wrap:anywhere}
+.stat p{font-size:10px;color:var(--muted);margin:0;line-height:1.4}
+.layout{display:grid;gap:17px}
+.panel,.referral-panel,.plan-panel,.no-plan{
+background:var(--panel);border:1px solid var(--line);
+border-radius:18px;padding:16px;box-shadow:var(--shadow);min-width:0;
+}
+.notification-count{background:#172E58;color:var(--cyan);border-radius:20px;padding:5px 9px;font-size:11px;font-weight:800}
+.notification-item{
+padding:12px;background:#14213C;border:1px solid var(--line);
+border-radius:12px;margin-top:10px;overflow-wrap:anywhere;
+}
+.notification-item.unread{border-left:3px solid var(--cyan);background:#152B4D}
+.notification-title{font-size:12px;font-weight:800;margin-bottom:5px}
+.notification-message{font-size:11px;color:#B7C5DD;line-height:1.6}
+.notification-date{font-size:10px;color:#8195B8;margin-top:7px}
+.no-notifications{color:var(--muted);font-size:12px;text-align:center;padding:17px 4px}
+.referral-panel{
+background:linear-gradient(135deg,#10264B,#142344);
+border-color:#29436D;
+}
+.referral-amount{font-size:29px;color:var(--cyan);font-weight:900;margin:15px 0 7px;overflow-wrap:anywhere}
+.note{font-size:11px;color:var(--muted);line-height:1.6}
+.referral-btn{
+display:inline-block;margin-top:13px;padding:11px 14px;
+border-radius:11px;background:linear-gradient(120deg,var(--blue),var(--purple));
+color:white;font-size:12px;font-weight:800;
+}
+.plan-status{
+display:inline-block;background:#3A2D13;border:1px solid #6C531D;
+color:#FFD66B;border-radius:20px;padding:6px 8px;font-size:9px;font-weight:800;
+}
+.plan-name{font-size:22px;font-weight:900;margin:15px 0}
+.plan-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.plan-detail{background:#14213C;border:1px solid var(--line);border-radius:11px;padding:11px;min-width:0}
+.plan-detail span{display:block;font-size:10px;color:var(--muted);margin-bottom:7px}
+.plan-detail strong{font-size:14px;overflow-wrap:anywhere}
+.plan-note{
+margin-top:12px;background:#282344;border:1px solid #4B407A;
+color:#D5CBFF;border-radius:10px;padding:11px;font-size:10px;line-height:1.6;
+}
+.action-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.action-card{
+display:flex;align-items:flex-start;gap:10px;padding:13px 11px;
+background:var(--panel);border:1px solid var(--line);
+border-radius:15px;box-shadow:var(--shadow);min-width:0;
+}
+.action-icon{
+flex-shrink:0;width:38px;height:38px;display:grid;
+place-items:center;border-radius:12px;background:#172E58;font-size:19px;
+}
+.action-card h3{font-size:12px;margin:2px 0 5px}
+.action-card p{font-size:10px;color:var(--muted);line-height:1.5;margin:0}
+.activity-row{
+padding:12px 0;border-bottom:1px solid var(--line);
+display:flex;justify-content:space-between;gap:12px;font-size:11px;
+}
+.activity-row:last-child{border-bottom:0}
+.activity-row strong{display:block;font-size:12px;margin-bottom:4px}
+.activity-row small{color:var(--muted)}
+.activity-status{
+color:#FFD66B;background:#3A2D13;border-radius:20px;
+padding:5px 8px;font-size:9px;height:max-content;
+}
+footer{text-align:center;color:#8195B8;font-size:10px;padding:25px 8px 14px;line-height:1.7}
+.bottom-nav{
+position:fixed;left:0;right:0;bottom:0;z-index:20;
+display:flex;justify-content:space-around;background:#0B1530;
+border-top:1px solid var(--line);
+padding:9px 3px calc(9px + env(safe-area-inset-bottom));
+box-shadow:0 -5px 20px #0005;
+}
+.bottom-nav a{
+flex:1;min-width:0;display:flex;flex-direction:column;
+align-items:center;gap:4px;color:#8195B8;font-size:10px;
+}
+.bottom-nav .nav-icon{font-size:20px}
+.bottom-nav a.active{color:var(--cyan);font-weight:900}
+.toast{
+display:none;position:fixed;bottom:90px;left:50%;
+transform:translateX(-50%);z-index:50;background:#172747;
+color:white;border:1px solid #34517E;border-radius:12px;
+padding:12px 16px;font-size:12px;max-width:90%;box-shadow:var(--shadow);
+}
+@media(min-width:760px){
+.container{padding-top:27px}
+.wallet-card{flex-basis:330px}
+.layout{grid-template-columns:1.1fr .9fr;align-items:start}
+.layout-main,.layout-side{min-width:0}
+.setup-card{padding:15px}
+.shortcuts{gap:13px}
+}
+@media(max-width:380px){
+.container{padding-left:11px;padding-right:11px}
+.logo{font-size:19px}
+.logo-icon{width:38px;height:38px}
+.logout{padding:10px 8px}
+.setup-card{gap:7px;padding:11px 7px}
+.setup-icon{width:34px;height:34px;font-size:17px}
+.setup-card strong{font-size:11px}
+.shortcuts{gap:6px}
+.shortcut-icon{width:38px;height:38px}
+.stat{padding:12px 7px}
+.action-card{gap:7px;padding:11px 8px}
+.action-icon{width:33px;height:33px}
+}
 </style></head><body>
-<header><div class="header-inner"><div class="brand"><div class="logo-icon">E</div><div><div class="logo">Earn<span>Save</span></div><div class="subtitle">YOUR EARNINGS DASHBOARD</div></div></div><div class="header-actions"><a href="profile.html" class="icon-button" aria-label="Profile">♙</a><button class="logout" id="logout">Logout ↗</button></div></div></header>
-<div id="loading"><div class="spinner"></div><div>Connecting to EarnSave...</div></div><div id="loginMessage"><h2>Login Required</h2><p style="color:#718078;line-height:1.7">Please log in to access your dashboard.</p><a href="login.html" class="login-btn">Go to Login</a></div>
-<div class="container" id="content"><div class="error" id="error"></div><div class="welcome"><div><h1>Welcome back 👋</h1><p id="email">Loading account...</p></div><div class="badge"><span class="dot"></span>Account</div></div>
-<div class="setup-grid"><a href="profile.html" class="setup-card"><span class="setup-icon">🏦</span><span><strong>Add Bank Account</strong><small>Set up payout details</small></span><span class="chevron">›</span></a><a href="activation.html" class="setup-card"><span class="setup-icon">⭐</span><span><strong>Activate a Plan</strong><small>View your plan options</small></span><span class="chevron">›</span></a></div>
-<div class="wallet-heading"><h2>My Wallet</h2><span>Swipe to view balances →</span></div><div class="wallet-track" id="walletTrack"><section class="wallet-card"><div class="wallet-top"><span>Available Balance</span><button class="eye" id="toggleBalance" type="button">Hide</button></div><div class="wallet-amount" id="balance">₦0</div><div class="wallet-bottom"><span>Current account balance</span><a href="withdrawal.html">Withdraw ↗</a></div></section><section class="wallet-card blue"><div class="wallet-top"><span>Total Earned</span><span>▤</span></div><div class="wallet-amount" id="earnedWallet">₦0</div><div class="wallet-bottom"><span>Recorded in your profile</span><span>EarnSave</span></div></section><section class="wallet-card light"><div class="wallet-top"><span>Referral Earnings</span><span>♧</span></div><div class="wallet-amount" id="referralWallet">₦0</div><div class="wallet-bottom"><span>Referral rewards recorded</span><a href="referral.html">View ↗</a></div></section></div><div class="dots">● ● ●</div>
-<div class="section-heading"><h2>Explore EarnSave</h2></div><div class="shortcuts"><a href="tasks.html" class="shortcut"><span class="shortcut-icon">📝</span><span>Tasks</span></a><a href="history.html" class="shortcut"><span class="shortcut-icon">📋</span><span>History</span></a><a href="referral.html" class="shortcut"><span class="shortcut-icon">👥</span><span>Invite</span></a><a href="activation.html" class="shortcut"><span class="shortcut-icon">⭐</span><span>Upgrade</span></a><a href="withdrawal.html" class="shortcut"><span class="shortcut-icon">💸</span><span>Withdraw</span></a><a href="#" class="shortcut coming-soon"><span class="shortcut-icon">🎯</span><span>Sponsored</span></a><a href="#" class="shortcut coming-soon"><span class="shortcut-icon">🤝</span><span>Team</span></a><a href="#" class="shortcut coming-soon"><span class="shortcut-icon">🏆</span><span>Contest</span></a></div>
-<div class="section-heading"><h2>Account Overview</h2></div><div class="overview"><div class="stat"><div class="stat-icon">⏳</div><h3 id="pending">₦0</h3><p>Pending Earnings</p></div><div class="stat"><div class="stat-icon">👥</div><h3 id="referralCount">0</h3><p>Referrals</p></div><div class="stat"><div class="stat-icon">⭐</div><h3 id="planMini">None</h3><p>Activation Plan</p></div></div>
-<div class="layout"><div class="layout-main"><div class="section-heading"><h2>Quick Actions</h2></div><div class="action-grid"><a href="tasks.html" class="action-card"><span class="action-icon">📝</span><span><h3>Available Tasks</h3><p>View tasks and submit proof.</p></span></a><a href="history.html" class="action-card"><span class="action-icon">📋</span><span><h3>Task History</h3><p>Review your submissions.</p></span></a><a href="withdrawal.html" class="action-card"><span class="action-icon">💸</span><span><h3>Withdrawals</h3><p>View and track requests.</p></span></a><a href="profile.html" class="action-card"><span class="action-icon">👤</span><span><h3>My Profile</h3><p>Manage your account.</p></span></a></div><div class="section-heading"><h2>Recent Activity</h2><a href="history.html">View history →</a></div><div class="panel" id="activityList"><div class="no-notifications">Loading recent activity...</div></div></div><div class="layout-side"><div class="section-heading"><h2>Notifications</h2><span class="notification-count" id="notificationCount">0</span></div><div class="panel" style="margin-top:0"><div id="notificationList"><div class="no-notifications">Loading notifications...</div></div></div><div class="section-heading"><h2>Referral Summary</h2></div><div class="referral-panel"><div style="font-size:14px;font-weight:800">👥 Referral Earnings</div><div class="referral-amount" id="referralEarnings">₦0</div><div class="note">Referral earnings recorded in your account.</div><a href="referral.html" class="referral-btn">Manage Referrals →</a><div style="margin-top:15px;border-top:1px solid #d4efdf;padding-top:13px"><div class="note">Your referral code</div><strong id="referralCode" style="display:block;margin-top:6px;overflow-wrap:anywhere">Loading...</strong><button id="copyReferral" class="referral-btn" style="border:0;cursor:pointer">Copy Code</button></div></div><div class="section-heading"><h2>My Activation Plan</h2></div><div class="plan-panel" id="planCard" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><strong>⭐ Activation Plan</strong><span class="plan-status" id="planStatus">NOT ACTIVE</span></div><div class="plan-name" id="planName">No Plan</div><div class="plan-details"><div class="plan-detail"><span>Activation Fee</span><strong id="activationFee">₦0</strong></div><div class="plan-detail"><span>Referral Bonus</span><strong id="referralBonus">₦0</strong></div><div class="plan-detail"><span>Daily Earnings</span><strong id="dailyEarnings">₦0</strong></div><div class="plan-detail"><span>Minimum Withdrawal</span><strong id="minimumWithdrawal">₦0</strong></div></div><div class="plan-note">Displayed plan figures are account information only. They are not guaranteed returns and are not automatically added to your balance.</div><a href="activation.html" class="primary-btn" style="margin-top:13px">View Plan →</a></div><div class="no-plan" id="noPlan" style="display:none"><strong>⭐ Activate Your Account</strong><p class="note">You have not selected an activation plan yet. View the available plans to continue.</p><a href="activation.html" class="primary-btn">View Activation Plans →</a></div></div></div><footer>EarnSave · Account dashboard<br><br>Balance figures reflect data stored in your account.</footer></div>
-<nav class="bottom-nav" aria-label="Main navigation"><a href="dashboard.html" class="active"><span class="nav-icon">⌂</span><span>Home</span></a><a href="tasks.html"><span class="nav-icon">▤</span><span>Tasks</span></a><a href="referral.html"><span class="nav-icon">♧</span><span>Team</span></a><a href="withdrawal.html"><span class="nav-icon">↗</span><span>Withdraw</span></a><a href="profile.html"><span class="nav-icon">◉</span><span>Profile</span></a></nav><div class="toast" id="toast"></div>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script><script>
-const firebaseConfig={apiKey:"AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",authDomain:"earnsave-e7a88.firebaseapp.com",projectId:"earnsave-e7a88",storageBucket:"earnsave-e7a88.firebasestorage.app",messagingSenderId:"2806298963",appId:"1:2806298963:web:f5f6fe584d51c7280be4aa",measurementId:"G-3C742ZNKHB"};if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);const auth=firebase.auth(),db=firebase.firestore();let authFinished=false,actualBalance="₦0",balanceHidden=false,currentReferralCode="";
-function money(v){const n=Number(v||0);return "₦"+(Number.isFinite(n)?n:0).toLocaleString("en-NG")}function setBalance(){document.getElementById("balance").textContent=balanceHidden?"••••••••":actualBalance;document.getElementById("toggleBalance").textContent=balanceHidden?"Show":"Hide"}document.getElementById("toggleBalance").addEventListener("click",()=>{balanceHidden=!balanceHidden;setBalance()});function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.style.display="block";clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.style.display="none",2600)}document.querySelectorAll(".coming-soon").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();toast("This feature is coming soon.")}));document.getElementById("copyReferral").addEventListener("click",async()=>{if(!currentReferralCode){toast("No referral code found yet.");return}try{await navigator.clipboard.writeText(currentReferralCode);toast("Referral code copied!")}catch(e){const ta=document.createElement("textarea");ta.value=currentReferralCode;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();toast("Referral code copied!")}});
-auth.onAuthStateChanged(user=>{authFinished=true;if(!user){document.getElementById("loading").style.display="none";document.getElementById("loginMessage").style.display="block";return}document.getElementById("email").textContent=user.email||"EarnSave User";loadUser(user.uid);loadPending(user.uid);loadReferralCount(user.uid);loadNotifications(user.uid);loadActivity(user.uid)});setTimeout(()=>{if(!authFinished){document.getElementById("loading").style.display="none";document.getElementById("loginMessage").style.display="block"}},10000);
-function loadUser(uid){db.collection("users").doc(uid).get().then(doc=>{if(!doc.exists){showError("Your EarnSave user profile was not found.");return}const d=doc.data();actualBalance=money(d.balance);setBalance();document.getElementById("earnedWallet").textContent=money(d.balance);document.getElementById("referralWallet").textContent=money(d.referralEarnings);document.getElementById("referralEarnings").textContent=money(d.referralEarnings);currentReferralCode=String(d.referralCode||"");document.getElementById("referralCode").textContent=currentReferralCode||"Not available";if(d.selectedPlan){document.getElementById("planCard").style.display="block";document.getElementById("noPlan").style.display="none";document.getElementById("planName").textContent=d.selectedPlan;document.getElementById("planMini").textContent=d.selectedPlan;document.getElementById("activationFee").textContent=money(d.activationFee);document.getElementById("referralBonus").textContent=money(d.referralBonus);document.getElementById("dailyEarnings").textContent=money(d.dailyEarnings);document.getElementById("minimumWithdrawal").textContent=money(d.minimumWithdrawal);document.getElementById("planStatus").textContent=String(d.activationStatus||"NOT ACTIVE").toUpperCase()}else{document.getElementById("planMini").textContent="None";document.getElementById("planCard").style.display="none";document.getElementById("noPlan").style.display="block"}showDashboard()}).catch(e=>showError("Unable to load your account: "+e.message))}
-function loadNotifications(uid){db.collection("notifications").where("userId","==",uid).get().then(s=>{const list=document.getElementById("notificationList"),count=document.getElementById("notificationCount");list.innerHTML="";if(s.empty){count.textContent="0";list.innerHTML='<div class="no-notifications">No notifications yet.</div>';return}let unread=0,items=[];s.forEach(doc=>{const d=doc.data();if(d.read===false)unread++;items.push({id:doc.id,data:d})});items.sort((a,b)=>{const x=a.data.createdAt&&a.data.createdAt.toDate?a.data.createdAt.toDate().getTime():0,y=b.data.createdAt&&b.data.createdAt.toDate?b.data.createdAt.toDate().getTime():0;return y-x});count.textContent=unread;items.slice(0,8).forEach(item=>{const d=item.data,div=document.createElement("div");div.className="notification-item"+(d.read===false?" unread":"");const title=document.createElement("div");title.className="notification-title";title.textContent=d.title||"Notification";const msg=document.createElement("div");msg.className="notification-message";msg.textContent=d.message||"";const date=document.createElement("div");date.className="notification-date";date.textContent=d.createdAt&&d.createdAt.toDate?d.createdAt.toDate().toLocaleString():"Recently";div.append(title,msg,date);list.appendChild(div)})}).catch(e=>{console.log("Notification error:",e.message);document.getElementById("notificationList").textContent="Unable to load notifications."})}
-function loadPending(uid){db.collection("submissions").where("userId","==",uid).get().then(s=>{let total=0;s.forEach(doc=>{const d=doc.data();if(d.status==="pending")total+=Number(d.reward||0)});document.getElementById("pending").textContent=money(total)}).catch(e=>{console.log("Pending error:",e.message);document.getElementById("pending").textContent="—"})}
-function loadReferralCount(uid){db.collection("users").doc(uid).get().then(doc=>{if(!doc.exists)return;const code=doc.data().referralCode;if(!code){document.getElementById("referralCount").textContent="0";return}db.collection("users").where("referredBy","==",code).get().then(s=>document.getElementById("referralCount").textContent=s.size).catch(e=>{console.log(e.message);document.getElementById("referralCount").textContent="—"})}).catch(e=>console.log("Referral profile error:",e.message))}
-function loadActivity(uid){db.collection("submissions").where("userId","==",uid).get().then(s=>{const list=document.getElementById("activityList");list.innerHTML="";if(s.empty){list.innerHTML='<div class="no-notifications">No task activity yet.</div>';return}const items=[];s.forEach(doc=>items.push(doc.data()));items.sort((a,b)=>{const x=a.createdAt&&a.createdAt.toDate?a.createdAt.toDate().getTime():0,y=b.createdAt&&b.createdAt.toDate?b.createdAt.toDate().getTime():0;return y-x});items.slice(0,5).forEach(d=>{const row=document.createElement("div");row.className="activity-row";const left=document.createElement("div");const title=document.createElement("strong");title.textContent=d.taskTitle||d.title||"Task submission";const small=document.createElement("small");small.textContent=d.createdAt&&d.createdAt.toDate?d.createdAt.toDate().toLocaleDateString():"Submission recorded";left.append(title,small);const status=document.createElement("span");status.className="activity-status";status.textContent=String(d.status||"submitted").toUpperCase();row.append(left,status);list.appendChild(row)})}).catch(e=>{console.log("Activity error:",e.message);document.getElementById("activityList").innerHTML='<div class="no-notifications">Unable to load recent activity.</div>'})}
-function showDashboard(){document.getElementById("loading").style.display="none";document.getElementById("content").style.display="block"}function showError(msg){document.getElementById("loading").style.display="none";document.getElementById("content").style.display="block";const b=document.getElementById("error");b.style.display="block";b.textContent=msg}document.getElementById("logout").addEventListener("click",()=>auth.signOut().then(()=>window.location.href="login.html").catch(e=>alert("Logout failed: "+e.message)));
-</script></body></html>
+<header>
+<div class="header-inner">
+<div class="brand">
+<div class="logo-icon">E</div>
+<div>
+<div class="logo">Earn<span>Save</span></div>
+<div class="subtitle">YOUR EARNINGS DASHBOARD</div>
+</div>
+</div>
+<div class="header-actions">
+<a href="profile.html" class="icon-button" aria-label="Profile">♙</a>
+<button class="logout" id="logout">Logout ↗</button>
+</div>
+</div>
+</header><div id="loading">
+<div class="spinner"></div>
+<div>Connecting to EarnSave...</div>
+</div><div id="loginMessage">
+<h2>Login Required</h2>
+<p style="color:#91A3C5;line-height:1.7">Please log in to access your dashboard.</p>
+<a href="login.html" class="login-btn">Go to Login</a>
+</div><div class="container" id="content" style="display:none">
+<div class="error" id="error"></div><div class="welcome">
+<div>
+<h1>Welcome back 👋</h1>
+<p id="email">Loading account...</p>
+</div>
+<div class="welcome-badge"><span class="dot"></span>ACCOUNT</div>
+</div><div class="setup-grid">
+<a href="profile.html" class="setup-card">
+<span class="setup-icon">🏦</span>
+<span><strong>Add Bank Account</strong><small>Set up payout details</small></span>
+<span class="chevron">›</span>
+</a>
+<a href="activation.html" class="setup-card">
+<span class="setup-icon">⭐</span>
+<span><strong>Activate a Plan</strong><small>View your plan options</small></span>
+<span class="chevron">›</span>
+</a>
+</div><div class="wallet-heading">
+<h2>My Wallet</h2>
+<span>Swipe to view balances →</span>
+</div><div class="wallet-track" id="walletTrack">
+<section class="wallet-card">
+<div class="wallet-top">
+<span>Available Balance</span>
+<button class="eye" id="toggleBalance" type="button">Hide</button>
+</div>
+<div class="wallet-amount" id="balance">₦0</div>
+<div class="wallet-bottom">
+<span>Current account balance</span>
+<a href="withdrawal.html">Withdraw ↗</a>
+</div>
+</section><section class="wallet-card blue">
+<div class="wallet-top"><span>Total Earned</span><span>▤</span></div>
+<div class="wallet-amount" id="earnedWallet">₦0</div>
+<div class="wallet-bottom">
+<span>Recorded in your profile</span><span>EarnSave</span>
+</div>
+</section><section class="wallet-card light">
+<div class="wallet-top"><span>Referral Earnings</span><span>♧</span></div>
+<div class="wallet-amount" id="referralWallet">₦0</div>
+<div class="wallet-bottom">
+<span>Referral rewards recorded</span>
+<a href="referral.html">View ↗</a>
+</div>
+</section>
+</div><div class="dots">● ● ●</div><div class="section-heading"><h2>Explore EarnSave</h2></div>
+<div class="shortcuts">
+<a href="tasks.html" class="shortcut"><span class="shortcut-icon">📝</span><span>Tasks</span></a>
+<a href="history.html" class="shortcut"><span class="shortcut-icon">📋</span><span>History</span></a>
+<a href="referral.html" class="shortcut"><span class="shortcut-icon">👥</span><span>Invite</span></a>
+<a href="activation.html" class="shortcut"><span class="shortcut-icon">⭐</span><span>Upgrade</span></a>
+<a href="withdrawal.html" class="shortcut"><span class="shortcut-icon">💸</span><span>Withdraw</span></a>
+<a href="#" class="shortcut coming-soon"><span class="shortcut-icon">🎯</span><span>Sponsored</span></a>
+<a href="#" class="shortcut coming-soon"><span class="shortcut-icon">🤝</span><span>Team</span></a>
+<a href="#" class="shortcut coming-soon"><span class="shortcut-icon">🏆</span><span>Contest</span></a>
+</div><div class="section-heading"><h2>Account Overview</h2></div>
+<div class="overview">
+<div class="stat"><div class="stat-icon">⏳</div><h3 id="pending">₦0</h3><p>Pending Earnings</p></div>
+<div class="stat"><div class="stat-icon">👥</div><h3 id="referralCount">0</h3><p>Referrals</p></div>
+<div class="stat"><div class="stat-icon">⭐</div><h3 id="planMini">None</h3><p>Activation Plan</p></div>
+</div><div class="layout">
+<div class="layout-main">
+<div class="section-heading"><h2>Quick Actions</h2></div>
+<div class="action-grid">
+<a href="tasks.html" class="action-card"><span class="action-icon">📝</span><span><h3>Available Tasks</h3><p>View tasks and submit proof.</p></span></a>
+<a href="history.html" class="action-card"><span class="action-icon">📋</span><span><h3>Task History</h3><p>Review your submissions.</p></span></a>
+<a href="withdrawal.html" class="action-card"><span class="action-icon">💸</span><span><h3>Withdrawals</h3><p>View and track requests.</p></span></a>
+<a href="profile.html" class="action-card"><span class="action-icon">👤</span><span><h3>My Profile</h3><p>Manage your account.</p></span></a>
+</div><div class="section-heading">
+<h2>Recent Activity</h2>
+<a href="history.html">View history →</a>
+</div>
+<div class="panel" id="activityList">
+<div class="no-notifications">Loading recent activity...</div>
+</div>
+</div><div class="layout-side">
+<div class="section-heading">
+<h2>Notifications</h2>
+<span class="notification-count" id="notificationCount">0</span>
+</div>
+<div class="panel" style="margin-top:0">
+<div id="notificationList">
+<div class="no-notifications">Loading notifications...</div>
+</div>
+</div><div class="section-heading"><h2>Referral Summary</h2></div>
+<div class="referral-panel">
+<div style="font-size:14px;font-weight:800">👥 Referral Earnings</div>
+<div class="referral-amount" id="referralEarnings">₦0</div>
+<div class="note">Referral earnings recorded in your account.</div>
+<a href="referral.html" class="referral-btn">Manage Referrals →</a><div style="margin-top:15px;border-top:1px solid #29436D;padding-top:13px">
+<div class="note">Your referral code</div>
+<strong id="referralCode" style="display:block;margin-top:6px;overflow-wrap:anywhere">Loading...</strong>
+<button id="copyReferral" class="referral-btn" style="border:0;cursor:pointer">Copy Code</button>
+</div>
+</div><div class="section-heading"><h2>My Activation Plan</h2></div>
+<div class="plan-panel" id="planCard" style="display:none">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+<strong>⭐ Activation Plan</strong>
+<span class="plan-status" id="planStatus">NOT ACTIVE</span>
+</div>
+<div class="plan-name" id="planName">No Plan</div>
+<div class="plan-details">
+<div class="plan-detail"><span>Activation Fee</span><strong id="activationFee">₦0</strong></div>
+<div class="plan-detail"><span>Referral Bonus</span><strong id="referralBonus">₦0</strong></div>
+<div class="plan-detail"><span>Daily Earnings</span><strong id="dailyEarnings">₦0</strong></div>
+<div class="plan-detail"><span>Minimum Withdrawal</span><strong id="minimumWithdrawal">₦0</strong></div>
+</div>
+<div class="plan-note">Displayed plan figures are account information only. They are not guaranteed returns and are not automatically added to your balance.</div>
+<a href="activation.html" class="primary-btn" style="margin-top:13px">View Plan →</a>
+</div><div class="no-plan" id="noPlan" style="display:none">
+<strong>⭐ Activate Your Account</strong>
+<p class="note">You have not selected an activation plan yet. View the available plans to continue.</p>
+<a href="activation.html" class="primary-btn">View Activation Plans →</a>
+</div>
+</div>
+</div><footer>EarnSave · Account dashboard<br>Balance figures reflect data stored in your account.</footer>
+</div><nav class="bottom-nav" aria-label="Main navigation">
+<a href="dashboard.html" class="active"><span class="nav-icon">⌂</span><span>Home</span></a>
+<a href="tasks.html"><span class="nav-icon">▤</span><span>Tasks</span></a>
+<a href="referral.html"><span class="nav-icon">♧</span><span>Team</span></a>
+<a href="withdrawal.html"><span class="nav-icon">↗</span><span>Withdraw</span></a>
+<a href="profile.html"><span class="nav-icon">◉</span><span>Profile</span></a>
+</nav><div class="toast" id="toast"></div><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script><script>
+const firebaseConfig={
+apiKey:"AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
+authDomain:"earnsave-e7a88.firebaseapp.com",
+projectId:"earnsave-e7a88",
+storageBucket:"earnsave-e7a88.firebasestorage.app",
+messagingSenderId:"2806298963",
+appId:"1:2806298963:web:f5f6fe584d51c7280be4aa",
+measurementId:"G-3C742ZNKHB"
+};
+
+if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth(),db=firebase.firestore();
+
+let authFinished=false;
+let actualBalance="₦0";
+let balanceHidden=false;
+let currentReferralCode="";
+
+function money(v){
+const n=Number(v||0);
+return "₦"+(Number.isFinite(n)?n:0).toLocaleString("en-NG");
+}
+
+function setBalance(){
+document.getElementById("balance").textContent=
+balanceHidden?"••••••••":actualBalance;
+document.getElementById("toggleBalance").textContent=
+balanceHidden?"Show":"Hide";
+}
+
+document.getElementById("toggleBalance").addEventListener("click",()=>{
+balanceHidden=!balanceHidden;
+setBalance();
+});
+
+function toast(msg){
+const t=document.getElementById("toast");
+t.textContent=msg;
+t.style.display="block";
+clearTimeout(window.toastTimer);
+window.toastTimer=setTimeout(()=>t.style.display="none",2600);
+}
+
+document.querySelectorAll(".coming-soon").forEach(a=>{
+a.addEventListener("click",e=>{
+e.preventDefault();
+toast("This feature is coming soon.");
+});
+});
+
+document.getElementById("copyReferral").addEventListener("click",async()=>{
+if(!currentReferralCode){
+toast("No referral code found yet.");
+return;
+}
+try{
+await navigator.clipboard.writeText(currentReferralCode);
+toast("Referral code copied!");
+}catch(e){
+const ta=document.createElement("textarea");
+ta.value=currentReferralCode;
+document.body.appendChild(ta);
+ta.select();
+document.execCommand("copy");
+ta.remove();
+toast("Referral code copied!");
+}
+});
+
+auth.onAuthStateChanged(user=>{
+authFinished=true;
+
+if(!user){
+document.getElementById("loading").style.display="none";
+document.getElementById("loginMessage").style.display="block";
+document.getElementById("content").style.display="none";
+return;
+}
+
+document.getElementById("email").textContent=user.email||"EarnSave User";
+
+loadUser(user.uid);
+loadPending(user.uid);
+loadReferralCount(user.uid);
+loadNotifications(user.uid);
+loadActivity(user.uid);
+});
+
+setTimeout(()=>{
+if(!authFinished){
+document.getElementById("loading").style.display="none";
+document.getElementById("loginMessage").style.display="block";
+}
+},10000);
+
+function loadUser(uid){
+db.collection("users").doc(uid).get().then(doc=>{
+if(!doc.exists){
+showError("Your EarnSave user profile was not found.");
+return;
+}
+
+const d=doc.data();
+actualBalance=money(d.balance);
+setBalance();
+
+document.getElementById("earnedWallet").textContent=money(d.balance);
+document.getElementById("referralWallet").textContent=money(d.referralEarnings);
+document.getElementById("referralEarnings").textContent=money(d.referralEarnings);
+
+currentReferralCode=String(d.referralCode||"");
+document.getElementById("referralCode").textContent=currentReferralCode||"Not available";
+
+if(d.selectedPlan){
+document.getElementById("planCard").style.display="block";
+document.getElementById("noPlan").style.display="none";
+document.getElementById("planName").textContent=d.selectedPlan;
+document.getElementById("planMini").textContent=d.selectedPlan;
+document.getElementById("activationFee").textContent=money(d.activationFee);
+document.getElementById("referralBonus").textContent=money(d.referralBonus);
+document.getElementById("dailyEarnings").textContent=money(d.dailyEarnings);
+document.getElementById("minimumWithdrawal").textContent=money(d.minimumWithdrawal);
+document.getElementById("planStatus").textContent=String(d.activationStatus||"NOT ACTIVE").toUpperCase();
+}else{
+document.getElementById("planMini").textContent="None";
+document.getElementById("planCard").style.display="none";
+document.getElementById("noPlan").style.display="block";
+}
+
+showDashboard();
+
+}).catch(e=>{
+showError("Unable to load your account: "+e.message);
+});
+}
+
+function loadNotifications(uid){
+db.collection("notifications").where("userId","==",uid).get().then(s=>{
+const list=document.getElementById("notificationList");
+const count=document.getElementById("notificationCount");
+list.innerHTML="";
+
+if(s.empty){
+count.textContent="0";
+list.innerHTML='<div class="no-notifications">No notifications yet.</div>';
+return;
+}
+
+let unread=0,items=[];
+
+s.forEach(doc=>{
+const d=doc.data();
+if(d.read===false)unread++;
+items.push({id:doc.id,data:d});
+});
+
+items.sort((a,b)=>{
+const x=a.data.createdAt&&a.data.createdAt.toDate?a.data.createdAt.toDate().getTime():0;
+const y=b.data.createdAt&&b.data.createdAt.toDate?b.data.createdAt.toDate().getTime():0;
+return y-x;
+});
+
+count.textContent=unread;
+
+items.slice(0,8).forEach(item=>{
+const d=item.data,div=document.createElement("div");
+div.className="notification-item"+(d.read===false?" unread":"");
+
+const title=document.createElement("div");
+title.className="notification-title";
+title.textContent=d.title||"Notification";
+
+const msg=document.createElement("div");
+msg.className="notification-message";
+msg.textContent=d.message||"";
+
+const date=document.createElement("div");
+date.className="notification-date";
+date.textContent=d.createdAt&&d.createdAt.toDate?d.createdAt.toDate().toLocaleString():"Recently";
+
+div.append(title,msg,date);
+list.appendChild(div);
+});
+
+}).catch(e=>{
+console.log("Notification error:",e.message);
+document.getElementById("notificationList").textContent="Unable to load notifications.";
+});
+}
+
+function loadPending(uid){
+db.collection("submissions").where("userId","==",uid).get().then(s=>{
+let total=0;
+s.forEach(doc=>{
+const d=doc.data();
+if(d.status==="pending")total+=Number(d.reward||0);
+});
+document.getElementById("pending").textContent=money(total);
+}).catch(e=>{
+console.log("Pending error:",e.message);
+document.getElementById("pending").textContent="—";
+});
+}
+
+function loadReferralCount(uid){
+db.collection("users").doc(uid).get().then(doc=>{
+if(!doc.exists)return;
+const code=doc.data().referralCode;
+
+if(!code){
+document.getElementById("referralCount").textContent="0";
+return;
+}
+
+db.collection("users").where("referredBy","==",code).get().then(s=>{
+document.getElementById("referralCount").textContent=s.size;
+}).catch(e=>{
+console.log(e.message);
+document.getElementById("referralCount").textContent="—";
+});
+
+}).catch(e=>console.log("Referral profile error:",e.message));
+}
+
+function loadActivity(uid){
+db.collection("submissions").where("userId","==",uid).get().then(s=>{
+const list=document.getElementById("activityList");
+list.innerHTML="";
+
+if(s.empty){
+list.innerHTML='<div class="no-notifications">No task activity yet.</div>';
+return;
+}
+
+const items=[];
+s.forEach(doc=>items.push(doc.data()));
+
+items.sort((a,b)=>{
+const x=a.createdAt&&a.createdAt.toDate?a.createdAt.toDate().getTime():0;
+const y=b.createdAt&&b.createdAt.toDate?b.createdAt.toDate().getTime():0;
+return y-x;
+});
+
+items.slice(0,5).forEach(d=>{
+const row=document.createElement("div");
+row.className="activity-row";
+
+const left=document.createElement("div");
+const title=document.createElement("strong");
+title.textContent=d.taskTitle||d.title||"Task submission";
+
+const small=document.createElement("small");
+small.textContent=d.createdAt&&d.createdAt.toDate?d.createdAt.toDate().toLocaleDateString():"Submission recorded";
+
+left.append(title,small);
+
+const status=document.createElement("span");
+status.className="activity-status";
+status.textContent=String(d.status||"submitted").toUpperCase();
+
+row.append(left,status);
+list.appendChild(row);
+});
+
+}).catch(e=>{
+console.log("Activity error:",e.message);
+document.getElementById("activityList").innerHTML=
+'<div class="no-notifications">Unable to load recent activity.</div>';
+});
+}
+
+function showDashboard(){
+document.getElementById("loading").style.display="none";
+document.getElementById("loginMessage").style.display="none";
+document.getElementById("content").style.display="block";
+}
+
+function showError(msg){
+document.getElementById("loading").style.display="none";
+document.getElementById("content").style.display="block";
+const b=document.getElementById("error");
+b.style.display="block";
+b.textContent=msg;
+}
+
+document.getElementById("logout").addEventListener("click",()=>{
+auth.signOut().then(()=>{
+window.location.href="login.html";
+}).catch(e=>{
+alert("Logout failed: "+e.message);
+});
+});
+</script></body>
+</html>
