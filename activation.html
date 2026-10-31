@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EarnSave - Choose Your Plan</title>
+<title>EarnSave - Activation Plans</title>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -90,7 +90,9 @@ header{
 .plan:before{
  content:"";
  position:absolute;
- top:0;left:0;right:0;
+ top:0;
+ left:0;
+ right:0;
  height:4px;
  background:var(--accent);
 }
@@ -118,7 +120,8 @@ header{
 }
 
 .plan-icon{
- width:42px;height:42px;
+ width:42px;
+ height:42px;
  display:flex;
  align-items:center;
  justify-content:center;
@@ -173,7 +176,8 @@ header{
 }
 
 .check{
- width:21px;height:21px;
+ width:21px;
+ height:21px;
  flex-shrink:0;
  display:flex;
  align-items:center;
@@ -202,6 +206,8 @@ header{
  cursor:not-allowed;
 }
 
+/* MESSAGES */
+
 .message{
  display:none;
  padding:14px;
@@ -212,8 +218,102 @@ header{
  overflow-wrap:anywhere;
 }
 
-.success{display:block;background:#e1f7e9;color:#176b36}
-.error{display:block;background:#ffe8e8;color:#a22222}
+.success{
+ display:block;
+ background:#e1f7e9;
+ color:#176b36;
+}
+
+.error{
+ display:block;
+ background:#ffe8e8;
+ color:#a22222;
+}
+
+/* CONFIRMATION POPUP */
+
+.modal{
+ display:none;
+ position:fixed;
+ inset:0;
+ background:rgba(3,10,28,.82);
+ z-index:9999;
+ align-items:center;
+ justify-content:center;
+ padding:20px;
+}
+
+.modal.show{
+ display:flex;
+}
+
+.modal-box{
+ background:white;
+ color:#172033;
+ width:100%;
+ max-width:370px;
+ padding:27px 23px;
+ border-radius:22px;
+ text-align:center;
+ box-shadow:0 15px 50px rgba(0,0,0,.3);
+ animation:popup .2s ease-out;
+}
+
+@keyframes popup{
+ from{transform:scale(.94);opacity:0}
+ to{transform:scale(1);opacity:1}
+}
+
+.modal-icon{
+ width:65px;
+ height:65px;
+ border-radius:50%;
+ background:#e8f2ff;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ margin:0 auto 15px;
+ font-size:32px;
+}
+
+.modal-box h2{
+ font-size:21px;
+ margin-bottom:10px;
+}
+
+.modal-box p{
+ color:#687386;
+ line-height:1.6;
+ font-size:14px;
+ margin-bottom:20px;
+}
+
+.yes-btn,.no-btn{
+ display:block;
+ width:100%;
+ padding:15px;
+ border:0;
+ border-radius:12px;
+ font-weight:bold;
+ font-size:14px;
+ cursor:pointer;
+ margin-top:11px;
+}
+
+.yes-btn{
+ background:linear-gradient(110deg,#075bea,#05b9e9);
+ color:white;
+}
+
+.no-btn{
+ background:#edf0f5;
+ color:#26334a;
+}
+
+.yes-btn:disabled,.no-btn:disabled{
+ opacity:.6;
+ cursor:not-allowed;
+}
 
 .footer{
  text-align:center;
@@ -377,6 +477,32 @@ header{
 
 </main>
 
+<!-- CONFIRMATION WINDOW -->
+
+<div id="confirmModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+
+ <div class="modal-box">
+
+  <div class="modal-icon">🚀</div>
+
+  <h2 id="confirmTitle">Confirm Activation</h2>
+
+  <p id="confirmText">
+   Do you want to activate this plan?
+  </p>
+
+  <button type="button" id="confirmYes" class="yes-btn">
+   YES, ACTIVATE
+  </button>
+
+  <button type="button" id="confirmNo" class="no-btn">
+   NO, CANCEL
+  </button>
+
+ </div>
+
+</div>
+
 <script>
 const firebaseConfig={
  apiKey:"AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
@@ -396,43 +522,96 @@ const auth=firebase.auth();
 
 const BACKEND_URL="https://earnsave-payment-verifier.onrender.com";
 
+let selectedPlan=null;
+let selectedButton=null;
+
+const modal=document.getElementById("confirmModal");
+const yesButton=document.getElementById("confirmYes");
+const noButton=document.getElementById("confirmNo");
+
 function showMessage(message,type){
  const box=document.getElementById("message");
  box.textContent=message;
  box.className="message "+type;
+ box.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
 
-async function activatePlan(planName,button){
- const user=auth.currentUser;
+/* OPEN CONFIRMATION WINDOW */
 
- if(!user){
+function activatePlan(planName,button){
+
+ if(!auth.currentUser){
   showMessage("Please log in before activating a plan.","error");
-  setTimeout(()=>window.location.href="login.html",1800);
+
+  setTimeout(()=>{
+   window.location.href="login.html";
+  },1800);
+
   return;
  }
 
- const confirmed=confirm(
-  "Do you want to activate the "+planName+" demo plan? This is a test activation only."
- );
+ selectedPlan=planName;
+ selectedButton=button;
 
- if(!confirmed)return;
+ document.getElementById("confirmText").textContent=
+  "Do you want to activate the "+planName+" demo plan? This is a test activation only.";
+
+ modal.classList.add("show");
+}
+
+/* CANCEL ACTIVATION */
+
+noButton.addEventListener("click",function(){
+
+ modal.classList.remove("show");
+
+ selectedPlan=null;
+ selectedButton=null;
+
+});
+
+/* CONFIRM ACTIVATION */
+
+yesButton.addEventListener("click",async function(){
+
+ const plan=selectedPlan;
+ const button=selectedButton;
+
+ if(!plan||!button)return;
+
+ modal.classList.remove("show");
 
  const originalText=button.textContent;
 
  button.disabled=true;
  button.textContent="Activating...";
 
+ yesButton.disabled=true;
+ noButton.disabled=true;
+
  try{
+
+  const user=auth.currentUser;
+
+  if(!user){
+   throw new Error("Please log in again before activating a plan.");
+  }
+
   const idToken=await user.getIdToken();
 
-  const response=await fetch(BACKEND_URL+"/test-activate",{
-   method:"POST",
-   headers:{
-    "Content-Type":"application/json",
-    "Authorization":"Bearer "+idToken
-   },
-   body:JSON.stringify({planName:planName})
-  });
+  const response=await fetch(
+   BACKEND_URL+"/test-activate",
+   {
+    method:"POST",
+    headers:{
+     "Content-Type":"application/json",
+     "Authorization":"Bearer "+idToken
+    },
+    body:JSON.stringify({
+     planName:plan
+    })
+   }
+  );
 
   const result=await response.json();
 
@@ -441,15 +620,19 @@ async function activatePlan(planName,button){
   }
 
   if(result.referralCounted){
+
    showMessage(
     "Demo activation successful! A test referral record was processed. No real money was credited.",
     "success"
    );
+
   }else{
+
    showMessage(
     "Demo activation successful! Your plan is active in test mode.",
     "success"
    );
+
   }
 
   button.textContent="Activated";
@@ -459,6 +642,7 @@ async function activatePlan(planName,button){
   },2500);
 
  }catch(error){
+
   console.error("Activation error:",error);
 
   showMessage(
@@ -468,13 +652,47 @@ async function activatePlan(planName,button){
 
   button.disabled=false;
   button.textContent=originalText;
+
+ }finally{
+
+  yesButton.disabled=false;
+  noButton.disabled=false;
+
+  selectedPlan=null;
+  selectedButton=null;
+
  }
-}
+
+});
+
+/* CLOSE WHEN CLICKING OUTSIDE THE POPUP */
+
+modal.addEventListener("click",function(event){
+
+ if(event.target===modal){
+
+  modal.classList.remove("show");
+
+  selectedPlan=null;
+  selectedButton=null;
+
+ }
+
+});
+
+/* LOGIN CHECK */
 
 auth.onAuthStateChanged(user=>{
+
  if(!user){
-  showMessage("Please log in to activate a plan.","error");
+
+  showMessage(
+   "Please log in to activate a plan.",
+   "error"
+  );
+
  }
+
 });
 </script>
 
