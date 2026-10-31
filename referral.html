@@ -3,71 +3,279 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EarnSave - Referrals</title>
+<title>EarnSave - My Referrals</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;padding:20px;font-family:Arial,sans-serif;background:#f4f7fb;color:#222}
-.container{max-width:500px;margin:auto}
-.header{background:linear-gradient(135deg,#0d6efd,#7545e8);color:white;padding:22px;border-radius:15px;text-align:center;margin-bottom:20px}
+
+body{
+  margin:0;
+  padding:18px;
+  font-family:Arial,sans-serif;
+  background:#f3f5fb;
+  color:#222;
+}
+
+.container{
+  max-width:550px;
+  margin:auto;
+}
+
+.header{
+  background:linear-gradient(135deg,#0d6efd,#7545e8);
+  color:white;
+  padding:25px 18px;
+  border-radius:18px;
+  text-align:center;
+  margin-bottom:20px;
+}
+
 .header h1{margin:0 0 8px}
-.card{background:white;padding:20px;border-radius:15px;margin-bottom:18px;box-shadow:0 4px 12px rgba(0,0,0,.08)}
-.card h2{margin-top:0;color:#0d6efd;font-size:20px}
-.referral-code{background:#eef4ff;border:2px dashed #0d6efd;padding:15px;text-align:center;border-radius:10px;font-size:24px;font-weight:bold;color:#0d6efd;margin:15px 0;word-break:break-word}
-.referral-link{width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;font-size:14px;margin-bottom:10px}
-button{width:100%;border:0;padding:13px;border-radius:8px;background:#0d6efd;color:white;font-size:16px;font-weight:bold;cursor:pointer;margin-top:8px}
+
+.card{
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  margin-bottom:18px;
+  box-shadow:0 4px 12px rgba(0,0,0,.07);
+}
+
+.card h2{
+  margin-top:0;
+  color:#0d6efd;
+  font-size:19px;
+}
+
+.referral-code{
+  background:#eef4ff;
+  border:2px dashed #0d6efd;
+  padding:15px;
+  text-align:center;
+  border-radius:10px;
+  font-size:23px;
+  font-weight:bold;
+  color:#0d6efd;
+  margin:15px 0;
+  word-break:break-word;
+}
+
+.referral-link{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:13px;
+  margin-bottom:10px;
+}
+
+button{
+  width:100%;
+  border:0;
+  padding:13px;
+  border-radius:9px;
+  background:#0d6efd;
+  color:white;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:8px;
+}
+
+button:disabled{
+  opacity:.6;
+}
+
 .back-button{background:#555}
-.stat{text-align:center;background:#f0fff4;border:1px solid #b7ebc6;border-radius:12px;padding:20px}
-.stat-number{font-size:38px;font-weight:bold;color:#198754}
-.stat-label{font-size:16px;color:#555;margin-top:5px}
-.message{text-align:center;margin:15px 0;font-weight:bold;line-height:1.6}
+
+.stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.stat{
+  background:#f0fff4;
+  border:1px solid #b7ebc6;
+  border-radius:12px;
+  padding:17px 8px;
+  text-align:center;
+}
+
+.stat-number{
+  font-size:25px;
+  font-weight:bold;
+  color:#198754;
+  overflow-wrap:anywhere;
+}
+
+.stat-label{
+  font-size:13px;
+  color:#555;
+  margin-top:7px;
+}
+
+.message{
+  text-align:center;
+  margin:15px 0;
+  font-weight:bold;
+  line-height:1.5;
+}
+
 .success{color:green}
 .error{color:red}
 .loading{color:#0d6efd}
-.info{line-height:1.6;color:#555}
+
+.info{
+  line-height:1.6;
+  color:#666;
+  font-size:14px;
+}
+
+.referral-item{
+  border:1px solid #e4e8f0;
+  border-radius:12px;
+  padding:15px;
+  margin-top:12px;
+  background:#fff;
+}
+
+.member-name{
+  font-size:17px;
+  font-weight:bold;
+  color:#222;
+  margin-bottom:9px;
+}
+
+.member-detail{
+  font-size:14px;
+  color:#555;
+  margin:6px 0;
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 10px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+  background:#e8f5e9;
+  color:#198754;
+}
+
+.badge.inactive{
+  background:#fff3cd;
+  color:#856404;
+}
+
+.empty{
+  text-align:center;
+  padding:25px 10px;
+  color:#777;
+  line-height:1.6;
+}
+
+.small{
+  font-size:12px;
+  color:#888;
+  margin-top:10px;
+}
+
 </style>
 </head>
+
 <body>
+
 <div class="container">
 
 <div class="header">
-<h1>EarnSave Referrals</h1>
-<p>Invite friends and earn rewards</p>
+  <h1>EarnSave Referrals 💜</h1>
+  <p>Invite friends and grow your rewards</p>
 </div>
 
-<div id="message" class="message loading">Checking login...</div>
-
-<div class="card">
-<h2>Your Referral Code</h2>
-<div id="referralCode" class="referral-code">Loading...</div>
-<button id="copyCodeButton">Copy Referral Code</button>
+<div id="message" class="message loading">
+  Checking login...
 </div>
 
 <div class="card">
-<h2>Your Referral Link</h2>
-<input type="text" id="referralLink" class="referral-link" readonly value="Loading...">
-<button id="copyLinkButton">Copy Referral Link</button>
-<p class="info">Share this link with friends. When they register through your link, their registration can be counted as your referral.</p>
+  <h2>Your Referral Code</h2>
+
+  <div id="referralCode" class="referral-code">
+    Loading...
+  </div>
+
+  <button id="copyCodeButton">Copy Referral Code</button>
 </div>
 
 <div class="card">
-<h2>Referral Statistics</h2>
-<div class="stat">
-<div id="referralCount" class="stat-number">0</div>
-<div class="stat-label">Total Referrals</div>
-</div>
+  <h2>Your Referral Link</h2>
+
+  <input
+    type="text"
+    id="referralLink"
+    class="referral-link"
+    readonly
+    value="Loading..."
+  >
+
+  <button id="copyLinkButton">Copy Referral Link</button>
+
+  <p class="info">
+    Share your referral link with friends. When they register
+    through your link and activate an eligible plan, they will
+    appear in your referral list.
+  </p>
 </div>
 
 <div class="card">
-<h2>How It Works</h2>
-<p class="info">
-1. Copy your referral link.<br>
-2. Send it to your friends.<br>
-3. Your friends register through your link.<br>
-4. Eligible referrals will appear in your statistics.
-</p>
+  <h2>Referral Statistics</h2>
+
+  <div class="stats">
+
+    <div class="stat">
+      <div id="referralCount" class="stat-number">0</div>
+      <div class="stat-label">Total Referrals</div>
+    </div>
+
+    <div class="stat">
+      <div id="referralEarnings" class="stat-number">₦0</div>
+      <div class="stat-label">Referral Earnings</div>
+    </div>
+
+  </div>
 </div>
 
-<button class="back-button" onclick="location.href='dashboard.html'">Back to Dashboard</button>
+<div class="card">
+  <h2>My Registered Referrals 👥</h2>
+
+  <div id="referralsList">
+    <div class="empty">Loading your referrals...</div>
+  </div>
+
+  <button id="refreshButton">Refresh Referrals</button>
+
+  <p class="small">
+    Only referrals recorded by EarnSave will appear here.
+  </p>
+</div>
+
+<div class="card">
+  <h2>How It Works</h2>
+
+  <p class="info">
+    1. Copy your referral link.<br>
+    2. Share it with your friends.<br>
+    3. They register using your link.<br>
+    4. When they activate an eligible plan, their details
+    appear in your referral list.<br>
+    5. Your eligible referral bonus is credited automatically.
+  </p>
+</div>
+
+<button class="back-button"
+onclick="location.href='dashboard.html'">
+Back to Dashboard
+</button>
+
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
@@ -75,117 +283,328 @@ button{width:100%;border:0;padding:13px;border-radius:8px;background:#0d6efd;col
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 
 <script>
+
 const firebaseConfig = {
-apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
-authDomain: "earnsave-e7a88.firebaseapp.com",
-projectId: "earnsave-e7a88",
-storageBucket: "earnsave-e7a88.firebasestorage.app",
-messagingSenderId: "2806298963",
-appId: "1:2806298963:web:f5f6fe584d51c7280be4aa",
-measurementId: "G-3C742ZNKHB"
+  apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
+  authDomain: "earnsave-e7a88.firebaseapp.com",
+  projectId: "earnsave-e7a88",
+  storageBucket: "earnsave-e7a88.firebasestorage.app",
+  messagingSenderId: "2806298963",
+  appId: "1:2806298963:web:f5f6fe584d51c7280be4aa",
+  measurementId: "G-3C742ZNKHB"
 };
 
-if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 const auth = firebase.auth();
 const db = firebase.firestore();
+
+const API_URL =
+"https://earnsave-payment-verifier.onrender.com";
 
 const messageBox = document.getElementById("message");
 const codeBox = document.getElementById("referralCode");
 const linkBox = document.getElementById("referralLink");
 const countBox = document.getElementById("referralCount");
+const earningsBox = document.getElementById("referralEarnings");
+const referralsList = document.getElementById("referralsList");
 
+let currentUser = null;
 let referralCode = "";
 let referralLink = "";
 
 function showMessage(text,type){
-messageBox.textContent=text;
-messageBox.className="message "+type;
+  messageBox.textContent = text;
+  messageBox.className = "message " + type;
 }
 
-async function loadReferrals(user){
-try{
-showMessage("Loading referral information...","loading");
-
-const userDoc = await db.collection("users").doc(user.uid).get();
-
-if(!userDoc.exists){
-showMessage("Your user profile was not found.","error");
-return;
+function formatMoney(amount){
+  return "₦" + Number(amount || 0).toLocaleString("en-NG");
 }
 
-const data=userDoc.data();
+function createElement(tag, className, text){
+  const element = document.createElement(tag);
 
-referralCode=data.referralCode || ("ES"+user.uid.substring(0,8).toUpperCase());
+  if(className){
+    element.className = className;
+  }
 
-codeBox.textContent=referralCode;
+  if(text !== undefined){
+    element.textContent = text;
+  }
 
-referralLink=window.location.origin+
-window.location.pathname.substring(0,window.location.pathname.lastIndexOf("/")+1)+
-"register.html?ref="+encodeURIComponent(referralCode)+
-"&refuid="+encodeURIComponent(user.uid);
-
-linkBox.value=referralLink;
-
-const statsDoc=await db.collection("referralStats").doc(user.uid).get();
-
-if(statsDoc.exists){
-const stats=statsDoc.data();
-const total=stats.totalReferrals;
-
-if(typeof total==="number" && Number.isFinite(total) && total>=0){
-countBox.textContent=total;
-}else{
-countBox.textContent="0";
-}
-showMessage("Referral information loaded successfully.","success");
-}else{
-countBox.textContent="0";
-showMessage("Your referral link is ready. Referral statistics will appear after the secure referral counter is connected.","loading");
+  return element;
 }
 
-}catch(error){
-console.error("Referral error:",error);
-showMessage("Error loading referrals: "+error.message,"error");
+async function loadBasicInformation(user){
+
+  const userDoc = await db.collection("users")
+    .doc(user.uid)
+    .get();
+
+  if(!userDoc.exists){
+    throw new Error("Your user profile was not found.");
+  }
+
+  const data = userDoc.data();
+
+  referralCode =
+    data.referralCode ||
+    ("ES" + user.uid.substring(0,8).toUpperCase());
+
+  codeBox.textContent = referralCode;
+
+  const basePath =
+    window.location.origin +
+    window.location.pathname.substring(
+      0,
+      window.location.pathname.lastIndexOf("/") + 1
+    );
+
+  referralLink =
+    basePath +
+    "register.html?ref=" +
+    encodeURIComponent(referralCode) +
+    "&refuid=" +
+    encodeURIComponent(user.uid);
+
+  linkBox.value = referralLink;
+
+  earningsBox.textContent =
+    formatMoney(data.referralEarnings || 0);
+
+  const statsDoc = await db.collection("referralStats")
+    .doc(user.uid)
+    .get();
+
+  const stats = statsDoc.exists ? statsDoc.data() : {};
+
+  countBox.textContent =
+    Number(stats.totalReferrals || 0).toLocaleString("en-NG");
 }
+
+async function loadReferralMembers(user){
+
+  referralsList.replaceChildren(
+    createElement("div","empty","Loading registered referrals...")
+  );
+
+  const token = await user.getIdToken();
+
+  const response = await fetch(
+    API_URL + "/my-referrals",
+    {
+      method:"GET",
+      headers:{
+        "Authorization":"Bearer " + token
+      }
+    }
+  );
+
+  const result = await response.json();
+
+  if(!response.ok || !result.success){
+    throw new Error(
+      result.message || "Unable to load referrals."
+    );
+  }
+
+  referralsList.replaceChildren();
+
+  const referrals = Array.isArray(result.referrals)
+    ? result.referrals
+    : [];
+
+  if(referrals.length === 0){
+
+    referralsList.appendChild(
+      createElement(
+        "div",
+        "empty",
+        "No activated referrals found yet. Share your referral link to invite friends!"
+      )
+    );
+
+    return;
+  }
+
+  referrals.forEach(member => {
+
+    const item = createElement("div","referral-item");
+
+    const name = createElement(
+      "div",
+      "member-name",
+      member.name || "EarnSave Member"
+    );
+
+    const plan = createElement(
+      "div",
+      "member-detail",
+      "📦 Plan: " + (member.plan || "No plan")
+    );
+
+    const rawStatus = String(
+      member.status || "Not activated"
+    );
+
+    const isActivated =
+      rawStatus === "active" || rawStatus === "demo";
+
+    const status = createElement(
+      "span",
+      isActivated ? "badge" : "badge inactive",
+      isActivated
+        ? (rawStatus === "demo" ? "Demo Activated" : "Activated")
+        : "Not Activated"
+    );
+
+    item.appendChild(name);
+    item.appendChild(plan);
+    item.appendChild(
+      createElement("div","member-detail","Status:")
+    );
+    item.appendChild(status);
+
+    if(member.joinedAt){
+
+      const date = new Date(member.joinedAt);
+
+      if(!isNaN(date.getTime())){
+        item.appendChild(
+          createElement(
+            "div",
+            "small",
+            "Recorded: " + date.toLocaleDateString()
+          )
+        );
+      }
+    }
+
+    referralsList.appendChild(item);
+  });
+}
+
+async function loadEverything(){
+
+  if(!currentUser) return;
+
+  try{
+
+    showMessage("Loading referral information...","loading");
+
+    await loadBasicInformation(currentUser);
+
+    await loadReferralMembers(currentUser);
+
+    showMessage(
+      "Your referral information loaded successfully!",
+      "success"
+    );
+
+  }catch(error){
+
+    console.error("Referral loading error:",error);
+
+    showMessage(error.message,"error");
+
+    referralsList.replaceChildren(
+      createElement(
+        "div",
+        "empty",
+        "Unable to load your referral members. Please try again."
+      )
+    );
+  }
 }
 
 auth.onAuthStateChanged(user=>{
-if(user){
-loadReferrals(user);
-}else{
-showMessage("Please login first.","error");
-setTimeout(()=>location.href="login.html",2000);
-}
+
+  if(user){
+
+    currentUser = user;
+    loadEverything();
+
+  }else{
+
+    showMessage("Please login first.","error");
+
+    setTimeout(()=>{
+      location.href = "login.html";
+    },2000);
+  }
+
 });
 
 async function copyText(text){
-try{
-if(navigator.clipboard && window.isSecureContext){
-await navigator.clipboard.writeText(text);
-}else{
-const input=document.createElement("textarea");
-input.value=text;
-document.body.appendChild(input);
-input.select();
-document.execCommand("copy");
-input.remove();
-}
-alert("Copied successfully!");
-}catch(error){
-alert("Copy failed. Please copy it manually.");
-}
+
+  try{
+
+    if(navigator.clipboard && window.isSecureContext){
+
+      await navigator.clipboard.writeText(text);
+
+    }else{
+
+      const input = document.createElement("textarea");
+
+      input.value = text;
+      document.body.appendChild(input);
+      input.select();
+
+      document.execCommand("copy");
+
+      input.remove();
+    }
+
+    alert("Copied successfully!");
+
+  }catch(error){
+
+    alert("Copy failed. Please copy it manually.");
+  }
 }
 
-document.getElementById("copyCodeButton").addEventListener("click",()=>{
-if(referralCode) copyText(referralCode);
-else alert("Referral code is not ready.");
+document.getElementById("copyCodeButton")
+.addEventListener("click",()=>{
+
+  if(referralCode){
+    copyText(referralCode);
+  }else{
+    alert("Referral code is not ready.");
+  }
+
 });
 
-document.getElementById("copyLinkButton").addEventListener("click",()=>{
-if(referralLink) copyText(referralLink);
-else alert("Referral link is not ready.");
+document.getElementById("copyLinkButton")
+.addEventListener("click",()=>{
+
+  if(referralLink){
+    copyText(referralLink);
+  }else{
+    alert("Referral link is not ready.");
+  }
+
 });
+
+document.getElementById("refreshButton")
+.addEventListener("click",async()=>{
+
+  const button = document.getElementById("refreshButton");
+
+  button.disabled = true;
+  button.textContent = "Refreshing...";
+
+  await loadEverything();
+
+  button.disabled = false;
+  button.textContent = "Refresh Referrals";
+
+});
+
 </script>
+
 </body>
 </html>
