@@ -1,173 +1,163 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create Account | EarnSave</title><style>
+<title>Create Account | EarnSave</title>
+
+<style>
 :root {
-    --bg: #080d1c;
-    --card: #111a30;
-    --blue: #3984ff;
-    --purple: #8758ff;
-    --text: #f4f7ff;
-    --muted: #a0abc4;
-    --border: rgba(255,255,255,.09);
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #171b26;
+    --muted: #8993a4;
+    --border: #e1e5eb;
+    --input: #ffffff;
+    --blue: #075cff;
+    --cyan: #08bde9;
 }
 
-* { box-sizing: border-box; }
+body.dark {
+    --bg: #080d1c;
+    --card: #111a30;
+    --text: #f4f7ff;
+    --muted: #a0abc4;
+    --border: #293650;
+    --input: #0b1225;
+}
+
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
     min-height: 100vh;
     font-family: Arial, sans-serif;
+    background: var(--bg);
     color: var(--text);
-    background:
-        radial-gradient(ellipse at top left, #17265a 0%, transparent 45%),
-        radial-gradient(ellipse at bottom right, #29134d 0%, transparent 40%),
-        var(--bg);
-    display: flex;
-    flex-direction: column;
+    transition: .3s;
 }
-
-header {
-    padding: 22px 7%;
-    border-bottom: 1px solid var(--border);
-    background: rgba(8,13,28,.65);
-}
-
-.logo {
-    font-size: 25px;
-    font-weight: 900;
-    letter-spacing: -.7px;
-}
-
-.logo span { color: #55a0ff; }
 
 .page {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 35px 18px;
+    width: 100%;
+    max-width: 430px;
+    margin: auto;
+    padding: 28px 20px 35px;
+}
+
+.heading {
+    margin-bottom: 22px;
+}
+
+.heading h1 {
+    font-size: 25px;
+    margin: 0 0 8px;
+    font-weight: 800;
+}
+
+.heading p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0;
 }
 
 .card {
-    width: 100%;
-    max-width: 460px;
-    padding: 32px 25px;
+    background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 24px;
-    background: rgba(17,26,48,.94);
-    box-shadow: 0 25px 80px rgba(0,0,0,.35);
+    border-radius: 19px;
+    padding: 24px 19px;
+    box-shadow: 0 12px 35px rgba(0,0,0,.06);
 }
 
-.icon {
-    width: 65px;
-    height: 65px;
-    margin: 0 auto 20px;
+.name-row {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 20px;
-    font-size: 30px;
-    background: linear-gradient(135deg, var(--blue), var(--purple));
-    box-shadow: 0 10px 30px rgba(57,132,255,.25);
+    gap: 11px;
 }
 
-h1 {
-    margin: 0;
-    text-align: center;
-    font-size: 28px;
+.name-row .field {
+    width: 50%;
+    min-width: 0;
 }
 
-.subtitle {
-    margin: 12px 0 25px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 14px;
-    line-height: 1.6;
+.field {
+    margin-bottom: 17px;
 }
 
 label {
     display: block;
-    margin-bottom: 9px;
     font-size: 13px;
     font-weight: bold;
-    color: #dce5ff;
+    margin-bottom: 9px;
+    color: var(--text);
 }
 
 .input-wrap {
     position: relative;
-    margin-bottom: 18px;
 }
 
 input {
     width: 100%;
-    padding: 15px;
-    color: white;
-    background: #0b1225;
-    border: 1px solid #27334e;
+    height: 49px;
+    padding: 0 14px;
+    border: 1px solid var(--border);
     border-radius: 12px;
+    background: var(--input);
+    color: var(--text);
     outline: none;
-    font-size: 15px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: .2s;
 }
 
 input:focus {
     border-color: var(--blue);
-    box-shadow: 0 0 0 3px rgba(57,132,255,.12);
+    box-shadow: 0 0 0 3px rgba(7,92,255,.08);
 }
 
-input::placeholder { color: #697692; }
+input::placeholder {
+    color: #a2aab5;
+}
 
-.password-input { padding-right: 75px; }
+.password-input {
+    padding-right: 55px;
+}
 
 .toggle-password {
     position: absolute;
+    right: 13px;
     top: 50%;
-    right: 12px;
     transform: translateY(-50%);
-    border: 0;
     background: transparent;
-    color: #78aaff;
-    font-size: 12px;
-    font-weight: bold;
+    border: none;
     cursor: pointer;
-}
-
-.ref-box {
-    display: none;
-    margin-bottom: 20px;
-    padding: 14px;
-    border: 1px solid rgba(77,170,255,.3);
-    border-radius: 12px;
-    background: rgba(57,132,255,.1);
-    color: #b9d7ff;
-    font-size: 13px;
-    line-height: 1.6;
-    overflow-wrap: anywhere;
+    font-size: 19px;
+    color: var(--muted);
 }
 
 .register-button {
     width: 100%;
-    margin-top: 7px;
-    padding: 16px;
-    border: 0;
-    border-radius: 12px;
+    height: 51px;
+    border: none;
+    border-radius: 13px;
     color: white;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
     cursor: pointer;
-    background: linear-gradient(100deg, var(--blue), var(--purple));
-    box-shadow: 0 10px 25px rgba(57,132,255,.2);
+    margin-top: 5px;
+    background: linear-gradient(100deg, #075cff, #08bde9);
+    box-shadow: 0 8px 18px rgba(7,92,255,.18);
 }
 
 .register-button:disabled {
-    opacity: .65;
+    opacity: .6;
     cursor: wait;
 }
 
 .message {
     display: none;
-    margin-top: 18px;
+    margin-top: 15px;
     padding: 12px;
     border-radius: 10px;
     font-size: 13px;
@@ -177,156 +167,208 @@ input::placeholder { color: #697692; }
 
 .message.error {
     display: block;
-    color: #ffb6bf;
-    background: rgba(255,70,95,.1);
-    border: 1px solid rgba(255,70,95,.2);
+    color: #dc3545;
+    background: #fff0f0;
 }
 
 .message.success {
     display: block;
-    color: #8ff5c0;
-    background: rgba(35,210,130,.1);
-    border: 1px solid rgba(35,210,130,.2);
+    color: #13834d;
+    background: #e8fff2;
 }
 
 .links {
-    margin-top: 24px;
+    margin-top: 21px;
     text-align: center;
     font-size: 13px;
-    line-height: 2.2;
     color: var(--muted);
+    line-height: 2;
 }
 
 .links a {
-    color: #75aaff;
+    color: #075cff;
     text-decoration: none;
     font-weight: bold;
 }
 
-.links a:hover { text-decoration: underline; }
-
-.security-note {
-    margin-top: 22px;
-    padding-top: 18px;
-    border-top: 1px solid var(--border);
-    color: #8996b2;
-    text-align: center;
-    font-size: 11px;
-    line-height: 1.6;
-}
-
 footer {
-    padding: 18px;
     text-align: center;
-    color: #697692;
-    font-size: 11px;
+    padding: 25px 15px;
+    font-size: 12px;
+    color: var(--muted);
 }
 
-@media (max-width: 380px) {
-    .card { padding: 27px 19px; }
-    h1 { font-size: 25px; }
+.theme-button {
+    position: fixed;
+    right: 16px;
+    bottom: 17px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    font-size: 19px;
+    cursor: pointer;
+    box-shadow: 0 3px 12px rgba(0,0,0,.08);
 }
-</style></head><body><header>
-    <div class="logo">Earn<span>Save</span></div>
-</header><main class="page">
-<section class="card"><div class="icon">✨</div>
 
-<h1>Create Account</h1>
+@media(max-width:350px) {
+    .page {
+        padding: 22px 13px;
+    }
 
-<p class="subtitle">
-    Join EarnSave and create your account.
-</p>
+    .card {
+        padding: 20px 14px;
+    }
 
-<div id="refBox" class="ref-box"></div>
+    .name-row {
+        gap: 8px;
+    }
 
-<form id="registerForm">
+    input {
+        padding-left: 10px;
+        font-size: 13px;
+    }
+}
+</style>
+</head>
 
-    <label for="fullName">Full Name</label>
-    <div class="input-wrap">
-        <input
-            type="text"
-            id="fullName"
-            placeholder="Enter your full name"
-            autocomplete="name"
-            maxlength="100"
-            required
-        >
+<body>
+
+<main class="page">
+
+    <div class="heading">
+        <h1>Create account</h1>
+        <p>Join thousands of others building their future on our platform.</p>
     </div>
 
-    <label for="email">Email Address</label>
-    <div class="input-wrap">
-        <input
-            type="email"
-            id="email"
-            placeholder="you@example.com"
-            autocomplete="email"
-            required
-        >
-    </div>
+    <section class="card">
 
-    <label for="password">Password</label>
-    <div class="input-wrap">
-        <input
-            type="password"
-            id="password"
-            class="password-input"
-            placeholder="At least 6 characters"
-            autocomplete="new-password"
-            minlength="6"
-            required
-        >
-        <button
-            type="button"
-            class="toggle-password"
-            data-target="password"
-        >SHOW</button>
-    </div>
+        <div id="refBox" style="display:none;margin-bottom:16px;padding:12px;background:#eaf3ff;color:#075cff;border-radius:10px;font-size:13px;"></div>
 
-    <label for="confirmPassword">Confirm Password</label>
-    <div class="input-wrap">
-        <input
-            type="password"
-            id="confirmPassword"
-            class="password-input"
-            placeholder="Enter password again"
-            autocomplete="new-password"
-            minlength="6"
-            required
-        >
-        <button
-            type="button"
-            class="toggle-password"
-            data-target="confirmPassword"
-        >SHOW</button>
-    </div>
+        <form id="registerForm">
 
-    <button
-        type="submit"
-        id="registerBtn"
-        class="register-button"
-    >
-        Create My Account
-    </button>
+            <div class="name-row">
 
-</form>
+                <div class="field">
+                    <label for="firstName">First name</label>
+                    <input
+                        type="text"
+                        id="firstName"
+                        placeholder="First name"
+                        autocomplete="given-name"
+                        required>
+                </div>
 
-<div id="message" class="message" role="status" aria-live="polite"></div>
+                <div class="field">
+                    <label for="lastName">Last name</label>
+                    <input
+                        type="text"
+                        id="lastName"
+                        placeholder="Last name"
+                        autocomplete="family-name"
+                        required>
+                </div>
 
-<div class="links">
-    Already have an account?
-    <a href="login.html">Login</a>
-    <br>
-    <a href="index.html">← Back to Home</a>
-</div>
+            </div>
 
-<div class="security-note">
-    🔒 Your account is created using Firebase Authentication.
-</div>
+            <div class="field">
+                <label for="username">Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Choose username"
+                    autocomplete="username"
+                    minlength="3"
+                    maxlength="30"
+                    required>
+            </div>
 
-</section>
-</main><footer>
-    EarnSave &copy; <span id="year"></span>
-</footer><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script><script>
+            <div class="field">
+                <label for="email">Email address</label>
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="you@example.com"
+                    autocomplete="email"
+                    required>
+            </div>
+
+            <div class="field">
+                <label for="phone">Phone number</label>
+                <input
+                    type="tel"
+                    id="phone"
+                    placeholder="08012345678"
+                    autocomplete="tel"
+                    maxlength="20"
+                    required>
+            </div>
+
+            <div class="field">
+                <label for="referral">Referral (optional)</label>
+                <input
+                    type="text"
+                    id="referral"
+                    placeholder="Enter referral code">
+            </div>
+
+            <div class="field">
+                <label for="password">Password</label>
+
+                <div class="input-wrap">
+                    <input
+                        type="password"
+                        id="password"
+                        class="password-input"
+                        placeholder="Choose password"
+                        autocomplete="new-password"
+                        minlength="6"
+                        required>
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        data-target="password"
+                        aria-label="Show password">◉</button>
+                </div>
+            </div>
+
+            <button
+                type="submit"
+                id="registerBtn"
+                class="register-button">
+                Complete registration
+            </button>
+
+        </form>
+
+        <div id="message" class="message" role="status" aria-live="polite"></div>
+
+        <div class="links">
+            Already have an account?
+            <a href="login.html">Sign In</a>
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    © <span id="year"></span> EarnSave. All rights reserved.
+    <br><br>
+    <a href="support.html" style="color:#075cff;text-decoration:none;font-weight:bold;">Support</a>
+</footer>
+
+<button class="theme-button" id="themeButton" aria-label="Toggle dark mode">☾</button>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+<script>
+
 const firebaseConfig = {
     apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
     authDomain: "earnsave-e7a88.firebaseapp.com",
@@ -348,10 +390,69 @@ document.getElementById("year").textContent =
     new Date().getFullYear();
 
 const params = new URLSearchParams(window.location.search);
+
 const referralCode = params.get("ref");
 const referralUid = params.get("refuid");
 
 const refBox = document.getElementById("refBox");
+const referralInput = document.getElementById("referral");
+
+if (referralCode) {
+    referralInput.value = referralCode;
+}
+
+if (referralCode || referralUid) {
+    refBox.style.display = "block";
+    refBox.textContent = "You joined EarnSave through a referral link.";
+}
+
+// Dark mode
+
+const themeButton = document.getElementById("themeButton");
+
+if (localStorage.getItem("earnsaveTheme") === "dark") {
+    document.body.classList.add("dark");
+    themeButton.textContent = "☀";
+}
+
+themeButton.addEventListener("click", function() {
+    document.body.classList.toggle("dark");
+
+    const dark = document.body.classList.contains("dark");
+
+    themeButton.textContent = dark ? "☀" : "☾";
+
+    localStorage.setItem(
+        "earnsaveTheme",
+        dark ? "dark" : "light"
+    );
+});
+
+// Show / hide password
+
+document.querySelectorAll(".toggle-password").forEach(function(toggle) {
+
+    toggle.addEventListener("click", function() {
+
+        const input = document.getElementById(toggle.dataset.target);
+
+        const show = input.type === "password";
+
+        input.type = show ? "text" : "password";
+
+        toggle.textContent = show ? "◉" : "◉";
+
+        toggle.setAttribute(
+            "aria-label",
+            show ? "Hide password" : "Show password"
+        );
+
+    });
+
+});
+
+// Messages
+
 const form = document.getElementById("registerForm");
 const button = document.getElementById("registerBtn");
 const message = document.getElementById("message");
@@ -361,37 +462,12 @@ function showMessage(text, type) {
     message.className = "message " + type;
 }
 
-if (referralCode || referralUid) {
-    refBox.style.display = "block";
-
-    if (referralCode) {
-        const title = document.createElement("strong");
-        title.textContent = "Referral code: ";
-        refBox.appendChild(title);
-        refBox.appendChild(document.createTextNode(referralCode));
-    } else {
-        refBox.textContent = "You joined through a referral link.";
-    }
-}
-
-document.querySelectorAll(".toggle-password").forEach(function(toggle) {
-    toggle.addEventListener("click", function() {
-        const input = document.getElementById(toggle.dataset.target);
-        const show = input.type === "password";
-
-        input.type = show ? "text" : "password";
-        toggle.textContent = show ? "HIDE" : "SHOW";
-        toggle.setAttribute(
-            "aria-label",
-            show ? "Hide password" : "Show password"
-        );
-    });
-});
-
 function friendlyError(error) {
-    switch (error.code) {
+
+    switch(error.code) {
+
         case "auth/email-already-in-use":
-            return "An account already uses this email. Please log in instead.";
+            return "This email already has an account. Please sign in.";
 
         case "auth/invalid-email":
             return "Please enter a valid email address.";
@@ -403,50 +479,59 @@ function friendlyError(error) {
             return "Network error. Check your internet connection.";
 
         case "auth/operation-not-allowed":
-            return "Email and password registration is not enabled in Firebase Authentication.";
-
-        case "permission-denied":
-        case "firestore/permission-denied":
-            return "Firestore denied profile creation. Check the users create rule.";
+            return "Enable email/password registration in Firebase.";
 
         default:
             return "Registration error: " +
-                (error.message || "Unknown error");
+                (error.message || "Please try again.");
     }
 }
 
+// Registration
+
 form.addEventListener("submit", async function(event) {
+
     event.preventDefault();
 
-    const fullName = document.getElementById("fullName").value.trim();
+    const firstName = document.getElementById("firstName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
+    const username = document.getElementById("username").value.trim();
     const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
     const password = document.getElementById("password").value;
-    const confirmPassword =
-        document.getElementById("confirmPassword").value;
 
-    if (!fullName) {
-        showMessage("Please enter your full name.", "error");
-        return;
-    }
+    const enteredReferral = referralInput.value.trim();
 
-    if (password !== confirmPassword) {
-        showMessage("Your passwords do not match.", "error");
+    const fullName = firstName + " " + lastName;
+
+    if (!/^[a-zA-Z0-9_]{3,30}$/.test(username)) {
+        showMessage(
+            "Username must be 3-30 characters and contain only letters, numbers or underscores.",
+            "error"
+        );
         return;
     }
 
     if (password.length < 6) {
-        showMessage("Your password must contain at least 6 characters.", "error");
+        showMessage(
+            "Password must contain at least 6 characters.",
+            "error"
+        );
         return;
     }
 
     button.disabled = true;
     button.textContent = "Creating account...";
+
     message.className = "message";
 
     let createdUser = null;
 
     try {
-        await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+
+        await auth.setPersistence(
+            firebase.auth.Auth.Persistence.LOCAL
+        );
 
         const result = await auth.createUserWithEmailAndPassword(
             email,
@@ -459,17 +544,31 @@ form.addEventListener("submit", async function(event) {
             "ES" + createdUser.uid.substring(0, 8).toUpperCase();
 
         const userData = {
+
+            firstName: firstName,
+            lastName: lastName,
             fullName: fullName,
+
+            username: username,
             email: email,
+            phone: phone,
+
             role: "user",
+
             balance: 0,
             referralEarnings: 0,
+
             referralCode: newReferralCode,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+
+            createdAt:
+                firebase.firestore.FieldValue.serverTimestamp()
+
         };
 
-        if (referralCode) {
-            userData.referredBy = referralCode;
+        const finalReferral = enteredReferral || referralCode;
+
+        if (finalReferral) {
+            userData.referredBy = finalReferral;
         }
 
         if (referralUid) {
@@ -481,7 +580,7 @@ form.addEventListener("submit", async function(event) {
             .set(userData);
 
         showMessage(
-            "Your account and profile were created successfully! Taking you to login...",
+            "Your EarnSave account was created successfully!",
             "success"
         );
 
@@ -491,22 +590,32 @@ form.addEventListener("submit", async function(event) {
             window.location.href = "login.html";
         }, 2200);
 
-    } catch (error) {
+    } catch(error) {
+
         console.error("EarnSave registration error:", error);
 
         if (createdUser) {
+
             showMessage(
-                "Your Firebase login account was created, but your profile could not be saved. Do not register again with this email. Error: " +
-                (error.message || error.code || "Unknown Firestore error"),
+                "Your login account was created, but your profile could not be saved. Please contact support. Error: " +
+                (error.message || error.code),
                 "error"
             );
+
         } else {
+
             showMessage(friendlyError(error), "error");
+
         }
 
         button.disabled = false;
-        button.textContent = "Create My Account";
+        button.textContent = "Complete registration";
+
     }
+
 });
-</script></body>
+
+</script>
+
+</body>
 </html>
