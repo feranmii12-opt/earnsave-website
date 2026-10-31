@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Create Account | EarnSave</title>
-
-<style>
+<title>Create Account | EarnSave</title><style>
 :root {
     --bg: #080d1c;
     --card: #111a30;
@@ -17,9 +13,7 @@
     --border: rgba(255,255,255,.09);
 }
 
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
@@ -46,9 +40,7 @@ header {
     letter-spacing: -.7px;
 }
 
-.logo span {
-    color: #55a0ff;
-}
+.logo span { color: #55a0ff; }
 
 .page {
     flex: 1;
@@ -124,13 +116,9 @@ input:focus {
     box-shadow: 0 0 0 3px rgba(57,132,255,.12);
 }
 
-input::placeholder {
-    color: #697692;
-}
+input::placeholder { color: #697692; }
 
-.password-input {
-    padding-right: 75px;
-}
+.password-input { padding-right: 75px; }
 
 .toggle-password {
     position: absolute;
@@ -215,9 +203,7 @@ input::placeholder {
     font-weight: bold;
 }
 
-.links a:hover {
-    text-decoration: underline;
-}
+.links a:hover { text-decoration: underline; }
 
 .security-note {
     margin-top: 22px;
@@ -237,147 +223,117 @@ footer {
 }
 
 @media (max-width: 380px) {
-    .card {
-        padding: 27px 19px;
-    }
-
-    h1 {
-        font-size: 25px;
-    }
+    .card { padding: 27px 19px; }
+    h1 { font-size: 25px; }
 }
-</style>
-</head>
-
-<body>
-
-<header>
+</style></head><body><header>
     <div class="logo">Earn<span>Save</span></div>
-</header>
+</header><main class="page">
+<section class="card"><div class="icon">✨</div>
 
-<main class="page">
-<section class="card">
+<h1>Create Account</h1>
 
-    <div class="icon">✨</div>
+<p class="subtitle">
+    Join EarnSave and create your account.
+</p>
 
-    <h1>Create Account</h1>
+<div id="refBox" class="ref-box"></div>
 
-    <p class="subtitle">
-        Join EarnSave and create your account.
-    </p>
+<form id="registerForm">
 
-    <div id="refBox" class="ref-box"></div>
-
-    <form id="registerForm">
-
-        <label for="fullName">Full Name</label>
-
-        <div class="input-wrap">
-            <input
-                type="text"
-                id="fullName"
-                placeholder="Enter your full name"
-                autocomplete="name"
-                maxlength="100"
-                required
-            >
-        </div>
-
-        <label for="email">Email Address</label>
-
-        <div class="input-wrap">
-            <input
-                type="email"
-                id="email"
-                placeholder="you@example.com"
-                autocomplete="email"
-                required
-            >
-        </div>
-
-        <label for="password">Password</label>
-
-        <div class="input-wrap">
-            <input
-                type="password"
-                id="password"
-                class="password-input"
-                placeholder="At least 6 characters"
-                autocomplete="new-password"
-                minlength="6"
-                required
-            >
-
-            <button
-                type="button"
-                class="toggle-password"
-                data-target="password"
-            >SHOW</button>
-        </div>
-
-        <label for="confirmPassword">Confirm Password</label>
-
-        <div class="input-wrap">
-            <input
-                type="password"
-                id="confirmPassword"
-                class="password-input"
-                placeholder="Enter password again"
-                autocomplete="new-password"
-                minlength="6"
-                required
-            >
-
-            <button
-                type="button"
-                class="toggle-password"
-                data-target="confirmPassword"
-            >SHOW</button>
-        </div>
-
-        <button
-            type="submit"
-            id="registerBtn"
-            class="register-button"
+    <label for="fullName">Full Name</label>
+    <div class="input-wrap">
+        <input
+            type="text"
+            id="fullName"
+            placeholder="Enter your full name"
+            autocomplete="name"
+            maxlength="100"
+            required
         >
-            Create My Account
-        </button>
-
-    </form>
-
-    <div id="message" class="message" role="status" aria-live="polite"></div>
-
-    <div class="links">
-        Already have an account?
-        <a href="login.html">Login</a>
-
-        <br>
-
-        <a href="index.html">← Back to Home</a>
     </div>
 
-    <div class="security-note">
-        🔒 Your account is created using Firebase Authentication.
+    <label for="email">Email Address</label>
+    <div class="input-wrap">
+        <input
+            type="email"
+            id="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
+        >
     </div>
+
+    <label for="password">Password</label>
+    <div class="input-wrap">
+        <input
+            type="password"
+            id="password"
+            class="password-input"
+            placeholder="At least 6 characters"
+            autocomplete="new-password"
+            minlength="6"
+            required
+        >
+        <button
+            type="button"
+            class="toggle-password"
+            data-target="password"
+        >SHOW</button>
+    </div>
+
+    <label for="confirmPassword">Confirm Password</label>
+    <div class="input-wrap">
+        <input
+            type="password"
+            id="confirmPassword"
+            class="password-input"
+            placeholder="Enter password again"
+            autocomplete="new-password"
+            minlength="6"
+            required
+        >
+        <button
+            type="button"
+            class="toggle-password"
+            data-target="confirmPassword"
+        >SHOW</button>
+    </div>
+
+    <button
+        type="submit"
+        id="registerBtn"
+        class="register-button"
+    >
+        Create My Account
+    </button>
+
+</form>
+
+<div id="message" class="message" role="status" aria-live="polite"></div>
+
+<div class="links">
+    Already have an account?
+    <a href="login.html">Login</a>
+    <br>
+    <a href="index.html">← Back to Home</a>
+</div>
+
+<div class="security-note">
+    🔒 Your account is created using Firebase Authentication.
+</div>
 
 </section>
-</main>
-
-<footer>
+</main><footer>
     EarnSave &copy; <span id="year"></span>
-</footer>
-
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
-
-<script>
+</footer><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script><script>
 const firebaseConfig = {
     apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
     authDomain: "earnsave-e7a88.firebaseapp.com",
     projectId: "earnsave-e7a88",
     storageBucket: "earnsave-e7a88.firebasestorage.app",
-    messagingSenderId: "280629896863",
-    appId: "1:280629896863:web:f5f6fe584d51c7280be4aa",
+    messagingSenderId: "2806298963",
+    appId: "1:2806298963:web:f5f6fe584d51c7280be4aa",
     measurementId: "G-3C742ZNKHB"
 };
 
@@ -405,19 +361,17 @@ function showMessage(text, type) {
     message.className = "message " + type;
 }
 
-if (referralCode) {
+if (referralCode || referralUid) {
     refBox.style.display = "block";
 
-    const title = document.createElement("strong");
-    title.textContent = "Referral code: ";
-
-    refBox.appendChild(title);
-    refBox.appendChild(
-        document.createTextNode(referralCode)
-    );
-} else if (referralUid) {
-    refBox.style.display = "block";
-    refBox.textContent = "You joined through a referral link.";
+    if (referralCode) {
+        const title = document.createElement("strong");
+        title.textContent = "Referral code: ";
+        refBox.appendChild(title);
+        refBox.appendChild(document.createTextNode(referralCode));
+    } else {
+        refBox.textContent = "You joined through a referral link.";
+    }
 }
 
 document.querySelectorAll(".toggle-password").forEach(function(toggle) {
@@ -437,7 +391,7 @@ document.querySelectorAll(".toggle-password").forEach(function(toggle) {
 function friendlyError(error) {
     switch (error.code) {
         case "auth/email-already-in-use":
-            return "An account already uses this email. Try logging in instead.";
+            return "An account already uses this email. Please log in instead.";
 
         case "auth/invalid-email":
             return "Please enter a valid email address.";
@@ -453,10 +407,11 @@ function friendlyError(error) {
 
         case "permission-denied":
         case "firestore/permission-denied":
-            return "Your account was created, but Firestore blocked saving your profile. Please contact the administrator before trying to register again.";
+            return "Firestore denied profile creation. Check the users create rule.";
 
         default:
-            return "Registration failed: " + (error.message || "Unknown error");
+            return "Registration error: " +
+                (error.message || "Unknown error");
     }
 }
 
@@ -466,7 +421,8 @@ form.addEventListener("submit", async function(event) {
     const fullName = document.getElementById("fullName").value.trim();
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
 
     if (!fullName) {
         showMessage("Please enter your full name.", "error");
@@ -507,6 +463,7 @@ form.addEventListener("submit", async function(event) {
             email: email,
             role: "user",
             balance: 0,
+            referralEarnings: 0,
             referralCode: newReferralCode,
             createdAt: firebase.firestore.FieldValue.serverTimestamp()
         };
@@ -524,7 +481,7 @@ form.addEventListener("submit", async function(event) {
             .set(userData);
 
         showMessage(
-            "Your account was created successfully! Taking you to the login page...",
+            "Your account and profile were created successfully! Taking you to login...",
             "success"
         );
 
@@ -539,7 +496,8 @@ form.addEventListener("submit", async function(event) {
 
         if (createdUser) {
             showMessage(
-                "Your Firebase account was created, but saving your profile failed. Do not register again with the same email. Check Firestore rules or contact the administrator.",
+                "Your Firebase login account was created, but your profile could not be saved. Do not register again with this email. Error: " +
+                (error.message || error.code || "Unknown Firestore error"),
                 "error"
             );
         } else {
@@ -550,7 +508,5 @@ form.addEventListener("submit", async function(event) {
         button.textContent = "Create My Account";
     }
 });
-</script>
-
-</body>
+</script></body>
 </html>
