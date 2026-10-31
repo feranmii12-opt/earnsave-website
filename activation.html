@@ -3,676 +3,338 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>EarnSave - Activation Plans</title>
 
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      padding: 20px;
-      background: #f4f7fb;
       font-family: Arial, sans-serif;
-      color: #222;
+      background: #f4f5fb;
+      color: #20243a;
     }
 
-    .container {
-      max-width: 950px;
-      margin: auto;
-    }
-
-    .header {
+    header {
+      background: linear-gradient(135deg, #5126c7, #2474ed);
+      color: white;
+      padding: 28px 18px;
       text-align: center;
-      margin-bottom: 25px;
+      border-radius: 0 0 25px 25px;
     }
 
-    .header h1 {
-      color: #1769e0;
+    header h1 {
+      font-size: 27px;
       margin-bottom: 8px;
     }
 
-    .header p {
-      color: #666;
+    header p {
+      font-size: 14px;
+      opacity: .9;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 22px auto;
+      padding: 0 15px 30px;
     }
 
     .notice {
-      background: #fff3cd;
-      color: #856404;
-      border: 1px solid #ffeeba;
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 25px;
-      line-height: 1.5;
+      background: #fff4d5;
+      border: 1px solid #f1d27a;
+      padding: 14px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.6;
     }
 
-    .login-status {
-      background: white;
-      padding: 14px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    .section-title {
+      margin: 20px 0 14px;
+      font-size: 21px;
     }
 
     .plans {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
     }
 
     .plan {
       background: white;
-      border-radius: 15px;
-      padding: 22px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-      border: 2px solid transparent;
+      padding: 20px;
+      border-radius: 17px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.06);
+      border: 1px solid #e8e8f2;
     }
 
-    .plan:hover {
-      border-color: #1769e0;
-    }
-
-    .plan h2 {
-      margin-top: 0;
-      color: #1769e0;
+    .plan h3 {
+      color: #5126c7;
+      font-size: 21px;
+      margin-bottom: 10px;
     }
 
     .price {
-      font-size: 28px;
+      font-size: 25px;
       font-weight: bold;
-      color: #111;
-      margin: 15px 0;
+      margin-bottom: 15px;
     }
 
     .details {
-      line-height: 1.9;
-      color: #555;
-      margin-bottom: 18px;
+      font-size: 14px;
+      line-height: 2;
+      color: #62677a;
     }
 
-    .activate-btn {
+    .plan button {
       width: 100%;
       border: none;
-      background: #1769e0;
+      background: linear-gradient(135deg, #5126c7, #2474ed);
       color: white;
       padding: 13px;
-      border-radius: 8px;
-      font-size: 16px;
+      margin-top: 17px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: bold;
       cursor: pointer;
     }
 
-    .activate-btn:hover {
-      background: #0d4fae;
-    }
-
-    .activate-btn:disabled {
-      background: #999;
+    button:disabled {
+      opacity: .6;
       cursor: not-allowed;
     }
 
     .message {
-      margin-top: 20px;
-      padding: 12px;
-      border-radius: 8px;
       display: none;
-      line-height: 1.5;
+      padding: 14px;
+      margin-top: 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.6;
     }
 
     .success {
       display: block;
-      background: #d4edda;
-      color: #155724;
+      background: #e4f8eb;
+      color: #176b36;
     }
 
     .error {
       display: block;
-      background: #f8d7da;
-      color: #721c24;
+      background: #ffe6e6;
+      color: #a22222;
     }
 
-    .info {
-      display: block;
-      background: #d9edf7;
-      color: #31708f;
-    }
-
-    .back-btn {
+    .back {
       display: block;
       text-align: center;
-      margin: 25px auto 0;
-      color: #1769e0;
+      margin-top: 24px;
+      color: #5126c7;
       text-decoration: none;
       font-weight: bold;
-    }
-
-    @media (max-width: 500px) {
-      body {
-        padding: 12px;
-      }
-
-      .price {
-        font-size: 25px;
-      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
+<header>
+  <h1>EarnSave</h1>
+  <p>Choose your activation plan</p>
+</header>
 
-    <div class="header">
-      <h1>EarnSave Activation Plans</h1>
-      <p>Select an activation plan to unlock your task-earning dashboard.</p>
+<div class="container">
+
+  <div class="notice">
+    <strong>DEMO MODE</strong><br>
+    This is a test activation system. No real payment is collected,
+    and demo rewards are not withdrawable.
+  </div>
+
+  <h2 class="section-title">Available Plans</h2>
+
+  <div class="plans">
+
+    <div class="plan">
+      <h3>Spark</h3>
+      <div class="price">₦1,000</div>
+      <div class="details">
+        Referral bonus: ₦600<br>
+        Daily earnings: ₦240<br>
+        Minimum withdrawal: ₦7,000
+      </div>
+      <button onclick="activatePlan('Spark', this)">Activate Spark</button>
     </div>
 
-    <div class="notice">
-      <strong>Demo Mode:</strong>
-      This activation page is currently for testing only.
-      No real payment will be collected.
+    <div class="plan">
+      <h3>Base</h3>
+      <div class="price">₦3,000</div>
+      <div class="details">
+        Referral bonus: ₦2,000<br>
+        Daily earnings: ₦380<br>
+        Minimum withdrawal: ₦7,000
+      </div>
+      <button onclick="activatePlan('Base', this)">Activate Base</button>
     </div>
 
-    <div class="login-status" id="loginStatus">
-      Checking your login...
+    <div class="plan">
+      <h3>Voltage</h3>
+      <div class="price">₦5,000</div>
+      <div class="details">
+        Referral bonus: ₦3,000<br>
+        Daily earnings: ₦485<br>
+        Minimum withdrawal: ₦14,500
+      </div>
+      <button onclick="activatePlan('Voltage', this)">Activate Voltage</button>
     </div>
 
-    <div class="plans">
-
-      <!-- SPARK -->
-      <div class="plan">
-        <h2>Spark Plan</h2>
-
-        <div class="price">₦1,000</div>
-
-        <div class="details">
-          Daily earnings: ₦240<br>
-          Referral bonus: ₦600<br>
-          Minimum withdrawal: ₦7,000<br>
-          Activation: One time
-        </div>
-
-        <button
-          class="activate-btn"
-          onclick="activatePlan('Spark', 1000, 600, 240, 7000)"
-          disabled>
-          Activate Spark
-        </button>
+    <div class="plan">
+      <h3>Titan</h3>
+      <div class="price">₦8,500</div>
+      <div class="details">
+        Referral bonus: ₦5,000<br>
+        Daily earnings: ₦1,070<br>
+        Minimum withdrawal: ₦20,000
       </div>
-
-      <!-- BASE -->
-      <div class="plan">
-        <h2>Base Plan</h2>
-
-        <div class="price">₦3,000</div>
-
-        <div class="details">
-          Daily earnings: ₦380<br>
-          Referral bonus: ₦2,000<br>
-          Minimum withdrawal: ₦7,000<br>
-          Activation: One time
-        </div>
-
-        <button
-          class="activate-btn"
-          onclick="activatePlan('Base', 3000, 2000, 380, 7000)"
-          disabled>
-          Activate Base
-        </button>
-      </div>
-
-      <!-- VOLTAGE -->
-      <div class="plan">
-        <h2>Voltage Plan</h2>
-
-        <div class="price">₦5,000</div>
-
-        <div class="details">
-          Daily earnings: ₦485<br>
-          Referral bonus: ₦3,000<br>
-          Minimum withdrawal: ₦14,500<br>
-          Activation: One time
-        </div>
-
-        <button
-          class="activate-btn"
-          onclick="activatePlan('Voltage', 5000, 3000, 485, 14500)"
-          disabled>
-          Activate Voltage
-        </button>
-      </div>
-
-      <!-- TITAN -->
-      <div class="plan">
-        <h2>Titan Plan</h2>
-
-        <div class="price">₦8,500</div>
-
-        <div class="details">
-          Daily earnings: ₦1,070<br>
-          Referral bonus: ₦5,000<br>
-          Minimum withdrawal: ₦20,000<br>
-          Activation: One time
-        </div>
-
-        <button
-          class="activate-btn"
-          onclick="activatePlan('Titan', 8500, 5000, 1070, 20000)"
-          disabled>
-          Activate Titan
-        </button>
-      </div>
-
-      <!-- SUPREME -->
-      <div class="plan">
-        <h2>Supreme Plan</h2>
-
-        <div class="price">₦14,500</div>
-
-        <div class="details">
-          Daily earnings: ₦1,580<br>
-          Referral bonus: ₦9,800<br>
-          Minimum withdrawal: ₦35,000<br>
-          Activation: One time
-        </div>
-
-        <button
-          class="activate-btn"
-          onclick="activatePlan('Supreme', 14500, 9800, 1580, 35000)"
-          disabled>
-          Activate Supreme
-        </button>
-      </div>
-
+      <button onclick="activatePlan('Titan', this)">Activate Titan</button>
     </div>
 
-    <div id="message" class="message"></div>
-
-    <a class="back-btn" href="dashboard.html">
-      ← Back to Dashboard
-    </a>
+    <div class="plan">
+      <h3>Supreme</h3>
+      <div class="price">₦14,500</div>
+      <div class="details">
+        Referral bonus: ₦9,800<br>
+        Daily earnings: ₦1,580<br>
+        Minimum withdrawal: ₦35,000
+      </div>
+      <button onclick="activatePlan('Supreme', this)">Activate Supreme</button>
+    </div>
 
   </div>
 
+  <div id="message" class="message"></div>
 
-  <script>
+  <a class="back" href="dashboard.html">← Back to Dashboard</a>
 
-    // ==============================
-    // FIREBASE CONFIG
-    // ==============================
+</div>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
-      authDomain: "earnsave-e7a88.firebaseapp.com",
-      projectId: "earnsave-e7a88",
-      storageBucket: "earnsave-e7a88.firebasestorage.app",
-      messagingSenderId: "280629896863",
-      appId: "1:280629896863:web:f5f6fe584d51c7280be4aa",
-      measurementId: "G-3C742ZNKHB"
-    };
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
+    authDomain: "earnsave-e7a88.firebaseapp.com",
+    projectId: "earnsave-e7a88",
+    storageBucket: "earnsave-e7a88.firebasestorage.app",
+    messagingSenderId: "2806298963",
+    appId: "1:2806298963:web:f5f6fe584d51c7280be4aa",
+    measurementId: "G-3C742ZNKHB"
+  };
 
-    firebase.initializeApp(firebaseConfig);
+  firebase.initializeApp(firebaseConfig);
 
-    const auth = firebase.auth();
-    const db = firebase.firestore();
+  const auth = firebase.auth();
 
-    const messageBox =
-      document.getElementById("message");
+  const BACKEND_URL =
+    "https://earnsave-payment-verifier.onrender.com";
 
-    const loginStatus =
-      document.getElementById("loginStatus");
+  function showMessage(message, type) {
+    const box = document.getElementById("message");
+    box.textContent = message;
+    box.className = "message " + type;
+  }
 
-    let currentUser = null;
-    let authReady = false;
+  async function activatePlan(planName, button) {
+    const user = auth.currentUser;
 
+    if (!user) {
+      showMessage("Please log in before activating a plan.", "error");
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 1800);
+      return;
+    }
 
-    // ==============================
-    // KEEP USER LOGGED IN
-    // ==============================
+    const confirmed = confirm(
+      "Do you want to activate the " + planName + " demo plan?"
+    );
 
-    auth.setPersistence(
-      firebase.auth.Auth.Persistence.LOCAL
-    ).catch(function(error) {
+    if (!confirmed) return;
 
-      console.error(
-        "Auth persistence error:",
-        error
+    const originalText = button.textContent;
+
+    button.disabled = true;
+    button.textContent = "Activating...";
+
+    try {
+      const idToken = await user.getIdToken();
+
+      const response = await fetch(
+        BACKEND_URL + "/test-activate",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + idToken
+          },
+          body: JSON.stringify({
+            planName: planName
+          })
+        }
       );
 
-    });
+      const result = await response.json();
 
+      if (!response.ok || !result.success) {
+        throw new Error(
+          result.message || "Activation failed."
+        );
+      }
 
-    // ==============================
-    // MESSAGE
-    // ==============================
-
-    function showMessage(text, type) {
-
-      messageBox.textContent = text;
-
-      messageBox.className =
-        "message " + type;
-
-    }
-
-
-    // ==============================
-    // ENABLE / DISABLE BUTTONS
-    // ==============================
-
-    function setButtons(enabled) {
-
-      const buttons =
-        document.querySelectorAll(".activate-btn");
-
-      buttons.forEach(function(button) {
-
-        button.disabled = !enabled;
-
-      });
-
-    }
-
-
-    // ==============================
-    // FIREBASE LOGIN CHECK
-    // ==============================
-
-    auth.onAuthStateChanged(function(user) {
-
-      authReady = true;
-
-      currentUser = user;
-
-      if (user) {
-
-        loginStatus.innerHTML =
-          "✅ Logged in as <strong>" +
-          user.email +
-          "</strong>";
-
-        loginStatus.style.color =
-          "#155724";
-
-        setButtons(true);
-
+      if (result.referralCounted) {
         showMessage(
-          "You are ready to activate a plan.",
+          "Demo activation successful! Your referrer has been credited with a test-pending referral record. No real money was credited.",
           "success"
         );
-
       } else {
-
-        loginStatus.innerHTML =
-          "❌ You are not logged in.";
-
-        loginStatus.style.color =
-          "#721c24";
-
-        setButtons(false);
-
         showMessage(
-          "Please login first, then return to this page.",
-          "error"
+          "Demo activation successful! Your plan is now active in test mode.",
+          "success"
         );
-
       }
 
-    });
+      button.textContent = "Activated";
 
+      setTimeout(() => {
+        window.location.href = "dashboard.html";
+      }, 2500);
 
-    // ==============================
-    // ACTIVATE PLAN
-    // ==============================
-
-    async function activatePlan(
-      planName,
-      activationFee,
-      referralBonus,
-      dailyEarnings,
-      minimumWithdrawal
-    ) {
-
-      // Make sure Firebase finished checking
-      // the login session.
-
-      if (!authReady) {
-
-        showMessage(
-          "Please wait while we check your login.",
-          "info"
-        );
-
-        return;
-      }
-
-
-      // Use the user detected by Firebase.
-
-      const user = currentUser;
-
-
-      if (!user) {
-
-        showMessage(
-          "You are not logged in. Please login first.",
-          "error"
-        );
-
-        setTimeout(function() {
-
-          window.location.href =
-            "login.html";
-
-        }, 1500);
-
-        return;
-      }
-
-
-      const buttons =
-        document.querySelectorAll(".activate-btn");
-
-
-      buttons.forEach(function(button) {
-
-        button.disabled = true;
-
-      });
-
+    } catch (error) {
+      console.error("Activation error:", error);
 
       showMessage(
-        "Activating your selected plan...",
-        "info"
+        error.message || "Something went wrong. Please try again.",
+        "error"
       );
 
-
-      try {
-
-        const userRef =
-          db.collection("users").doc(user.uid);
-
-
-        const userSnapshot =
-          await userRef.get();
-
-
-        if (!userSnapshot.exists) {
-
-          throw new Error(
-            "Your user account was not found in Firebase."
-          );
-
-        }
-
-
-        const userData =
-          userSnapshot.data();
-
-
-        // ==========================
-        // CHECK EXISTING ACTIVATION
-        // ==========================
-
-        if (
-          userData.activationStatus === "active" ||
-          userData.activationStatus === "demo"
-        ) {
-
-          showMessage(
-            "You already have an activated plan.",
-            "error"
-          );
-
-          buttons.forEach(function(button) {
-
-            button.disabled = false;
-
-          });
-
-          return;
-
-        }
-
-
-        // ==========================
-        // SAVE ACTIVATION
-        // ==========================
-
-        const activationData = {
-
-          activationStatus: "demo",
-
-          planName: planName,
-
-          activationFee: activationFee,
-
-          referralBonus: referralBonus,
-
-          dailyEarnings: dailyEarnings,
-
-          minimumWithdrawal:
-            minimumWithdrawal,
-
-          paymentMode: "demo",
-
-          paymentStatus:
-            "demo_success",
-
-          activatedAt:
-            firebase.firestore.FieldValue
-              .serverTimestamp()
-
-        };
-
-
-        await userRef.update(
-          activationData
-        );
-
-
-        // ==========================
-        // CREATE REFERRAL BONUS
-        // ==========================
-
-        if (
-          userData.referredByUid &&
-          userData.referralBonusPaid !== true
-        ) {
-
-          const bonusRef =
-            db.collection(
-              "referralBonuses"
-            ).doc();
-
-
-          await bonusRef.set({
-
-            referrerUid:
-              userData.referredByUid,
-
-            referredUserId:
-              user.uid,
-
-            referredUserEmail:
-              user.email,
-
-            planName:
-              planName,
-
-            amount:
-              referralBonus,
-
-            status:
-              "pending",
-
-            createdAt:
-              firebase.firestore.FieldValue
-                .serverTimestamp()
-
-          });
-
-        }
-
-
-        // ==========================
-        // SUCCESS
-        // ==========================
-
-        showMessage(
-
-          "Success! Your " +
-          planName +
-          " plan has been activated in demo mode.",
-
-          "success"
-
-        );
-
-
-        setTimeout(function() {
-
-          window.location.href =
-            "dashboard.html";
-
-        }, 2200);
-
-
-      } catch (error) {
-
-        console.error(
-          "Activation error:",
-          error
-        );
-
-
-        showMessage(
-
-          "Activation failed: " +
-          error.message,
-
-          "error"
-
-        );
-
-
-        buttons.forEach(function(button) {
-
-          button.disabled = false;
-
-        });
-
-      }
-
+      button.disabled = false;
+      button.textContent = originalText;
     }
+  }
 
-  </script>
+  auth.onAuthStateChanged((user) => {
+    if (!user) {
+      showMessage(
+        "Please log in to activate a plan.",
+        "error"
+      );
+    }
+  });
+</script>
 
 </body>
 </html>
