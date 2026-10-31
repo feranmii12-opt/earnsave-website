@@ -1,599 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-  <title>EarnSave - Referrals</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      padding: 20px;
-      font-family: Arial, sans-serif;
-      background: #f4f7fb;
-      color: #222;
-    }
-
-    .container {
-      max-width: 500px;
-      margin: auto;
-    }
-
-    .header {
-      background: #0d6efd;
-      color: white;
-      padding: 22px;
-      border-radius: 15px;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .header h1 {
-      margin: 0 0 8px;
-      font-size: 26px;
-    }
-
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 15px;
-      margin-bottom: 18px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    }
-
-    .card h2 {
-      margin-top: 0;
-      color: #0d6efd;
-      font-size: 20px;
-    }
-
-    .referral-code {
-      background: #eef4ff;
-      border: 2px dashed #0d6efd;
-      padding: 15px;
-      text-align: center;
-      border-radius: 10px;
-      font-size: 24px;
-      font-weight: bold;
-      color: #0d6efd;
-      margin: 15px 0;
-      word-break: break-word;
-    }
-
-    .referral-link {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
-
-    button {
-      width: 100%;
-      border: none;
-      padding: 13px;
-      border-radius: 8px;
-      background: #0d6efd;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 8px;
-    }
-
-    button:hover {
-      background: #084db8;
-    }
-
-    .back-button {
-      background: #555;
-    }
-
-    .back-button:hover {
-      background: #333;
-    }
-
-    .stat {
-      text-align: center;
-      background: #f0fff4;
-      border: 1px solid #b7ebc6;
-      border-radius: 12px;
-      padding: 20px;
-    }
-
-    .stat-number {
-      font-size: 38px;
-      font-weight: bold;
-      color: #198754;
-    }
-
-    .stat-label {
-      font-size: 16px;
-      color: #555;
-      margin-top: 5px;
-    }
-
-    .message {
-      text-align: center;
-      margin: 15px 0;
-      font-weight: bold;
-    }
-
-    .success {
-      color: green;
-    }
-
-    .error {
-      color: red;
-    }
-
-    .loading {
-      color: #0d6efd;
-    }
-
-    .info {
-      line-height: 1.6;
-      color: #555;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EarnSave - Referrals</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:20px;font-family:Arial,sans-serif;background:#f4f7fb;color:#222}
+.container{max-width:500px;margin:auto}
+.header{background:linear-gradient(135deg,#0d6efd,#7545e8);color:white;padding:22px;border-radius:15px;text-align:center;margin-bottom:20px}
+.header h1{margin:0 0 8px}
+.card{background:white;padding:20px;border-radius:15px;margin-bottom:18px;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.card h2{margin-top:0;color:#0d6efd;font-size:20px}
+.referral-code{background:#eef4ff;border:2px dashed #0d6efd;padding:15px;text-align:center;border-radius:10px;font-size:24px;font-weight:bold;color:#0d6efd;margin:15px 0;word-break:break-word}
+.referral-link{width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;font-size:14px;margin-bottom:10px}
+button{width:100%;border:0;padding:13px;border-radius:8px;background:#0d6efd;color:white;font-size:16px;font-weight:bold;cursor:pointer;margin-top:8px}
+.back-button{background:#555}
+.stat{text-align:center;background:#f0fff4;border:1px solid #b7ebc6;border-radius:12px;padding:20px}
+.stat-number{font-size:38px;font-weight:bold;color:#198754}
+.stat-label{font-size:16px;color:#555;margin-top:5px}
+.message{text-align:center;margin:15px 0;font-weight:bold;line-height:1.6}
+.success{color:green}
+.error{color:red}
+.loading{color:#0d6efd}
+.info{line-height:1.6;color:#555}
+</style>
 </head>
-
 <body>
-
-  <div class="container">
-
-    <div class="header">
-      <h1>EarnSave Referrals</h1>
-      <p>Invite friends and earn rewards</p>
-    </div>
-
-    <div id="message" class="message loading">
-      Checking login...
-    </div>
-
-    <div class="card">
-
-      <h2>Your Referral Code</h2>
-
-      <div id="referralCode"
-           class="referral-code">
-        Loading...
-      </div>
-
-      <button id="copyCodeButton">
-        Copy Referral Code
-      </button>
-
-    </div>
-
-    <div class="card">
-
-      <h2>Your Referral Link</h2>
-
-      <input
-        type="text"
-        id="referralLink"
-        class="referral-link"
-        readonly
-        value="Loading..."
-      >
-
-      <button id="copyLinkButton">
-        Copy Referral Link
-      </button>
-
-      <p class="info">
-        Share this link with your friends. When they register
-        through your link, they will be counted as your referrals.
-      </p>
-
-    </div>
-
-    <div class="card">
-
-      <h2>Referral Statistics</h2>
-
-      <div class="stat">
-
-        <div id="referralCount"
-             class="stat-number">
-          0
-        </div>
-
-        <div class="stat-label">
-          Total Referrals
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="card">
-
-      <h2>How It Works</h2>
-
-      <p class="info">
-        1. Copy your referral link.<br>
-        2. Send it to your friends.<br>
-        3. Your friends register through your link.<br>
-        4. Their registration will appear in your referral count.
-      </p>
-
-    </div>
-
-    <button
-      class="back-button"
-      onclick="window.location.href='dashboard.html'">
-      Back to Dashboard
-    </button>
-
-  </div>
-
-
-  <!-- Firebase Compat Libraries -->
-
-  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
-
-  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
-
-  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
-
-
-  <script>
-
-    // =====================================
-    // FIREBASE CONFIGURATION
-    // =====================================
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
-      authDomain: "earnsave-e7a88.firebaseapp.com",
-      projectId: "earnsave-e7a88",
-      storageBucket: "earnsave-e7a88.firebasestorage.app",
-      messagingSenderId: "280629896863",
-      appId: "1:280629896863:web:f5f6fe584d51c7280be4aa",
-      measurementId: "G-3C742ZNKHB"
-    };
-
-
-    // Initialize Firebase
-
-    firebase.initializeApp(firebaseConfig);
-
-    const auth = firebase.auth();
-
-    const db = firebase.firestore();
-
-
-    // =====================================
-    // PAGE ELEMENTS
-    // =====================================
-
-    const messageBox =
-      document.getElementById("message");
-
-    const referralCodeBox =
-      document.getElementById("referralCode");
-
-    const referralLinkBox =
-      document.getElementById("referralLink");
-
-    const referralCountBox =
-      document.getElementById("referralCount");
-
-    const copyCodeButton =
-      document.getElementById("copyCodeButton");
-
-    const copyLinkButton =
-      document.getElementById("copyLinkButton");
-
-
-    let currentReferralCode = "";
-
-    let currentReferralLink = "";
-
-
-    // =====================================
-    // SHOW MESSAGE
-    // =====================================
-
-    function showMessage(text, type) {
-
-      messageBox.textContent = text;
-
-      messageBox.className = "message " + type;
-
-    }
-
-
-    // =====================================
-    // CREATE REFERRAL CODE
-    // =====================================
-
-    function createReferralCode(uid) {
-
-      return "ES" + uid.substring(0, 8).toUpperCase();
-
-    }
-
-
-    // =====================================
-    // LOAD REFERRAL INFORMATION
-    // =====================================
-
-    async function loadReferralInformation(user) {
-
-      try {
-
-        showMessage(
-          "Loading referral information...",
-          "loading"
-        );
-
-
-        const userRef =
-          db.collection("users").doc(user.uid);
-
-
-        const userSnapshot =
-          await userRef.get();
-
-
-        if (!userSnapshot.exists) {
-
-          showMessage(
-            "User account record was not found.",
-            "error"
-          );
-
-          return;
-
-        }
-
-
-        const userData =
-          userSnapshot.data();
-
-
-        // Use saved referral code if available
-
-        let referralCode =
-          userData.referralCode;
-
-
-        // Create one if it does not exist
-
-        if (!referralCode) {
-
-          referralCode =
-            createReferralCode(user.uid);
-
-
-          await userRef.set({
-
-            referralCode: referralCode
-
-          }, {
-
-            merge: true
-
-          });
-
-        }
-
-
-        currentReferralCode =
-          referralCode;
-
-
-        // =====================================
-        // CREATE REFERRAL LINK
-        // =====================================
-
-        const currentPage =
-          window.location.pathname;
-
-
-        const folder =
-          currentPage.substring(
-            0,
-            currentPage.lastIndexOf("/") + 1
-          );
-
-
-        const referralLink =
-          window.location.origin +
-          folder +
-          "register.html" +
-          "?ref=" +
-          encodeURIComponent(referralCode) +
-          "&refuid=" +
-          encodeURIComponent(user.uid);
-
-
-        currentReferralLink =
-          referralLink;
-
-
-        // Display code and link
-
-        referralCodeBox.textContent =
-          referralCode;
-
-
-        referralLinkBox.value =
-          referralLink;
-
-
-        // =====================================
-        // COUNT REFERRALS
-        // =====================================
-
-        /*
-          Registration saves this field:
-
-          referredBy: referralCode
-
-          Therefore, we count users whose
-          referredBy matches this user's code.
-        */
-
-        const referralSnapshot =
-          await db
-            .collection("users")
-            .where(
-              "referredBy",
-              "==",
-              referralCode
-            )
-            .get();
-
-
-        const totalReferrals =
-          referralSnapshot.size;
-
-
-        referralCountBox.textContent =
-          totalReferrals;
-
-
-        showMessage(
-          "Referral information loaded successfully.",
-          "success"
-        );
-
-
-      } catch (error) {
-
-        console.error(
-          "Referral page error:",
-          error
-        );
-
-
-        showMessage(
-          "Error loading referrals: " +
-          error.message,
-          "error"
-        );
-
-      }
-
-    }
-
-
-    // =====================================
-    // LOGIN CHECK
-    // =====================================
-
-    auth.onAuthStateChanged(function(user) {
-
-      if (user) {
-
-        loadReferralInformation(user);
-
-      } else {
-
-        showMessage(
-          "Please login first.",
-          "error"
-        );
-
-
-        setTimeout(function() {
-
-          window.location.href =
-            "login.html";
-
-        }, 2000);
-
-      }
-
-    });
-
-
-    // =====================================
-    // COPY REFERRAL CODE
-    // =====================================
-
-    copyCodeButton.addEventListener(
-      "click",
-      function() {
-
-        if (!currentReferralCode) {
-
-          alert("Referral code is not ready yet.");
-
-          return;
-
-        }
-
-
-        navigator.clipboard.writeText(
-          currentReferralCode
-        ).then(function() {
-
-          alert("Referral code copied!");
-
-        }).catch(function() {
-
-          referralCodeBox.select();
-
-          alert(
-            "Please copy the referral code manually."
-          );
-
-        });
-
-      }
-    );
-
-
-    // =====================================
-    // COPY REFERRAL LINK
-    // =====================================
-
-    copyLinkButton.addEventListener(
-      "click",
-      function() {
-
-        if (!currentReferralLink) {
-
-          alert("Referral link is not ready yet.");
-
-          return;
-
-        }
-
-
-        navigator.clipboard.writeText(
-          currentReferralLink
-        ).then(function() {
-
-          alert("Referral link copied!");
-
-        }).catch(function() {
-
-          referralLinkBox.select();
-
-          alert(
-            "Please copy the referral link manually."
-          );
-
-        });
-
-      }
-    );
-
-  </script>
-
+<div class="container">
+
+<div class="header">
+<h1>EarnSave Referrals</h1>
+<p>Invite friends and earn rewards</p>
+</div>
+
+<div id="message" class="message loading">Checking login...</div>
+
+<div class="card">
+<h2>Your Referral Code</h2>
+<div id="referralCode" class="referral-code">Loading...</div>
+<button id="copyCodeButton">Copy Referral Code</button>
+</div>
+
+<div class="card">
+<h2>Your Referral Link</h2>
+<input type="text" id="referralLink" class="referral-link" readonly value="Loading...">
+<button id="copyLinkButton">Copy Referral Link</button>
+<p class="info">Share this link with friends. When they register through your link, their registration can be counted as your referral.</p>
+</div>
+
+<div class="card">
+<h2>Referral Statistics</h2>
+<div class="stat">
+<div id="referralCount" class="stat-number">0</div>
+<div class="stat-label">Total Referrals</div>
+</div>
+</div>
+
+<div class="card">
+<h2>How It Works</h2>
+<p class="info">
+1. Copy your referral link.<br>
+2. Send it to your friends.<br>
+3. Your friends register through your link.<br>
+4. Eligible referrals will appear in your statistics.
+</p>
+</div>
+
+<button class="back-button" onclick="location.href='dashboard.html'">Back to Dashboard</button>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
+authDomain: "earnsave-e7a88.firebaseapp.com",
+projectId: "earnsave-e7a88",
+storageBucket: "earnsave-e7a88.firebasestorage.app",
+messagingSenderId: "2806298963",
+appId: "1:2806298963:web:f5f6fe584d51c7280be4aa",
+measurementId: "G-3C742ZNKHB"
+};
+
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+const messageBox = document.getElementById("message");
+const codeBox = document.getElementById("referralCode");
+const linkBox = document.getElementById("referralLink");
+const countBox = document.getElementById("referralCount");
+
+let referralCode = "";
+let referralLink = "";
+
+function showMessage(text,type){
+messageBox.textContent=text;
+messageBox.className="message "+type;
+}
+
+async function loadReferrals(user){
+try{
+showMessage("Loading referral information...","loading");
+
+const userDoc = await db.collection("users").doc(user.uid).get();
+
+if(!userDoc.exists){
+showMessage("Your user profile was not found.","error");
+return;
+}
+
+const data=userDoc.data();
+
+referralCode=data.referralCode || ("ES"+user.uid.substring(0,8).toUpperCase());
+
+codeBox.textContent=referralCode;
+
+referralLink=window.location.origin+
+window.location.pathname.substring(0,window.location.pathname.lastIndexOf("/")+1)+
+"register.html?ref="+encodeURIComponent(referralCode)+
+"&refuid="+encodeURIComponent(user.uid);
+
+linkBox.value=referralLink;
+
+const statsDoc=await db.collection("referralStats").doc(user.uid).get();
+
+if(statsDoc.exists){
+const stats=statsDoc.data();
+const total=stats.totalReferrals;
+
+if(typeof total==="number" && Number.isFinite(total) && total>=0){
+countBox.textContent=total;
+}else{
+countBox.textContent="0";
+}
+showMessage("Referral information loaded successfully.","success");
+}else{
+countBox.textContent="0";
+showMessage("Your referral link is ready. Referral statistics will appear after the secure referral counter is connected.","loading");
+}
+
+}catch(error){
+console.error("Referral error:",error);
+showMessage("Error loading referrals: "+error.message,"error");
+}
+}
+
+auth.onAuthStateChanged(user=>{
+if(user){
+loadReferrals(user);
+}else{
+showMessage("Please login first.","error");
+setTimeout(()=>location.href="login.html",2000);
+}
+});
+
+async function copyText(text){
+try{
+if(navigator.clipboard && window.isSecureContext){
+await navigator.clipboard.writeText(text);
+}else{
+const input=document.createElement("textarea");
+input.value=text;
+document.body.appendChild(input);
+input.select();
+document.execCommand("copy");
+input.remove();
+}
+alert("Copied successfully!");
+}catch(error){
+alert("Copy failed. Please copy it manually.");
+}
+}
+
+document.getElementById("copyCodeButton").addEventListener("click",()=>{
+if(referralCode) copyText(referralCode);
+else alert("Referral code is not ready.");
+});
+
+document.getElementById("copyLinkButton").addEventListener("click",()=>{
+if(referralLink) copyText(referralLink);
+else alert("Referral link is not ready.");
+});
+</script>
 </body>
 </html>
