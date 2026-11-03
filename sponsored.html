@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EarnSave - Sponsored Posts</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f3f6fc;
+  color:#17233d;
+}
+header{
+  background:linear-gradient(135deg,#101b45,#315bea);
+  color:white;
+  padding:23px 18px;
+  border-radius:0 0 22px 22px;
+}
+header h2{margin:0 0 7px}
+header p{margin:0;color:#dce5ff;font-size:14px}
+.container{max-width:650px;margin:20px auto;padding:0 15px}
+.back{
+  display:inline-block;
+  margin-bottom:15px;
+  color:#315bea;
+  text-decoration:none;
+  font-weight:bold;
+}
+.plan{
+  background:white;
+  border-radius:14px;
+  padding:16px;
+  margin-bottom:18px;
+  box-shadow:0 3px 12px #15264b0c;
+}
+.plan span{color:#315bea;font-weight:bold}
+.post{
+  background:white;
+  border-radius:17px;
+  overflow:hidden;
+  margin-bottom:20px;
+  box-shadow:0 4px 15px #15264b12;
+}
+.post img{
+  width:100%;
+  max-height:350px;
+  object-fit:contain;
+  background:#e9eef9;
+  display:block;
+}
+.post-content{padding:17px}
+.post h3{margin:0 0 10px}
+.message{
+  background:#f3f6fc;
+  padding:13px;
+  border-radius:10px;
+  line-height:1.6;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+}
+.reward{
+  background:#eaf8ef;
+  color:#13733b;
+  padding:12px;
+  border-radius:10px;
+  margin:13px 0;
+  font-weight:bold;
+}
+button{
+  border:0;
+  border-radius:10px;
+  padding:13px;
+  width:100%;
+  margin-top:9px;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.copy{background:#315bea;color:white}
+.download{background:#14234a;color:white}
+button:disabled{opacity:.6}
+.status{
+  text-align:center;
+  padding:25px 12px;
+  background:white;
+  border-radius:13px;
+  margin:15px 0;
+  color:#65718a;
+}
+.note{
+  font-size:12px;
+  color:#78839a;
+  line-height:1.5;
+  margin-top:12px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>EarnSave Sponsored Posts</h2>
+  <p>Discover sponsor posts and view your plan rewards.</p>
+</header>
+
+<div class="container">
+
+<a class="back" href="dashboard.html">← Back to Dashboard</a>
+
+<div class="plan">
+  <div>Your Activation Plan</div>
+  <p id="planName">Checking your plan...</p>
+  <div>Sponsored post reward:
+    <span id="planReward">Loading...</span>
+  </div>
+</div>
+
+<div id="posts">
+  <div class="status">Connecting to EarnSave...</div>
+</div>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
+  authDomain: "earnsave-e7a88.firebaseapp.com",
+  projectId: "earnsave-e7a88",
+  storageBucket: "earnsave-e7a88.firebasestorage.app",
+  messagingSenderId: "2806298963",
+  appId: "1:2806298963:web:f5f6fe584d51c7280be4aa",
+  measurementId: "G-3C742ZNKHB"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+const rewardTable = {
+  spark: 40,
+  base: 80,
+  voltage: 85,
+  titan: 170,
+  supreme: 580
+};
+
+let currentPlan = "";
+
+function getReward(post) {
+  const rewards = post.rewards || {};
+  const plan = currentPlan.toLowerCase();
+
+  const keys = [
+    currentPlan,
+    currentPlan.toUpperCase(),
+    currentPlan.toLowerCase(),
+    plan.charAt(0).toUpperCase() + plan.slice(1)
+  ];
+
+  for (const key of keys) {
+    if (rewards[key] !== undefined) {
+      return Number(rewards[key]) || 0;
+    }
+  }
+
+  const fieldNames = [
+    plan + "Reward",
+    plan + "Rewards",
+    plan + "Amount"
+  ];
+
+  for (const field of fieldNames) {
+    if (post[field] !== undefined) {
+      return Number(post[field]) || 0;
+    }
+  }
+
+  return rewardTable[plan] || 0;
+}
+
+function safeText(value) {
+  return String(value || "");
+}
+
+function showError(message) {
+  document.getElementById("posts").innerHTML =
+    '<div class="status">' + message + '</div>';
+}
+
+function renderPosts(snapshot) {
+  const container = document.getElementById("posts");
+
+  if (snapshot.empty) {
+    showError("No active sponsored posts available right now.");
+    return;
+  }
+
+  container.innerHTML = "";
+
+  snapshot.forEach(doc => {
+    const post = doc.data();
+    const title = safeText(post.title || "Sponsored Post");
+    const image = safeText(post.imageUrl || post.image || post.pictureUrl);
+    const message = safeText(post.copyText || post.text || post.description);
+    const reward = getReward(post);
+
+    const card = document.createElement("div");
+    card.className = "post";
+
+    if (image) {
+      const img = document.createElement("img");
+      img.src = image;
+      img.alt = title;
+      img.loading = "lazy";
+      card.appendChild(img);
+    }
+
+    const content = document.createElement("div");
+    content.className = "post-content";
+
+    const heading = document.createElement("h3");
+    heading.textContent = title;
+
+    const messageBox = document.createElement("div");
+    messageBox.className = "message";
+    messageBox.textContent = message || "No sponsor message available.";
+
+    const rewardBox = document.createElement("div");
+    rewardBox.className = "reward";
+    rewardBox.textContent =
+      "Your plan reward: ₦" + reward.toLocaleString("en-NG");
+
+    const copyButton = document.createElement("button");
+    copyButton.className = "copy";
+    copyButton.textContent = "Copy Sponsor Text";
+
+    copyButton.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(message);
+        copyButton.textContent = "Copied!";
+      } catch (error) {
+        const input = document.createElement("textarea");
+        input.value = message;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand("copy");
+        input.remove();
+        copyButton.textContent = "Copied!";
+      }
+
+      setTimeout(() => {
+        copyButton.textContent = "Copy Sponsor Text";
+      }, 2000);
+    });
+
+    const downloadButton = document.createElement("button");
+    downloadButton.className = "download";
+    downloadButton.textContent = "Download Sponsor Picture";
+
+    downloadButton.addEventListener("click", async () => {
+      if (!image) {
+        alert("This post has no picture.");
+        return;
+      }
+
+      downloadButton.disabled = true;
+      downloadButton.textContent = "Preparing picture...";
+
+      try {
+        const response = await fetch(image);
+        if (!response.ok) throw new Error("Download failed");
+
+        const blob = await response.blob();
+        const objectUrl = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+        link.href = objectUrl;
+        link.download = "EarnSave-Sponsored-Post.jpg";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+
+        setTimeout(() => URL.revokeObjectURL(objectUrl), 3000);
+      } catch (error) {
+        window.open(image, "_blank");
+        alert("If the picture opens, use your browser menu to download it.");
+      }
+
+      downloadButton.disabled = false;
+      downloadButton.textContent = "Download Sponsor Picture";
+    });
+
+    const note = document.createElement("div");
+    note.className = "note";
+    note.textContent =
+      "Copying and downloading are not proof of sharing and do not automatically credit your wallet.";
+
+    content.appendChild(heading);
+    content.appendChild(messageBox);
+    content.appendChild(rewardBox);
+    content.appendChild(copyButton);
+    content.appendChild(downloadButton);
+    content.appendChild(note);
+
+    card.appendChild(content);
+    container.appendChild(card);
+  });
+}
+
+auth.onAuthStateChanged(async user => {
+  if (!user) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  try {
+    const userDoc = await db.collection("users").doc(user.uid).get();
+
+    if (!userDoc.exists) {
+      showError("Your EarnSave account could not be found.");
+      return;
+    }
+
+    const userData = userDoc.data();
+
+    currentPlan = safeText(userData.selectedPlan).trim();
+
+    document.getElementById("planName").textContent =
+      currentPlan || "No activation plan";
+
+    const planReward = rewardTable[currentPlan.toLowerCase()] || 0;
+
+    document.getElementById("planReward").textContent =
+      currentPlan
+        ? "₦" + planReward.toLocaleString("en-NG")
+        : "Not available";
+
+    if (!currentPlan ||
+        userData.activationStatus !== "active") {
+      showError("Please activate an EarnSave plan to view plan rewards.");
+      return;
+    }
+
+    const snapshot = await db.collection("sponsoredPosts")
+      .where("status", "==", "active")
+      .get();
+
+    renderPosts(snapshot);
+
+  } catch (error) {
+    console.error(error);
+    showError("Could not load sponsored posts. Please refresh and try again.");
+  }
+});
+</script>
+
+</body>
+</html>
