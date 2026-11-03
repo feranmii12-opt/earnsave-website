@@ -2,443 +2,353 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Withdraw | EarnSave</title><style>
+<title>Withdraw | EarnSave</title>
+<style>
 :root {
-    --bg:#080f24;
-    --card:#111c35;
-    --card2:#0c162d;
-    --blue:#3984ff;
-    --cyan:#38bdf8;
-    --purple:#8758ff;
-    --gold:#fbbf24;
-    --text:#f4f7ff;
-    --muted:#94a3bd;
-    --border:rgba(255,255,255,.09);
+ --blue:#0875f9;
+ --blue2:#0755d9;
+ --navy:#07143d;
+ --text:#171d2b;
+ --muted:#7b8495;
+ --border:#e4e9f1;
+ --bg:#f6f8fc;
+ --green:#159b72;
 }
 *{box-sizing:border-box}
 body{
-    margin:0;
-    min-height:100vh;
-    font-family:Arial,sans-serif;
-    color:var(--text);
-    background:
-    radial-gradient(ellipse at top left,#17265a 0%,transparent 42%),
-    radial-gradient(ellipse at bottom right,#29134d 0%,transparent 38%),
-    var(--bg);
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:var(--bg);
+ color:var(--text);
+ padding-bottom:95px;
 }
 header{
-    padding:18px 5%;
-    background:rgba(8,15,36,.88);
-    border-bottom:1px solid var(--border);
+ max-width:760px;
+ margin:auto;
+ padding:22px 24px 10px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
 }
-.header-inner{
-    max-width:1100px;
-    margin:auto;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
+.greeting{display:flex;align-items:center;gap:13px}
+.avatar{
+ width:54px;height:54px;border-radius:50%;
+ background:linear-gradient(135deg,#0875f9,#00b8e8);
+ display:grid;place-items:center;color:white;
+ font-weight:900;font-size:19px;
 }
-.logo{font-size:25px;font-weight:900}
-.logo span{color:#55a0ff}
-.header-actions{display:flex;gap:9px}
-.small-btn{
-    padding:10px 13px;
-    border:1px solid var(--border);
-    border-radius:10px;
-    background:#111c35;
-    color:white;
-    font-weight:bold;
-    text-decoration:none;
-    cursor:pointer;
+.greeting small{color:var(--muted);font-size:14px}
+.greeting strong{display:block;font-size:20px;margin-top:3px}
+.header-actions{display:flex;gap:10px}
+.icon-btn{
+ width:47px;height:47px;border:1px solid var(--border);
+ border-radius:15px;background:white;font-size:20px;
+ cursor:pointer;
 }
-.page{max-width:900px;margin:auto;padding:26px 16px 55px}
-.back-link{
-    display:inline-block;
-    margin-bottom:22px;
-    color:#80b4ff;
-    text-decoration:none;
-    font-size:13px;
-    font-weight:bold;
+.page{max-width:760px;margin:auto;padding:18px 24px 35px}
+.heading{
+ display:flex;justify-content:space-between;
+ align-items:center;gap:10px;margin:22px 0 34px;
 }
-.heading{margin-bottom:24px}
-.heading h1{font-size:29px;margin:0 0 9px}
-.heading p{color:var(--muted);font-size:14px;line-height:1.7;margin:0}
-.section-label{
-    color:#8ca9d6;
-    font-size:11px;
-    font-weight:bold;
-    letter-spacing:1.5px;
-    margin:26px 0 13px;
+.heading h1{font-size:30px;margin:0 0 7px}
+.heading p{color:var(--muted);margin:0;font-size:14px}
+.secure{
+ background:#e5f8f0;color:var(--green);
+ border-radius:30px;padding:12px 15px;
+ font-size:12px;font-weight:bold;white-space:nowrap;
 }
-.wallet-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:14px;
-    margin-bottom:20px;
-}
+.section-title{font-size:18px;font-weight:800;margin:0 0 18px}
+.wallet-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .wallet{
-    padding:20px;
-    border:1px solid var(--border);
-    border-radius:19px;
-    background:linear-gradient(145deg,#172b50,#101a32);
-    position:relative;
-    overflow:hidden;
+ position:relative;background:white;border:2px solid var(--border);
+ border-radius:24px;padding:21px 17px;min-width:0;
+ cursor:pointer;transition:.2s;
 }
-.wallet:after{
-    content:"";
-    position:absolute;
-    width:120px;height:120px;
-    border-radius:50%;
-    right:-45px;top:-50px;
-    background:rgba(56,189,248,.10);
+.wallet.selected{
+ border-color:var(--blue);
+ background:linear-gradient(145deg,#f0f6ff,#e0ecff);
 }
-.wallet.affiliate:after{background:rgba(139,92,246,.14)}
+.wallet-check{
+ position:absolute;right:16px;top:17px;
+ width:29px;height:29px;border-radius:50%;
+ border:2px solid var(--border);
+ display:grid;place-items:center;color:white;
+ font-size:15px;
+}
+.wallet.selected .wallet-check{
+ background:var(--blue);border-color:var(--blue);
+}
 .wallet-icon{
-    width:39px;height:39px;
-    display:grid;place-items:center;
-    border-radius:12px;
-    background:rgba(56,189,248,.13);
-    font-size:20px;
-    margin-bottom:15px;
+ width:45px;height:45px;border-radius:15px;
+ background:#e8f0ff;color:var(--blue);
+ display:grid;place-items:center;font-size:23px;
+ margin-bottom:24px;
 }
-.affiliate .wallet-icon{background:rgba(139,92,246,.16)}
-.wallet-title{font-size:13px;color:#b8c8e4}
-.wallet-amount{
-    font-size:25px;
-    font-weight:900;
-    margin:9px 0;
-    overflow-wrap:anywhere;
+.wallet.affiliate .wallet-icon{background:#eeeaff;color:#7955e9}
+.wallet-title{font-size:14px;color:#687386;font-weight:bold}
+.wallet-amount{font-size:23px;font-weight:900;margin-top:10px}
+.wallet.selected .wallet-title{color:var(--blue)}
+.amount-panel{
+ margin-top:26px;border-radius:27px;
+ overflow:hidden;color:white;
+ background-color:var(--navy);
+ background-image:
+ linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px),
+ linear-gradient(120deg,#080e32,#063b83);
+ background-size:38px 38px,38px 38px,100% 100%;
+ padding:25px 25px 28px;
 }
-.wallet-min{font-size:11px;color:#91a4c5}
-.wallet-button{
-    margin-top:16px;
-    width:100%;
-    padding:11px;
-    border:1px solid rgba(92,157,255,.3);
-    border-radius:10px;
-    color:#dceaff;
-    background:rgba(57,132,255,.13);
-    font-weight:bold;
-    cursor:pointer;
+.amount-top{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.amount-top strong{font-size:16px}
+.wallet-badge{
+ background:rgba(255,255,255,.12);
+ border:1px solid rgba(255,255,255,.2);
+ border-radius:30px;padding:9px 13px;
+ font-size:12px;white-space:nowrap;
 }
-.affiliate .wallet-button{
-    background:rgba(139,92,246,.13);
-    border-color:rgba(139,92,246,.3);
+.wallet-badge span{color:#2ee6a3;margin-right:5px}
+.amount-input{
+ width:100%;border:0;border-bottom:2px solid rgba(255,255,255,.2);
+ outline:none;background:transparent;color:white;
+ font-size:34px;font-weight:bold;padding:25px 0 18px;
+ border-radius:0;
 }
-.balance-banner{
-    padding:17px 20px;
-    border-radius:16px;
-    background:linear-gradient(110deg,#246bdf,#7043d8);
-    margin-bottom:22px;
+.amount-input::placeholder{color:rgba(255,255,255,.5)}
+.amount-input:focus{box-shadow:none;border-color:#67b5ff}
+.balance-row{
+ display:flex;justify-content:space-between;gap:10px;
+ color:#c7d5ee;font-size:13px;margin:17px 0 22px;
 }
-.balance-banner small{opacity:.85}
-.balance-banner strong{
-    display:block;
-    font-size:24px;
-    margin-top:7px;
+.balance-row strong{color:white}
+.quick-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.quick-buttons button{
+ min-height:51px;border:1px solid rgba(255,255,255,.25);
+ border-radius:13px;background:transparent;
+ color:white;font-size:14px;font-weight:bold;cursor:pointer;
 }
+.quick-buttons button:last-child{background:white;color:#123d85}
+.receive-panel{
+ background:white;padding:25px;
+ border-radius:0 0 23px 23px;
+ border:1px solid var(--border);
+ border-top:0;
+}
+.receive-row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.receive-row strong{font-size:17px}
+.receive-amount{font-size:27px;font-weight:900;color:var(--blue)}
+.bank-link{
+ margin-top:24px;width:100%;padding:18px;
+ border:2px dashed #c9d0dc;border-radius:20px;
+ background:#f8faff;display:flex;align-items:center;
+ gap:17px;text-align:left;cursor:pointer;
+}
+.bank-plus{
+ width:64px;height:64px;flex-shrink:0;
+ border-radius:17px;background:linear-gradient(135deg,#0875f9,#00b9ed);
+ color:white;display:grid;place-items:center;font-size:38px;
+}
+.bank-link strong{font-size:16px;display:block;margin-bottom:7px}
+.bank-link small{font-size:13px;color:var(--muted);line-height:1.5}
 .panel{
-    padding:23px;
-    margin-bottom:21px;
-    border:1px solid var(--border);
-    border-radius:19px;
-    background:rgba(17,28,53,.94);
-    box-shadow:0 15px 45px rgba(0,0,0,.15);
+ margin-top:24px;background:white;padding:22px;
+ border:1px solid var(--border);border-radius:22px;
 }
-.panel h2{font-size:20px;margin:0 0 8px}
-.panel-subtitle{
-    color:var(--muted);
-    font-size:13px;
-    line-height:1.6;
-    margin:0 0 21px;
-}
+.panel h2{font-size:19px;margin:0 0 8px}
+.panel-subtitle{font-size:13px;color:var(--muted);line-height:1.6;margin:0 0 20px}
 .notice{
-    padding:14px;
-    margin-bottom:20px;
-    border-radius:12px;
-    background:rgba(57,132,255,.09);
-    border:1px solid rgba(57,132,255,.22);
-    color:#c4dcff;
-    font-size:12px;
-    line-height:1.7;
+ padding:13px;border-radius:13px;background:#edf5ff;
+ color:#315d9b;font-size:12px;line-height:1.7;margin-bottom:19px;
 }
-.form-group{margin-bottom:18px}
-label{
-    display:block;
-    margin-bottom:9px;
-    font-size:13px;
-    font-weight:bold;
-    color:#dce5ff;
-}
+.form-group{margin-bottom:17px}
+label{display:block;font-size:13px;font-weight:bold;margin-bottom:8px}
 input,select{
-    width:100%;
-    min-height:48px;
-    padding:14px;
-    border:1px solid #27334e;
-    border-radius:11px;
-    outline:none;
-    background:#0b1225;
-    color:white;
-    font-size:15px;
+ width:100%;min-height:49px;padding:13px;
+ border:1px solid var(--border);border-radius:12px;
+ background:#fff;color:#172033;font-size:15px;outline:none;
 }
-input:focus,select:focus{
-    border-color:var(--blue);
-    box-shadow:0 0 0 3px rgba(57,132,255,.12);
-}
-input::placeholder{color:#697692}
-select option{background:#111a30}
-.help-text{
-    display:block;
-    margin-top:7px;
-    color:#8491ad;
-    font-size:11px;
-    line-height:1.5;
-}
-.minimum-box{
-    padding:14px;
-    border-radius:12px;
-    background:rgba(56,189,248,.08);
-    border:1px solid rgba(56,189,248,.2);
-    margin-bottom:20px;
-    font-size:13px;
-    line-height:1.7;
-    color:#c8eaff;
-}
+input:focus,select:focus{border-color:var(--blue)}
+.help-text{font-size:11px;color:var(--muted);display:block;margin-top:6px}
 .primary-btn{
-    width:100%;
-    min-height:50px;
-    padding:15px;
-    border:0;
-    border-radius:12px;
-    background:linear-gradient(100deg,var(--blue),var(--purple));
-    color:white;
-    font-size:15px;
-    font-weight:bold;
-    cursor:pointer;
+ width:100%;min-height:53px;border:0;border-radius:14px;
+ background:linear-gradient(100deg,var(--blue),#0756d9);
+ color:white;font-size:15px;font-weight:bold;cursor:pointer;
 }
-.primary-btn:disabled{opacity:.6;cursor:wait}
+.primary-btn:disabled{opacity:.6}
 .message{
-    display:none;
-    margin-top:16px;
-    padding:13px;
-    border-radius:10px;
-    font-size:13px;
-    line-height:1.6;
-    overflow-wrap:anywhere;
+ display:none;margin-top:15px;padding:13px;
+ border-radius:12px;font-size:13px;line-height:1.6;
+ overflow-wrap:anywhere;
 }
-.message.error{
-    display:block;
-    background:rgba(255,70,95,.1);
-    color:#ffb6bf;
-    border:1px solid rgba(255,70,95,.2);
-}
-.message.success{
-    display:block;
-    background:rgba(35,210,130,.1);
-    color:#8ff5c0;
-    border:1px solid rgba(35,210,130,.2);
-}
-.history-toolbar{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    margin-bottom:19px;
-}
-.history-toolbar h2{margin:0}
+.message.error{display:block;background:#fff0f1;color:#bd3345}
+.message.success{display:block;background:#e9fff4;color:#08794e}
+.history-toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center}
 .refresh-btn{
-    padding:9px 12px;
-    border:1px solid var(--border);
-    border-radius:9px;
-    background:#172440;
-    color:#a9cbff;
-    font-size:12px;
-    font-weight:bold;
-    cursor:pointer;
+ border:1px solid var(--border);background:#f5f8ff;
+ color:var(--blue);padding:9px 12px;border-radius:10px;
+ font-weight:bold;cursor:pointer;
 }
 .history-empty,.loading-history{
-    padding:24px 12px;
-    text-align:center;
-    color:var(--muted);
-    background:#0b1225;
-    border-radius:12px;
-    font-size:13px;
-    line-height:1.6;
+ padding:22px;text-align:center;background:#f7f9fc;
+ border-radius:13px;color:var(--muted);font-size:13px;
 }
 .withdrawal-card{
-    padding:16px;
-    margin-bottom:13px;
-    background:#0b1225;
-    border:1px solid var(--border);
-    border-radius:14px;
+ border:1px solid var(--border);border-radius:15px;
+ padding:16px;margin-top:12px;
 }
-.withdrawal-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    margin-bottom:13px;
+.withdrawal-top{display:flex;justify-content:space-between;gap:10px;margin-bottom:12px}
+.withdrawal-amount{font-size:20px;font-weight:900}
+.status{padding:6px 10px;border-radius:20px;font-size:11px;font-weight:bold}
+.status-pending{background:#fff4d8;color:#a46b00}
+.status-approved{background:#e5f0ff;color:#1760b5}
+.status-completed,.status-paid{background:#e1f8ec;color:#13824e}
+.status-rejected{background:#ffe7e9;color:#b52c3b}
+.withdrawal-details{font-size:12px;color:var(--muted);line-height:1.9;overflow-wrap:anywhere}
+.withdrawal-details strong{color:#39445a}
+.security-note{text-align:center;color:var(--muted);font-size:11px;line-height:1.7;margin:25px 0}
+.bottom-nav{
+ position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+ width:min(100%,760px);padding:10px 9px 13px;
+ background:rgba(255,255,255,.97);
+ border:1px solid var(--border);border-radius:23px 23px 0 0;
+ display:flex;justify-content:space-around;gap:4px;
+ box-shadow:0 -5px 25px rgba(15,35,75,.08);
+ z-index:10;
 }
-.withdrawal-amount{font-size:21px;font-weight:bold;overflow-wrap:anywhere}
-.status{
-    padding:6px 10px;
-    border-radius:20px;
-    font-size:11px;
-    font-weight:bold;
-    text-transform:capitalize;
-    white-space:nowrap;
+.bottom-nav a{
+ flex:1;text-align:center;text-decoration:none;
+ color:#929bad;font-size:11px;font-weight:bold;
+ padding:5px 2px;
 }
-.status-pending{background:rgba(245,158,11,.15);color:#fbbf24}
-.status-approved{background:rgba(59,130,246,.15);color:#93c5fd}
-.status-completed{background:rgba(34,197,94,.15);color:#86efac}
-.status-rejected{background:rgba(239,68,68,.15);color:#fca5a5}
-.withdrawal-details{color:var(--muted);font-size:12px;line-height:1.9;overflow-wrap:anywhere}
-.withdrawal-details strong{color:#dce5ff}
-.security-note{
-    margin-top:20px;
-    text-align:center;
-    color:#8491ad;
-    font-size:11px;
-    line-height:1.7;
-}
-footer{padding:20px;text-align:center;color:#697692;font-size:11px}
+.bottom-nav a span{display:block;font-size:22px;margin-bottom:5px}
+.bottom-nav a.active{color:var(--blue)}
 @media(max-width:520px){
-    .wallet-grid{grid-template-columns:1fr}
-    .heading h1{font-size:25px}
-    .panel{padding:19px}
-    .header-actions{gap:6px}
-    .small-btn{padding:9px;font-size:11px}
+ header{padding:17px 24px 8px}
+ .page{padding:13px 24px 30px}
+ .heading{align-items:flex-start}
+ .heading h1{font-size:27px}
+ .secure{font-size:10px;padding:10px}
+ .wallet{padding:17px 13px}
+ .wallet-amount{font-size:19px}
+ .wallet-title{font-size:12px}
+ .amount-panel{padding:22px 19px}
+ .receive-panel{padding:20px}
+ .quick-buttons{gap:6px}
+ .quick-buttons button{font-size:12px;min-height:46px}
 }
-</style></head><body>
-<header>
-    <div class="header-inner">
-        <div class="logo">Earn<span>Save</span></div>
-        <div class="header-actions">
-            <a class="small-btn" href="dashboard.html">Dashboard</a>
-            <button class="small-btn" id="logoutBtn" type="button">Logout</button>
-        </div>
-    </div>
+@media(max-width:360px){
+ .wallet-grid{gap:8px}
+ .wallet{padding:13px 10px}
+ .wallet-amount{font-size:17px}
+ .secure{display:none}
+ .amount-top{align-items:flex-start;flex-direction:column}
+}
+</style>
+</head>
+<body><header>
+ <div class="greeting">
+  <div class="avatar">ES</div>
+  <div><small>Good day</small><strong id="welcomeName">Welcome</strong></div>
+ </div>
+ <div class="header-actions">
+  <button class="icon-btn" type="button" onclick="location.href='dashboard.html'">⌂</button>
+  <button class="icon-btn" type="button" id="logoutBtn">↪</button>
+ </div>
 </header><main class="page">
-    <a href="dashboard.html" class="back-link">← Back to Dashboard</a><div class="heading">
-    <h1>Withdraw Funds 💸</h1>
-    <p>Choose your earning wallet and request a withdrawal securely.</p>
-</div>
-
-<div class="section-label">YOUR EARNING WALLETS</div>
-
-<section class="wallet-grid">
-    <article class="wallet">
-        <div class="wallet-icon">💼</div>
-        <div class="wallet-title">Task Earnings</div>
-        <div class="wallet-amount" id="taskBalance">₦0.00</div>
-        <div class="wallet-min" id="taskMinimum">Plan minimum: Checking...</div>
-        <button class="wallet-button" type="button" data-wallet="task">
-            Withdraw Task Earnings
-        </button>
-    </article>
-
-    <article class="wallet affiliate">
-        <div class="wallet-icon">🤝</div>
-        <div class="wallet-title">Affiliate Earnings</div>
-        <div class="wallet-amount" id="affiliateBalance">₦0.00</div>
-        <div class="wallet-min">Minimum withdrawal: ₦1,000</div>
-        <button class="wallet-button" type="button" data-wallet="affiliate">
-            Withdraw Affiliate Earnings
-        </button>
-    </article>
-</section>
-
-<section class="balance-banner">
-    <small>Total available across both wallets</small>
-    <strong id="totalBalance">₦0.00</strong>
-</section>
-
-<section class="panel">
-    <h2>Withdrawal Request</h2>
-    <p class="panel-subtitle">Select the wallet you want to withdraw from and enter your payment details.</p>
-
-    <div class="notice">
-        <strong>Important:</strong> All requests are subject to admin review. Submitting a request does not mean payment has been made.
-    </div>
-
-    <div id="planNotice" class="notice" style="display:none"></div>
-
-    <form id="withdrawForm">
-        <div class="form-group">
-            <label for="walletType">Select Earning Type</label>
-            <select id="walletType" required>
-                <option value="">Choose earning wallet</option>
-                <option value="task">Task Earnings</option>
-                <option value="affiliate">Affiliate Earnings</option>
-            </select>
-        </div>
-
-        <div class="minimum-box" id="minimumInfo">
-            Select an earning wallet to see its minimum withdrawal.
-        </div>
-
-        <div class="form-group">
-            <label for="amount">Withdrawal Amount (₦)</label>
-            <input type="number" id="amount" min="1" step="1" inputmode="numeric" placeholder="Enter amount" required>
-            <small class="help-text" id="amountHelp">Choose an earning wallet first.</small>
-        </div>
-
-        <div class="form-group">
-            <label for="paymentMethod">Payment Method</label>
-            <select id="paymentMethod" required>
-                <option value="">Choose payment method</option>
-                <option value="Bank">Nigerian Bank</option>
-                <option value="OPay">OPay</option>
-                <option value="Moniepoint">Moniepoint</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="accountName">Account Name</label>
-            <input type="text" id="accountName" maxlength="100" autocomplete="name" placeholder="Account holder's name" required>
-        </div>
-
-        <div class="form-group">
-            <label for="accountNumber">Account Number</label>
-            <input type="text" id="accountNumber" inputmode="numeric" autocomplete="off" maxlength="10" pattern="[0-9]{10}" placeholder="10-digit account number" required>
-        </div>
-
-        <div class="form-group">
-            <label for="bankName">Bank / Provider Name</label>
-            <input type="text" id="bankName" maxlength="100" placeholder="Example: UBA, OPay, Moniepoint" required>
-        </div>
-
-        <button type="submit" class="primary-btn" id="withdrawBtn">Submit Withdrawal Request</button>
-    </form>
-
-    <div id="message" class="message" role="status" aria-live="polite"></div>
-</section>
-
-<section class="panel">
-    <div class="history-toolbar">
-        <h2>Withdrawal History</h2>
-        <button type="button" class="refresh-btn" id="refreshHistoryBtn">↻ Refresh</button>
-    </div>
-    <div id="withdrawalHistory">
-        <div class="loading-history">Loading withdrawal history...</div>
-    </div>
-</section>
-
-<div class="security-note">
-    🔒 Your account details are used only to process your withdrawal request.
-    EarnSave requests remain subject to verification and admin approval.
-</div>
-
-</main><footer>EarnSave &copy; <span id="year"></span></footer><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script><script>
+ <div class="heading">
+  <div><h1>Withdraw</h1><p>Get paid straight to your bank</p></div>
+  <div class="secure">♢ Secure payout</div>
+ </div> <h2 class="section-title">Withdraw from</h2> <section class="wallet-grid">
+  <article class="wallet selected" data-wallet="task" role="button" tabindex="0" aria-pressed="true">
+   <div class="wallet-check">✓</div>
+   <div class="wallet-icon">♙</div>
+   <div class="wallet-title">Task Earnings</div>
+   <div class="wallet-amount" id="taskBalance">₦0.00</div>
+  </article>
+  <article class="wallet affiliate" data-wallet="affiliate" role="button" tabindex="0" aria-pressed="false">
+   <div class="wallet-check"></div>
+   <div class="wallet-icon">◎</div>
+   <div class="wallet-title">Affiliate Earnings</div>
+   <div class="wallet-amount" id="affiliateBalance">₦0.00</div>
+  </article>
+ </section> <section class="amount-panel">
+  <div class="amount-top">
+   <strong>Amount to withdraw</strong>
+   <div class="wallet-badge"><span>●</span><b id="selectedWalletName">Task Earnings</b></div>
+  </div>
+  <input class="amount-input" type="number" id="amount" min="1" step="1" inputmode="numeric" placeholder="₦ 0.00">
+  <div class="balance-row">
+   <span>Balance <strong id="selectedBalance">₦0.00</strong></span>
+   <span>Min <strong id="selectedMinimum">₦7,000.00</strong></span>
+  </div>
+  <div class="quick-buttons">
+   <button type="button" data-percent="25">25%</button>
+   <button type="button" data-percent="50">50%</button>
+   <button type="button" data-percent="75">75%</button>
+   <button type="button" id="maxBtn">MAX</button>
+  </div>
+ </section> <section class="receive-panel">
+  <div class="receive-row">
+   <strong>You receive</strong>
+   <div class="receive-amount" id="receiveAmount">₦0.00</div>
+  </div>
+  <button class="bank-link" type="button" id="bankLinkBtn">
+   <span class="bank-plus">+</span>
+   <span><strong>Link your bank account</strong><small id="bankSummary">Tap here to enter your bank details.</small></span>
+  </button>
+ </section> <section class="panel" id="bankDetailsPanel">
+  <h2>Bank account details</h2>
+  <p class="panel-subtitle">Enter the account where you want to receive your withdrawal.</p>
+  <div class="notice">Your withdrawal request will be reviewed by EarnSave admin. Submitting a request does not mean payment has been made.</div>
+  <div id="planNotice" class="notice" style="display:none"></div>  <form id="withdrawForm">
+   <div class="form-group">
+    <label for="paymentMethod">Payment Method</label>
+    <select id="paymentMethod" required>
+     <option value="">Choose payment method</option>
+     <option value="Bank">Nigerian Bank</option>
+     <option value="OPay">OPay</option>
+     <option value="Moniepoint">Moniepoint</option>
+    </select>
+   </div>
+   <div class="form-group">
+    <label for="accountName">Account Name</label>
+    <input type="text" id="accountName" maxlength="100" autocomplete="name" placeholder="Account holder's name" required>
+   </div>
+   <div class="form-group">
+    <label for="accountNumber">Account Number</label>
+    <input type="text" id="accountNumber" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" placeholder="10-digit account number" required>
+   </div>
+   <div class="form-group">
+    <label for="bankName">Bank / Provider Name</label>
+    <input type="text" id="bankName" maxlength="100" placeholder="Example: UBA, OPay, Moniepoint" required>
+   </div>
+   <button type="submit" class="primary-btn" id="withdrawBtn">Submit Withdrawal Request</button>
+  </form>
+  <div id="message" class="message" role="status" aria-live="polite"></div>
+ </section> <section class="panel">
+  <div class="history-toolbar">
+   <h2>Withdrawal History</h2>
+   <button type="button" class="refresh-btn" id="refreshHistoryBtn">↻ Refresh</button>
+  </div>
+  <div id="withdrawalHistory" style="margin-top:17px">
+   <div class="loading-history">Loading withdrawal history...</div>
+  </div>
+ </section> <div class="security-note">🔒 Your account details are used to process your withdrawal request. All withdrawals remain subject to verification and admin review.</div>
+</main><nav class="bottom-nav">
+ <a href="dashboard.html"><span>⌂</span>Home</a>
+ <a href="tasks.html"><span>◎</span>Hustle</a>
+ <a href="referral.html"><span>♧</span>Team</a>
+ <a href="tasks.html"><span>▤</span>Sponsored</a>
+ <a href="profile.html"><span>♙</span>Profile</a>
+</nav><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script><script>
 const firebaseConfig = {
-    apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
-    authDomain: "earnsave-e7a88.firebaseapp.com",
-    projectId: "earnsave-e7a88",
-    storageBucket: "earnsave-e7a88.firebasestorage.app",
-    messagingSenderId: "280629896863",
-    appId: "1:280629896863:web:f5f6fe584d51c7280be4aa",
-    measurementId: "G-3C742ZNKHB"
+ apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
+ authDomain: "earnsave-e7a88.firebaseapp.com",
+ projectId: "earnsave-e7a88",
+ storageBucket: "earnsave-e7a88.firebasestorage.app",
+ messagingSenderId: "2806298963",
+ appId: "1:2806298963:web:f5f6fe584d51c7280be4aa",
+ measurementId: "G-3C742ZNKHB"
 };
 
 if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
@@ -453,398 +363,291 @@ let affiliateBalance = 0;
 let minimumTaskWithdrawal = 0;
 let balanceLoaded = false;
 let activePlan = false;
+let selectedWallet = "task";
 
-document.getElementById("year").textContent = new Date().getFullYear();
-
+document.getElementById("year")?.textContent;
 function formatNaira(value) {
-    return "₦" + Number(value || 0).toLocaleString("en-NG", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    });
+ return "₦" + Number(value || 0).toLocaleString("en-NG", {
+  minimumFractionDigits:2, maximumFractionDigits:2
+ });
 }
-
-function showMessage(text, type) {
-    const box = document.getElementById("message");
-    box.textContent = text;
-    box.className = "message " + type;
+function showMessage(text,type) {
+ const box = document.getElementById("message");
+ box.textContent = text;
+ box.className = "message " + type;
 }
-
-function makeTextElement(tag, className, text) {
-    const element = document.createElement(tag);
-    if (className) element.className = className;
-    element.textContent = text;
-    return element;
+function makeTextElement(tag,className,text) {
+ const element = document.createElement(tag);
+ if (className) element.className = className;
+ element.textContent = text;
+ return element;
 }
-
 function getMinimumFromPlan(data) {
-    const value = Number(data.minimumWithdrawal);
-    if (Number.isFinite(value) && value > 0) return value;
-
-    const plan = String(data.selectedPlan || "").toLowerCase();
-
-    const planMinimums = {
-        spark: 7000,
-        base: 7000,
-        voltage: 14500,
-        titan: 20000,
-        supreme: 35000
-    };
-
-    return planMinimums[plan] || 0;
+ const value = Number(data.minimumWithdrawal);
+ if (Number.isFinite(value) && value > 0) return value;
+ const plan = String(data.selectedPlan || "").toLowerCase();
+ const minimums = {spark:7000,base:7000,voltage:14500,titan:20000,supreme:35000};
+ return minimums[plan] || 0;
 }
-
 function isPlanActive(data) {
-    const status = String(data.activationStatus || "").toLowerCase();
-    return status === "active" && data.demoMode !== true;
+ return String(data.activationStatus || "").toLowerCase() === "active" && data.demoMode !== true;
 }
+function getSelectedBalance() {
+ return selectedWallet === "task" ? taskBalance : affiliateBalance;
+}
+function getSelectedMinimum() {
+ return selectedWallet === "task" ? minimumTaskWithdrawal : 1000;
+}
+function updateAmountDisplay() {
+ const balance = getSelectedBalance();
+ const minimum = getSelectedMinimum();
+ document.getElementById("selectedWalletName").textContent =
+  selectedWallet === "task" ? "Task Earnings" : "Affiliate Earnings";
+ document.getElementById("selectedBalance").textContent = formatNaira(balance);
+ document.getElementById("selectedMinimum").textContent = formatNaira(minimum);
+ document.getElementById("amount").min = String(minimum);
+ document.getElementById("receiveAmount").textContent =
+  formatNaira(Math.max(0,Number(document.getElementById("amount").value) || 0));
+ document.querySelectorAll(".wallet").forEach(card => {
+  const active = card.dataset.wallet === selectedWallet;
+  card.classList.toggle("selected",active);
+  card.setAttribute("aria-pressed",String(active));
+  card.querySelector(".wallet-check").textContent = active ? "✓" : "";
+ });
+}
+function selectWallet(type) {
+ if (type !== "task" && type !== "affiliate") return;
+ selectedWallet = type;
+ document.getElementById("amount").value = "";
+ updateAmountDisplay();
+}
+document.querySelectorAll(".wallet").forEach(card => {
+ card.addEventListener("click",() => selectWallet(card.dataset.wallet));
+ card.addEventListener("keydown",event => {
+  if (event.key === "Enter" || event.key === " ") {
+   event.preventDefault();
+   selectWallet(card.dataset.wallet);
+  }
+ });
+});
+document.getElementById("amount").addEventListener("input",updateAmountDisplay);
+
+document.querySelectorAll("[data-percent]").forEach(button => {
+ button.addEventListener("click",() => {
+  const percent = Number(button.dataset.percent);
+  const value = Math.floor(getSelectedBalance() * percent / 100);
+  document.getElementById("amount").value = value > 0 ? value : "";
+  updateAmountDisplay();
+ });
+});
+document.getElementById("maxBtn").addEventListener("click",() => {
+ document.getElementById("amount").value = Math.floor(getSelectedBalance()) || "";
+ updateAmountDisplay();
+});
+document.getElementById("bankLinkBtn").addEventListener("click",() => {
+ document.getElementById("bankDetailsPanel").scrollIntoView({behavior:"smooth",block:"start"});
+});
 
 auth.onAuthStateChanged(async function(user) {
-    if (!user) {
-        window.location.replace("login.html");
-        return;
-    }
-
-    currentUser = user;
-    await loadWallets();
-    await loadWithdrawalHistory();
+ if (!user) {
+  window.location.replace("login.html");
+  return;
+ }
+ currentUser = user;
+ await loadWallets();
+ await loadWithdrawalHistory();
 });
 
 async function loadWallets() {
-    if (!currentUser) return;
+ if (!currentUser) return;
+ try {
+  const doc = await db.collection("users").doc(currentUser.uid).get();
+  if (!doc.exists) {
+   balanceLoaded = false;
+   showMessage("Your EarnSave profile could not be found.","error");
+   return;
+  }
+  userData = doc.data();
+  taskBalance = Number(userData.balance || 0);
+  affiliateBalance = Number(userData.referralEarnings || 0);
+  minimumTaskWithdrawal = getMinimumFromPlan(userData);
+  activePlan = isPlanActive(userData);
 
-    try {
-        const doc = await db.collection("users").doc(currentUser.uid).get();
-
-        if (!doc.exists) {
-            balanceLoaded = false;
-            showMessage("Your EarnSave profile could not be found.", "error");
-            return;
-        }
-
-        userData = doc.data();
-
-        taskBalance = Number(userData.balance || 0);
-        affiliateBalance = Number(userData.referralEarnings || 0);
-        minimumTaskWithdrawal = getMinimumFromPlan(userData);
-        activePlan = isPlanActive(userData);
-
-        if (
-            !Number.isFinite(taskBalance) || taskBalance < 0 ||
-            !Number.isFinite(affiliateBalance) || affiliateBalance < 0
-        ) {
-            balanceLoaded = false;
-            showMessage("Your wallet balances could not be verified.", "error");
-            return;
-        }
-
-        balanceLoaded = true;
-
-        document.getElementById("taskBalance").textContent = formatNaira(taskBalance);
-        document.getElementById("affiliateBalance").textContent = formatNaira(affiliateBalance);
-        document.getElementById("totalBalance").textContent =
-            formatNaira(taskBalance + affiliateBalance);
-
-        document.getElementById("taskMinimum").textContent =
-            minimumTaskWithdrawal
-                ? "Plan minimum: " + formatNaira(minimumTaskWithdrawal)
-                : "Plan minimum: Not configured";
-
-        const planNotice = document.getElementById("planNotice");
-
-        if (!activePlan) {
-            planNotice.style.display = "block";
-            planNotice.textContent =
-                "Your account does not have a verified active plan. Sponsored tasks and task withdrawals are unavailable until your plan is activated.";
-        } else {
-            planNotice.style.display = "none";
-        }
-
-        updateMinimumInfo();
-
-    } catch (error) {
-        console.error("Wallet loading error:", error);
-        balanceLoaded = false;
-        showMessage("Could not load your wallets. Please refresh the page.", "error");
-    }
+  if (!Number.isFinite(taskBalance) || taskBalance < 0 ||
+      !Number.isFinite(affiliateBalance) || affiliateBalance < 0) {
+   balanceLoaded = false;
+   showMessage("Your wallet balances could not be verified.","error");
+   return;
+  }
+  balanceLoaded = true;
+  document.getElementById("taskBalance").textContent = formatNaira(taskBalance);
+  document.getElementById("affiliateBalance").textContent = formatNaira(affiliateBalance);
+  const displayName = userData.fullName || userData.username || currentUser.displayName || "Welcome";
+  document.getElementById("welcomeName").textContent = displayName;
+  if (userData.bankName) document.getElementById("bankName").value = userData.bankName;
+  if (userData.bankAccountName) document.getElementById("accountName").value = userData.bankAccountName;
+  if (userData.bankAccountNumber) document.getElementById("accountNumber").value = userData.bankAccountNumber;
+  if (userData.bankName || userData.bankAccountName) {
+   document.getElementById("bankSummary").textContent =
+    (userData.bankAccountName || "Bank account") + " · " +
+    (userData.bankName || "Provider saved") + ". Check your details below.";
+  }
+  const notice = document.getElementById("planNotice");
+  if (!activePlan) {
+   notice.style.display = "block";
+   notice.textContent = "Your account does not have a verified active plan. Task withdrawals require an active, verified plan. Affiliate withdrawal rules remain separate.";
+  }
+  updateAmountDisplay();
+ } catch(error) {
+  console.error("Wallet loading error:",error);
+  balanceLoaded = false;
+  showMessage("Could not load your wallets. Please refresh the page.","error");
+ }
 }
 
-function updateMinimumInfo() {
-    const type = document.getElementById("walletType").value;
-    const info = document.getElementById("minimumInfo");
-    const help = document.getElementById("amountHelp");
-    const amount = document.getElementById("amount");
+document.getElementById("withdrawForm").addEventListener("submit",async function(event) {
+ event.preventDefault();
+ if (!currentUser || !balanceLoaded) {
+  showMessage("Your account and wallet must be verified before withdrawing.","error");
+  return;
+ }
+ const amount = Number(document.getElementById("amount").value);
+ const paymentMethod = document.getElementById("paymentMethod").value;
+ const accountName = document.getElementById("accountName").value.trim();
+ const accountNumber = document.getElementById("accountNumber").value.trim();
+ const bankName = document.getElementById("bankName").value.trim();
+ const walletType = selectedWallet;
+ const minimum = getSelectedMinimum();
+ const availableBalance = getSelectedBalance();
 
-    if (type === "affiliate") {
-        info.textContent = "Affiliate Earnings minimum withdrawal: ₦1,000.";
-        help.textContent = "Your affiliate wallet balance must be at least ₦1,000.";
-        amount.min = "1000";
-    } else if (type === "task") {
-        if (!activePlan) {
-            info.textContent = "An active, verified plan is required for task withdrawals.";
-            help.textContent = "Activate an eligible plan first.";
-            amount.min = "1";
-        } else if (minimumTaskWithdrawal > 0) {
-            info.textContent = "Your plan's task withdrawal minimum is " + formatNaira(minimumTaskWithdrawal) + ".";
-            help.textContent = "The minimum is determined by your activated plan.";
-            amount.min = String(minimumTaskWithdrawal);
-        } else {
-            info.textContent = "Your plan's minimum withdrawal has not been configured. Contact support.";
-            help.textContent = "Task withdrawal is unavailable until the plan minimum is configured.";
-            amount.min = "1";
-        }
-    } else {
-        info.textContent = "Select an earning wallet to see its minimum withdrawal.";
-        help.textContent = "Choose an earning wallet first.";
-        amount.min = "1";
-    }
-}
+ if (!Number.isSafeInteger(amount) || amount <= 0) {
+  showMessage("Enter a valid whole-number withdrawal amount.","error");
+  return;
+ }
+ if (walletType === "task" && !activePlan) {
+  showMessage("You need a verified active plan to withdraw task earnings.","error");
+  return;
+ }
+ if (!minimum || amount < minimum) {
+  showMessage("The minimum withdrawal for this wallet is " + formatNaira(minimum) + ".","error");
+  return;
+ }
+ if (amount > availableBalance) {
+  showMessage("You do not have enough money in this earning wallet.","error");
+  return;
+ }
+ if (!paymentMethod || !accountName || !bankName) {
+  showMessage("Please complete all payment details.","error");
+  return;
+ }
+ if (!/^[0-9]{10}$/.test(accountNumber)) {
+  showMessage("Enter a valid 10-digit Nigerian account number.","error");
+  return;
+ }
 
-document.getElementById("walletType").addEventListener("change", updateMinimumInfo);
-
-document.querySelectorAll("[data-wallet]").forEach(function(button) {
-    button.addEventListener("click", function() {
-        document.getElementById("walletType").value = button.dataset.wallet;
-        updateMinimumInfo();
-        document.getElementById("withdrawForm").scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-    });
-});
-
-document.getElementById("withdrawForm").addEventListener("submit", async function(event) {
-    event.preventDefault();
-
-    if (!currentUser || !balanceLoaded) {
-        showMessage("Your account and wallet must be verified before withdrawing.", "error");
-        return;
-    }
-
-    const walletType = document.getElementById("walletType").value;
-    const amount = Number(document.getElementById("amount").value);
-    const paymentMethod = document.getElementById("paymentMethod").value;
-    const accountName = document.getElementById("accountName").value.trim();
-    const accountNumber = document.getElementById("accountNumber").value.trim();
-    const bankName = document.getElementById("bankName").value.trim();
-
-    if (walletType !== "task" && walletType !== "affiliate") {
-        showMessage("Please select an earning wallet.", "error");
-        return;
-    }
-
-    if (!Number.isSafeInteger(amount) || amount <= 0) {
-        showMessage("Enter a valid whole-number amount.", "error");
-        return;
-    }
-
-    let availableBalance = 0;
-    let minimum = 0;
-
-    if (walletType === "affiliate") {
-        availableBalance = affiliateBalance;
-        minimum = 1000;
-    } else {
-        if (!activePlan) {
-            showMessage("You need a verified active plan to withdraw task earnings.", "error");
-            return;
-        }
-
-        if (!minimumTaskWithdrawal) {
-            showMessage("Your plan's withdrawal minimum is not configured. Contact support.", "error");
-            return;
-        }
-
-        availableBalance = taskBalance;
-        minimum = minimumTaskWithdrawal;
-    }
-
-    if (amount < minimum) {
-        showMessage(
-            "The minimum withdrawal for this wallet is " + formatNaira(minimum) + ".",
-            "error"
-        );
-        return;
-    }
-
-    if (amount > availableBalance) {
-        showMessage("You do not have enough money in this earning wallet.", "error");
-        return;
-    }
-
-    if (!paymentMethod || !accountName || !bankName) {
-        showMessage("Please complete all payment details.", "error");
-        return;
-    }
-
-    if (!/^[0-9]{10}$/.test(accountNumber)) {
-        showMessage("Enter a valid 10-digit Nigerian account number.", "error");
-        return;
-    }
-
-    const button = document.getElementById("withdrawBtn");
-    button.disabled = true;
-    button.textContent = "Submitting...";
-
-    try {
-        /*
-         * This creates a pending request only.
-         * It does not transfer money or deduct wallet balances.
-         *
-         * Before real withdrawals are enabled, trusted server-side
-         * code must reserve/deduct the selected wallet balance and
-         * prevent duplicate requests atomically.
-         */
-
-        await db.collection("withdrawals").add({
-            userId: currentUser.uid,
-            userEmail: currentUser.email || "",
-            walletType: walletType,
-            amount: amount,
-            minimumRequired: minimum,
-            planName: String(userData.selectedPlan || ""),
-            paymentMethod: paymentMethod,
-            accountName: accountName,
-            accountNumber: accountNumber,
-            bankName: bankName,
-            status: "pending",
-            requestedAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-
-        showMessage(
-            "Your " + (walletType === "task" ? "Task Earnings" : "Affiliate Earnings") +
-            " withdrawal request has been submitted for admin review. No payment has been made yet.",
-            "success"
-        );
-
-        document.getElementById("withdrawForm").reset();
-        updateMinimumInfo();
-        await loadWithdrawalHistory();
-
-    } catch (error) {
-        console.error("Withdrawal submission error:", error);
-        showMessage(
-            "Could not submit your request. Please check your connection and Firestore permissions.",
-            "error"
-        );
-    } finally {
-        button.disabled = false;
-        button.textContent = "Submit Withdrawal Request";
-    }
+ const button = document.getElementById("withdrawBtn");
+ button.disabled = true;
+ button.textContent = "Submitting...";
+ try {
+  // Creates a pending request only. It does not transfer money or deduct balances.
+  // Real payout approval must be secured and processed by trusted server-side code.
+  await db.collection("withdrawals").add({
+   userId:currentUser.uid,
+   userEmail:currentUser.email || "",
+   walletType:walletType,
+   amount:amount,
+   minimumRequired:minimum,
+   planName:String(userData.selectedPlan || ""),
+   paymentMethod:paymentMethod,
+   accountName:accountName,
+   accountNumber:accountNumber,
+   bankName:bankName,
+   status:"pending",
+   requestedAt:firebase.firestore.FieldValue.serverTimestamp()
+  });
+  showMessage(
+   "Your " + (walletType === "task" ? "Task Earnings" : "Affiliate Earnings") +
+   " withdrawal request has been submitted for admin review. No payment has been made yet.",
+   "success"
+  );
+  document.getElementById("amount").value = "";
+  updateAmountDisplay();
+  await loadWithdrawalHistory();
+ } catch(error) {
+  console.error("Withdrawal submission error:",error);
+  showMessage("Could not submit your request. Please check your connection and Firestore permissions.","error");
+ } finally {
+  button.disabled = false;
+  button.textContent = "Submit Withdrawal Request";
+ }
 });
 
 async function loadWithdrawalHistory() {
-    const history = document.getElementById("withdrawalHistory");
-
-    if (!currentUser) return;
-
-    history.replaceChildren(
-        makeTextElement("div", "loading-history", "Loading withdrawal history...")
-    );
-
-    try {
-        const snapshot = await db.collection("withdrawals")
-            .where("userId", "==", currentUser.uid)
-            .get();
-
-        if (snapshot.empty) {
-            history.replaceChildren(
-                makeTextElement("div", "history-empty", "No withdrawal requests yet.")
-            );
-            return;
-        }
-
-        const withdrawals = [];
-
-        snapshot.forEach(function(doc) {
-            withdrawals.push({id:doc.id, ...doc.data()});
-        });
-
-        withdrawals.sort(function(a,b) {
-            const dateA = a.requestedAt && a.requestedAt.toMillis
-                ? a.requestedAt.toMillis() : 0;
-            const dateB = b.requestedAt && b.requestedAt.toMillis
-                ? b.requestedAt.toMillis() : 0;
-            return dateB - dateA;
-        });
-
-        history.replaceChildren();
-
-        withdrawals.forEach(function(item) {
-            const amount = Number(item.amount || 0);
-            const rawStatus = String(item.status || "pending").toLowerCase();
-            const allowed = ["pending","approved","completed","rejected"];
-            const status = allowed.includes(rawStatus) ? rawStatus : "pending";
-
-            const card = makeTextElement("article","withdrawal-card","");
-            const top = makeTextElement("div","withdrawal-top","");
-
-            top.appendChild(
-                makeTextElement("div","withdrawal-amount",formatNaira(amount))
-            );
-            top.appendChild(
-                makeTextElement("span","status status-"+status,status)
-            );
-            card.appendChild(top);
-
-            const details = makeTextElement("div","withdrawal-details","");
-
-            function addDetail(label,value) {
-                const row = document.createElement("div");
-                row.appendChild(makeTextElement("strong","",label+": "));
-                row.appendChild(document.createTextNode(value));
-                details.appendChild(row);
-            }
-
-            addDetail(
-                "Earning Type",
-                item.walletType === "affiliate" ? "Affiliate Earnings" : "Task Earnings"
-            );
-            addDetail("Payment Method",String(item.paymentMethod || "N/A"));
-            addDetail("Account Name",String(item.accountName || "N/A"));
-
-            const account = String(item.accountNumber || "");
-            addDetail(
-                "Account Number",
-                account.length > 4 ? "••••••"+account.slice(-4) : account || "N/A"
-            );
-
-            addDetail("Provider",String(item.bankName || "N/A"));
-
-            let dateText = "Date pending";
-            if (item.requestedAt && item.requestedAt.toDate) {
-                dateText = item.requestedAt.toDate().toLocaleString();
-            }
-            addDetail("Requested",dateText);
-
-            card.appendChild(details);
-            history.appendChild(card);
-        });
-
-    } catch (error) {
-        console.error("Withdrawal history error:",error);
-        history.replaceChildren(
-            makeTextElement(
-                "div",
-                "history-empty",
-                "Could not load withdrawal history. Check your Firestore permissions and internet connection."
-            )
-        );
-    }
+ const history = document.getElementById("withdrawalHistory");
+ if (!currentUser) return;
+ history.replaceChildren(makeTextElement("div","loading-history","Loading withdrawal history..."));
+ try {
+  const snapshot = await db.collection("withdrawals")
+   .where("userId","==",currentUser.uid).get();
+  if (snapshot.empty) {
+   history.replaceChildren(makeTextElement("div","history-empty","No withdrawal requests yet."));
+   return;
+  }
+  const withdrawals = [];
+  snapshot.forEach(doc => withdrawals.push({id:doc.id,...doc.data()}));
+  withdrawals.sort((a,b) => {
+   const da = a.requestedAt && a.requestedAt.toMillis ? a.requestedAt.toMillis() : 0;
+   const dbb = b.requestedAt && b.requestedAt.toMillis ? b.requestedAt.toMillis() : 0;
+   return dbb-da;
+  });
+  history.replaceChildren();
+  withdrawals.forEach(item => {
+   const amount = Number(item.amount || 0);
+   const rawStatus = String(item.status || "pending").toLowerCase();
+   const allowed = ["pending","approved","completed","rejected","paid"];
+   const status = allowed.includes(rawStatus) ? rawStatus : "pending";
+   const card = makeTextElement("article","withdrawal-card","");
+   const top = makeTextElement("div","withdrawal-top","");
+   top.appendChild(makeTextElement("div","withdrawal-amount",formatNaira(amount)));
+   top.appendChild(makeTextElement("span","status status-"+status,status));
+   card.appendChild(top);
+   const details = makeTextElement("div","withdrawal-details","");
+   function addDetail(label,value) {
+    const row = document.createElement("div");
+    row.appendChild(makeTextElement("strong","",label+": "));
+    row.appendChild(document.createTextNode(value));
+    details.appendChild(row);
+   }
+   addDetail("Earning Type",item.walletType === "affiliate" ? "Affiliate Earnings" : item.walletType === "task" ? "Task Earnings" : "Unknown");
+   addDetail("Payment Method",String(item.paymentMethod || "N/A"));
+   addDetail("Account Name",String(item.accountName || "N/A"));
+   const account = String(item.accountNumber || "");
+   addDetail("Account Number",account.length > 4 ? "••••••"+account.slice(-4) : account || "N/A");
+   addDetail("Provider",String(item.bankName || "N/A"));
+   let dateText = "Date pending";
+   if (item.requestedAt && item.requestedAt.toDate) dateText = item.requestedAt.toDate().toLocaleString();
+   addDetail("Requested",dateText);
+   card.appendChild(details);
+   history.appendChild(card);
+  });
+ } catch(error) {
+  console.error("Withdrawal history error:",error);
+  history.replaceChildren(makeTextElement("div","history-empty","Could not load withdrawal history. Check Firestore permissions and your internet connection."));
+ }
 }
 
 document.getElementById("refreshHistoryBtn").addEventListener("click",async function() {
-    await loadWallets();
-    await loadWithdrawalHistory();
+ await loadWallets();
+ await loadWithdrawalHistory();
 });
-
 document.getElementById("logoutBtn").addEventListener("click",async function() {
-    try {
-        await auth.signOut();
-        window.location.replace("login.html");
-    } catch(error) {
-        console.error("Logout error:",error);
-        showMessage("Could not log out. Please try again.","error");
-    }
+ try {
+  await auth.signOut();
+  window.location.replace("login.html");
+ } catch(error) {
+  console.error("Logout error:",error);
+  showMessage("Could not log out. Please try again.","error");
+ }
 });
 </script></body>
 </html>
