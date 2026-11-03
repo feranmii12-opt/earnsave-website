@@ -1,2662 +1,701 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Admin Dashboard - EarnSave</title>
-
+<title>EarnSave Admin Dashboard</title>
 <style>
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-body{
-    font-family:Arial,sans-serif;
-    background:#f4f6fb;
-    color:#172033;
-}
-
-header{
-    background:#17104a;
-    color:white;
-    padding:18px 20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.logo{
-    font-size:22px;
-    font-weight:bold;
-}
-
-.admin-badge{
-    background:#7c3aed;
-    padding:5px 10px;
-    border-radius:20px;
-    font-size:12px;
-    margin-left:6px;
-}
-
-.logout{
-    background:#ef4444;
-    border:0;
-    color:white;
-    padding:10px 16px;
-    border-radius:8px;
-    font-weight:bold;
-}
-
-.container{
-    width:94%;
-    max-width:1100px;
-    margin:25px auto;
-}
-
-h1{
-    margin-bottom:20px;
-}
-
-h2{
-    margin-bottom:15px;
-}
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:15px;
-    margin-bottom:25px;
-}
-
-.stat{
-    background:white;
-    padding:20px;
-    border-radius:14px;
-    box-shadow:0 4px 15px rgba(0,0,0,.07);
-}
-
-.stat h3{
-    font-size:14px;
-    color:#666;
-    margin-bottom:8px;
-}
-
-.stat p{
-    font-size:28px;
-    font-weight:bold;
-    color:#4f46e5;
-}
-
-.section{
-    background:white;
-    padding:22px;
-    border-radius:16px;
-    margin-bottom:25px;
-    box-shadow:0 4px 15px rgba(0,0,0,.07);
-}
-
-input,
-textarea,
-select{
-    width:100%;
-    padding:13px;
-    margin:7px 0 14px;
-    border:1px solid #ddd;
-    border-radius:8px;
-    font-size:15px;
-}
-
-textarea{
-    min-height:100px;
-}
-
-label{
-    font-weight:bold;
-    font-size:14px;
-}
-
-.primary{
-    background:#4f46e5;
-    color:white;
-    border:0;
-    padding:13px 20px;
-    border-radius:8px;
-    font-weight:bold;
-}
-
-.task-card,
-.request-card{
-    border:1px solid #e1e4eb;
-    border-radius:12px;
-    padding:18px;
-    margin-bottom:15px;
-}
-
-.task-card h3,
-.request-card h3{
-    color:#3730a3;
-    margin-bottom:10px;
-}
-
-.info{
-    margin:7px 0;
-    word-break:break-word;
-}
-
-.status{
-    display:inline-block;
-    padding:7px 12px;
-    border-radius:20px;
-    background:#fff3cd;
-    color:#92400e;
-    margin:10px 0;
-    font-weight:bold;
-}
-
-.approve,
-.reject{
-    border:0;
-    padding:11px 18px;
-    border-radius:8px;
-    color:white;
-    font-weight:bold;
-    margin:5px 5px 0 0;
-}
-
-.approve{
-    background:#16a34a;
-}
-
-.reject{
-    background:#dc2626;
-}
-
-.proof-image-box{
-    margin:15px 0;
-    padding:12px;
-    background:#f8fafc;
-    border-radius:12px;
-    border:1px solid #e5e7eb;
-}
-
-.proof-image{
-    display:block;
-    width:100%;
-    max-width:400px;
-    max-height:450px;
-    object-fit:contain;
-    border-radius:10px;
-    margin:10px auto;
-    background:#eee;
-}
-
-.view-proof{
-    display:inline-block;
-    background:#4f46e5;
-    color:white;
-    text-decoration:none;
-    padding:10px 15px;
-    border-radius:8px;
-    font-weight:bold;
-    margin-top:5px;
-}
-
-.no-proof{
-    color:#777;
-    background:#f3f4f6;
-    padding:12px;
-    border-radius:8px;
-}
-
-.message{
-    padding:14px;
-    border-radius:8px;
-    margin-bottom:15px;
-    display:none;
-}
-
-.success{
-    background:#dcfce7;
-    color:#166534;
-}
-
-.error{
-    background:#fee2e2;
-    color:#991b1b;
-}
-
-.loading{
-    padding:15px 0;
-    color:#666;
-}
-
-.modal{
-    display:none;
-    position:fixed;
-    z-index:9999;
-    inset:0;
-    background:rgba(0,0,0,.65);
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-}
-
-.modal-box{
-    width:100%;
-    max-width:400px;
-    background:white;
-    border-radius:16px;
-    padding:25px;
-    text-align:center;
-    box-shadow:0 10px 40px rgba(0,0,0,.3);
-}
-
-.modal-box h3{
-    margin-bottom:12px;
-    font-size:21px;
-}
-
-.modal-box p{
-    color:#555;
-    margin-bottom:22px;
-    line-height:1.5;
-}
-
-.modal-buttons{
-    display:flex;
-    gap:10px;
-}
-
-.modal-buttons button{
-    flex:1;
-    padding:13px;
-    border:0;
-    border-radius:8px;
-    font-weight:bold;
-    font-size:15px;
-}
-
-.cancel-btn{
-    background:#e5e7eb;
-    color:#111827;
-}
-
-.confirm-btn{
-    background:#dc2626;
-    color:white;
-}
-
-@media(max-width:950px){
-
-    .stats{
-        grid-template-columns:repeat(3,1fr);
-    }
-
-}
-
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f4f6fb;color:#172033}
+header{background:#17104a;color:white;padding:18px 20px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:22px;font-weight:bold}
+.admin-badge{background:#7c3aed;padding:5px 10px;border-radius:20px;font-size:12px;margin-left:6px}
+button{cursor:pointer}
+.logout{background:#ef4444;border:0;color:white;padding:10px 16px;border-radius:8px;font-weight:bold}
+.container{width:94%;max-width:1100px;margin:25px auto}
+h1{margin-bottom:20px}
+h2{margin-bottom:15px}
+h3{margin-bottom:10px}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:15px;margin-bottom:25px}
+.stat{background:white;padding:20px;border-radius:14px;box-shadow:0 4px 15px rgba(0,0,0,.07)}
+.stat h3{font-size:14px;color:#666;margin-bottom:8px}
+.stat p{font-size:28px;font-weight:bold;color:#4f46e5}
+.section{background:white;padding:22px;border-radius:16px;margin-bottom:25px;box-shadow:0 4px 15px rgba(0,0,0,.07)}
+input,textarea,select{width:100%;padding:13px;margin:7px 0 14px;border:1px solid #ddd;border-radius:8px;font-size:15px}
+textarea{min-height:100px}
+label{font-weight:bold;font-size:14px}
+.primary{background:#4f46e5;color:white;border:0;padding:13px 20px;border-radius:8px;font-weight:bold}
+.task-card,.request-card{border:1px solid #e1e4eb;border-radius:12px;padding:18px;margin-bottom:15px;overflow-wrap:anywhere}
+.task-card h3,.request-card h3{color:#3730a3;margin-bottom:10px}
+.info{margin:8px 0;overflow-wrap:anywhere}
+.status,.wallet-tag{display:inline-block;padding:7px 12px;border-radius:20px;margin:10px 5px 10px 0;font-weight:bold;font-size:13px}
+.status{background:#fff3cd;color:#92400e}
+.wallet-task{background:#dbeafe;color:#1d4ed8}
+.wallet-affiliate{background:#f3e8ff;color:#7e22ce}
+.approve,.reject,.paid-btn{border:0;padding:11px 18px;border-radius:8px;color:white;font-weight:bold;margin:5px 5px 0 0}
+.approve{background:#16a34a}
+.reject{background:#dc2626}
+.paid-btn{background:#2563eb}
+.proof-image-box{margin:15px 0;padding:12px;background:#f8fafc;border-radius:12px;border:1px solid #e5e7eb}
+.proof-image{display:block;width:100%;max-width:400px;max-height:450px;object-fit:contain;border-radius:10px;margin:10px auto;background:#eee}
+.view-proof{display:inline-block;background:#4f46e5;color:white;text-decoration:none;padding:10px 15px;border-radius:8px;font-weight:bold;margin-top:5px}
+.no-proof{color:#777;background:#f3f4f6;padding:12px;border-radius:8px}
+.message{padding:14px;border-radius:8px;margin-bottom:15px;display:none;overflow-wrap:anywhere}
+.success{background:#dcfce7;color:#166534}
+.error{background:#fee2e2;color:#991b1b}
+.loading{padding:15px 0;color:#666}
+.notice{padding:12px;border-radius:8px;background:#eff6ff;color:#1e40af;margin-bottom:15px;line-height:1.5}
+.sponsor-image{width:100%;max-width:300px;max-height:250px;object-fit:contain;display:block;margin:12px 0;border-radius:10px;background:#f3f4f6}
+.deactivate{background:#dc2626;color:white;border:0;padding:10px 15px;border-radius:8px;margin-top:8px}
+.activate{background:#16a34a;color:white;border:0;padding:10px 15px;border-radius:8px;margin-top:8px}
+.modal{display:none;position:fixed;z-index:9999;inset:0;background:rgba(0,0,0,.65);align-items:center;justify-content:center;padding:20px}
+.modal-box{width:100%;max-width:400px;background:white;border-radius:16px;padding:25px;text-align:center}
+.modal-box h3{margin-bottom:12px;font-size:21px}
+.modal-box p{color:#555;margin-bottom:22px;line-height:1.5}
+.modal-buttons{display:flex;gap:10px}
+.modal-buttons button{flex:1;padding:13px;border:0;border-radius:8px;font-weight:bold;font-size:15px}
+.cancel-btn{background:#e5e7eb;color:#111827}
+.confirm-btn{background:#dc2626;color:white}
+@media(max-width:950px){.stats{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:600px){
-
-    .container{
-        width:94%;
-    }
-
-    .stats{
-        grid-template-columns:1fr 1fr;
-        gap:10px;
-    }
-
-    .stat{
-        padding:15px;
-    }
-
-    .stat p{
-        font-size:22px;
-    }
-
-    .section{
-        padding:16px;
-    }
-
+.container{width:94%}.stats{grid-template-columns:1fr 1fr;gap:10px}
+.stat{padding:15px}.stat p{font-size:22px}
+.section{padding:16px}header{padding:15px}
 }
-
 </style>
-
 </head>
-
 <body>
 
 <header>
-
-<div class="logo">
-
-EarnSave
-
-<span class="admin-badge">
-ADMIN
-</span>
-
-</div>
-
-<button
-class="logout"
-onclick="logout()"
->
-Logout
-</button>
-
+<div class="logo">EarnSave <span class="admin-badge">ADMIN</span></div>
+<button class="logout" onclick="logout()">Logout</button>
 </header>
 
-
 <div class="container">
-
 <h1>Admin Dashboard</h1>
-
-<div
-id="message"
-class="message"
-></div>
-
-
-<!-- STATS -->
+<div id="message" class="message"></div>
 
 <div class="stats">
-
-<div class="stat">
-
-<h3>Total Users</h3>
-
-<p id="totalUsers">0</p>
-
+<div class="stat"><h3>Total Users</h3><p id="totalUsers">0</p></div>
+<div class="stat"><h3>Total Tasks</h3><p id="totalTasks">0</p></div>
+<div class="stat"><h3>Pending Proofs</h3><p id="pendingProofs">0</p></div>
+<div class="stat"><h3>Pending Withdrawals</h3><p id="pendingWithdrawals">0</p></div>
+<div class="stat"><h3>Pending Referrals</h3><p id="pendingReferrals">0</p></div>
 </div>
 
-
-<div class="stat">
-
-<h3>Total Tasks</h3>
-
-<p id="totalTasks">0</p>
-
+<!-- REGULAR TASK MANAGER -->
+<div class="section">
+<h2>➕ Add New Task</h2>
+<label>Task Title</label>
+<input id="taskTitle" type="text" placeholder="Example: Follow our TikTok account">
+<label>Description</label>
+<textarea id="taskDescription" placeholder="Explain what the user should do"></textarea>
+<label>Reward (₦)</label>
+<input id="taskReward" type="number" min="1" placeholder="100">
+<label>Task Link</label>
+<input id="taskLink" type="url" placeholder="https://...">
+<label>Status</label>
+<select id="taskStatus">
+<option value="active">Active</option>
+<option value="inactive">Inactive</option>
+</select>
+<button class="primary" onclick="addTask()">Publish Task</button>
 </div>
-
-
-<div class="stat">
-
-<h3>Pending Proofs</h3>
-
-<p id="pendingProofs">0</p>
-
-</div>
-
-
-<div class="stat">
-
-<h3>Pending Withdrawals</h3>
-
-<p id="pendingWithdrawals">0</p>
-
-</div>
-
-
-<div class="stat">
-
-<h3>Pending Referrals</h3>
-
-<p id="pendingReferrals">0</p>
-
-</div>
-
-</div>
-
-
-<!-- ADD TASK -->
 
 <div class="section">
+<h2>📋 Published Tasks</h2>
+<div id="tasksList" class="loading">Loading tasks...</div>
+</div>
 
-<h2>➕ Add New Task</h2>
+<!-- SEPARATE SPONSORED POSTS MANAGER -->
+<div class="section">
+<h2>📢 Sponsored Posts Manager</h2>
+<div class="notice">
+Sponsored posts are separate from regular tasks. Configure the daily reward for each plan below. Publishing a post does not automatically credit a user's wallet.
+</div>
 
-<label>Task Title</label>
+<label>Sponsored Post Title</label>
+<input id="sponsorTitle" type="text" placeholder="Enter sponsor post title">
 
-<input
-id="taskTitle"
-type="text"
-placeholder="Example: Follow our TikTok account"
->
+<label>Sponsored Picture URL</label>
+<input id="sponsorImage" type="url" value="https://raw.githubusercontent.com/feranmii12-opt/images-sponsored-.gitkeep/main/file_0000000078d082469a2bd736da5ad6e7.png">
 
+<label>Text users must copy</label>
+<textarea id="sponsorText" placeholder="Enter the exact text users must copy"></textarea>
 
-<label>Description</label>
-
-<textarea
-id="taskDescription"
-placeholder="Explain what the user should do"
-></textarea>
-
-
-<label>Reward (₦)</label>
-
-<input
-id="taskReward"
-type="number"
-placeholder="100"
->
-
-
-<label>Task Link</label>
-
-<input
-id="taskLink"
-type="url"
-placeholder="https://www.tiktok.com/..."
->
-
+<h3>Sponsored Rewards by Plan</h3>
+<label>Spark (₦)</label>
+<input id="rewardSpark" type="number" min="1" value="40">
+<label>Base (₦)</label>
+<input id="rewardBase" type="number" min="1" value="80">
+<label>Voltage (₦)</label>
+<input id="rewardVoltage" type="number" min="1" value="85">
+<label>Titan (₦)</label>
+<input id="rewardTitan" type="number" min="1" value="170">
+<label>Supreme (₦)</label>
+<input id="rewardSupreme" type="number" min="1" value="580">
 
 <label>Status</label>
-
-<select id="taskStatus">
-
-<option value="active">
-Active
-</option>
-
-<option value="inactive">
-Inactive
-</option>
-
+<select id="sponsorStatus">
+<option value="active">Active</option>
+<option value="inactive">Inactive</option>
 </select>
 
+<button class="primary" onclick="publishSponsoredPost()">Publish Sponsored Post</button>
 
-<button
-class="primary"
-onclick="addTask()"
->
-Publish Task
-</button>
-
+<hr style="margin:22px 0">
+<h3>Published Sponsored Posts</h3>
+<div id="sponsoredPostsList" class="loading">Loading sponsored posts...</div>
 </div>
 
-
-<!-- TASKS -->
-
+<!-- REFERRALS -->
 <div class="section">
-
-<h2>📋 Published Tasks</h2>
-
-<div
-id="tasksList"
-class="loading"
->
-Loading tasks...
-</div>
-
-</div>
-
-
-<!-- REFERRAL BONUSES -->
-
-<div class="section">
-
 <h2>👥 Pending Referral Bonuses</h2>
-
-<div
-id="referralBonusesList"
-class="loading"
->
-Loading referral bonuses...
+<div id="referralBonusesList" class="loading">Loading referral bonuses...</div>
 </div>
-
-</div>
-
 
 <!-- PROOFS -->
-
 <div class="section">
-
 <h2>📝 Pending Proof Submissions</h2>
-
-<div
-id="proofsList"
-class="loading"
->
-Loading submissions...
+<div id="proofsList" class="loading">Loading submissions...</div>
 </div>
-
-</div>
-
 
 <!-- WITHDRAWALS -->
+<div class="section">
+<h2>💰 Withdrawal Management</h2>
+<div class="notice">
+Task Earnings are deducted from the user's <strong>balance</strong>.
+Affiliate Earnings are deducted from <strong>referralEarnings</strong>.
+Unknown wallet types will not be approved automatically.
+</div>
+<div id="withdrawalsList" class="loading">Loading withdrawals...</div>
+</div>
 
 <div class="section">
-
-<h2>💰 Pending Withdrawals</h2>
-
-<div
-id="withdrawalsList"
-class="loading"
->
-Loading withdrawals...
+<h2>✅ Reviewed Withdrawals</h2>
+<div id="reviewedWithdrawalsList" class="loading">Loading reviewed withdrawals...</div>
+</div>
 </div>
 
-</div>
-
-</div>
-
-
-<!-- CONFIRM MODAL -->
-
-<div
-id="confirmModal"
-class="modal"
->
-
+<div id="confirmModal" class="modal">
 <div class="modal-box">
-
-<h3 id="modalTitle">
-Confirm Action
-</h3>
-
-<p id="modalMessage">
-Are you sure?
-</p>
-
+<h3 id="modalTitle">Confirm Action</h3>
+<p id="modalMessage">Are you sure?</p>
 <div class="modal-buttons">
-
-<button
-class="cancel-btn"
-onclick="closeModal()"
->
-Cancel
-</button>
-
-<button
-class="confirm-btn"
-id="confirmButton"
->
-Confirm
-</button>
-
+<button class="cancel-btn" onclick="closeModal()">Cancel</button>
+<button class="confirm-btn" id="confirmButton">Confirm</button>
 </div>
-
 </div>
-
 </div>
-
-
-<!-- FIREBASE -->
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-
 <script>
-
 const firebaseConfig = {
-
-apiKey:
-"AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
-
-authDomain:
-"earnsave-e7a88.firebaseapp.com",
-
-projectId:
-"earnsave-e7a88",
-
-storageBucket:
-"earnsave-e7a88.firebasestorage.app",
-
-messagingSenderId:
-"280629896863",
-
-appId:
-"1:280629896863:web:f5f6fe584d51c7280be4aa",
-
-measurementId:
-"G-3C742ZNKHB"
-
+apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
+authDomain: "earnsave-e7a88.firebaseapp.com",
+projectId: "earnsave-e7a88",
+storageBucket: "earnsave-e7a88.firebasestorage.app",
+messagingSenderId: "2806298963",
+appId: "1:2806298963:web:f5f6fe584d51c7280be4aa",
+measurementId: "G-3C742ZNKHB"
 };
 
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 
-firebase.initializeApp(firebaseConfig);
-
-const auth =
-firebase.auth();
-
-const db =
-firebase.firestore();
-
+const auth = firebase.auth();
+const db = firebase.firestore();
 let currentUser = null;
-
 let pendingAction = null;
 
-
-/* =========================
-   AUTH CHECK
-========================= */
-
-auth.onAuthStateChanged(
-async function(user){
-
+/* AUTH AND ADMIN ACCESS */
+auth.onAuthStateChanged(async function(user){
 if(!user){
-
-showMessage(
-"You are not logged in. Please login first.",
-"error"
-);
-
+showMessage("Please login first.","error");
+setTimeout(()=>window.location.href="login.html",1500);
 return;
-
 }
-
 try{
-
-const userDoc =
-await db
-.collection("users")
-.doc(user.uid)
-.get();
-
-
-if(!userDoc.exists){
-
-showMessage(
-"Admin user profile was not found.",
-"error"
-);
-
+const userDoc=await db.collection("users").doc(user.uid).get();
+if(!userDoc.exists || userDoc.data().role!=="admin"){
+showMessage("Access denied. Admin account required.","error");
+setTimeout(()=>window.location.href="dashboard.html",1500);
 return;
-
 }
-
-
-const userData =
-userDoc.data();
-
-
-if(userData.role !== "admin"){
-
-showMessage(
-"Access denied. This account is not an admin.",
-"error"
-);
-
-return;
-
-}
-
-
-currentUser = user;
-
+currentUser=user;
 loadAll();
-
-
 }catch(error){
-
-console.error(error);
-
-showMessage(
-"Firebase error: " +
-error.message,
-"error"
-);
-
+showMessage("Admin check failed: "+error.message,"error");
 }
-
 });
-
-
-/* =========================
-   LOAD ALL
-========================= */
 
 function loadAll(){
-
 loadUsers();
-
 loadTasks();
-
+loadSponsoredPosts();
 loadReferralBonuses();
-
 loadProofs();
-
 loadWithdrawals();
-
-}
-
-
-/* =========================
-   USERS
-========================= */
-
-async function loadUsers(){
-
-try{
-
-const snapshot =
-await db
-.collection("users")
-.get();
-
-
-document.getElementById(
-"totalUsers"
-).textContent =
-snapshot.size;
-
-
-}catch(error){
-
-document.getElementById(
-"totalUsers"
-).textContent =
-"Error";
-
-console.error(error);
-
-}
-
-}
-
-
-/* =========================
-   ADD TASK
-========================= */
-
-async function addTask(){
-
-const title =
-document
-.getElementById("taskTitle")
-.value
-.trim();
-
-
-const description =
-document
-.getElementById("taskDescription")
-.value
-.trim();
-
-
-const reward =
-Number(
-document
-.getElementById("taskReward")
-.value
-);
-
-
-const link =
-document
-.getElementById("taskLink")
-.value
-.trim();
-
-
-const status =
-document
-.getElementById("taskStatus")
-.value;
-
-
-if(!title){
-
-showMessage(
-"Please enter a task title.",
-"error"
-);
-
-return;
-
-}
-
-
-if(!description){
-
-showMessage(
-"Please enter a task description.",
-"error"
-);
-
-return;
-
-}
-
-
-if(!reward || reward <= 0){
-
-showMessage(
-"Please enter a valid reward.",
-"error"
-);
-
-return;
-
-}
-
-
-try{
-
-await db
-.collection("tasks")
-.add({
-
-title:title,
-
-description:description,
-
-reward:reward,
-
-link:link,
-
-status:status,
-
-createdAt:
-firebase.firestore
-.FieldValue
-.serverTimestamp()
-
-});
-
-
-document.getElementById(
-"taskTitle"
-).value = "";
-
-document.getElementById(
-"taskDescription"
-).value = "";
-
-document.getElementById(
-"taskReward"
-).value = "";
-
-document.getElementById(
-"taskLink"
-).value = "";
-
-
-showMessage(
-"Task published successfully.",
-"success"
-);
-
-
-loadTasks();
-
-
-}catch(error){
-
-console.error(error);
-
-showMessage(
-"Could not publish task: " +
-error.message,
-"error"
-);
-
-}
-
-}
-
-
-/* =========================
-   LOAD TASKS
-========================= */
-
-async function loadTasks(){
-
-const list =
-document.getElementById(
-"tasksList"
-);
-
-
-try{
-
-const snapshot =
-await db
-.collection("tasks")
-.get();
-
-
-document.getElementById(
-"totalTasks"
-).textContent =
-snapshot.size;
-
-
-if(snapshot.empty){
-
-list.innerHTML =
-"<p>No tasks found.</p>";
-
-return;
-
-}
-
-
-let html = "";
-
-
-snapshot.forEach(
-function(doc){
-
-const task =
-doc.data();
-
-
-html += `
-
-<div class="task-card">
-
-<h3>
-${escapeHtml(
-task.title ||
-"Untitled Task"
-)}
-</h3>
-
-<div class="info">
-${escapeHtml(
-task.description || ""
-)}
-</div>
-
-<div class="info">
-
-<strong>Reward:</strong>
-
-₦${Number(
-task.reward || 0
-).toLocaleString()}
-
-</div>
-
-<div class="info">
-
-<strong>Status:</strong>
-
-${escapeHtml(
-task.status || "active"
-)}
-
-</div>
-
-${
-task.link
-?
-`
-<div class="info">
-
-<strong>Link:</strong>
-
-${escapeHtml(
-task.link
-)}
-
-</div>
-`
-:
-""
-}
-
-</div>
-
-`;
-
-});
-
-
-list.innerHTML =
-html;
-
-
-}catch(error){
-
-console.error(error);
-
-list.innerHTML =
-"<p>Could not load tasks: " +
-escapeHtml(error.message) +
-"</p>";
-
-}
-
-}
-
-
-/* ==================================================
-   REFERRAL BONUSES
-================================================== */
-
-async function loadReferralBonuses(){
-
-const list =
-document.getElementById(
-"referralBonusesList"
-);
-
-
-try{
-
-const snapshot =
-await db
-.collection("referralBonuses")
-.where(
-"status",
-"==",
-"pending"
-)
-.get();
-
-
-document.getElementById(
-"pendingReferrals"
-).textContent =
-snapshot.size;
-
-
-if(snapshot.empty){
-
-list.innerHTML =
-"<p>No pending referral bonuses.</p>";
-
-return;
-
-}
-
-
-let html = "";
-
-
-snapshot.forEach(
-function(doc){
-
-const data =
-doc.data();
-
-
-html += `
-
-<div class="request-card">
-
-<h3>
-👥 Referral Bonus
-</h3>
-
-<div class="info">
-
-<strong>Amount:</strong>
-
-₦${Number(
-data.amount || 0
-).toLocaleString()}
-
-</div>
-
-
-<div class="info">
-
-<strong>Plan:</strong>
-
-${escapeHtml(
-data.planName || "Unknown"
-)}
-
-</div>
-
-
-<div class="info">
-
-<strong>Referral Code:</strong>
-
-${escapeHtml(
-data.referralCode || ""
-)}
-
-</div>
-
-
-<div class="info">
-
-<strong>Referred User:</strong><br>
-
-${escapeHtml(
-data.referredUserEmail ||
-data.referredUserId ||
-"Unknown"
-)}
-
-</div>
-
-
-<div class="info">
-
-<strong>Referrer UID:</strong><br>
-
-${escapeHtml(
-data.referrerUid || "Unknown"
-)}
-
-</div>
-
-
-<div class="status">
-Pending
-</div>
-
-
-<div>
-
-<button
-class="approve"
-onclick="approveReferralBonus('${doc.id}')"
->
-Approve
-</button>
-
-
-<button
-class="reject"
-onclick="rejectReferralBonus('${doc.id}')"
->
-Reject
-</button>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-
-list.innerHTML =
-html;
-
-
-}catch(error){
-
-console.error(
-"Referral bonuses:",
-error
-);
-
-
-document.getElementById(
-"pendingReferrals"
-).textContent =
-"Error";
-
-
-list.innerHTML =
-"<p>Could not load referral bonuses: " +
-escapeHtml(error.message) +
-"</p>";
-
-}
-
-}
-
-
-/* ==================================================
-   APPROVE REFERRAL BONUS
-================================================== */
-
-function approveReferralBonus(id){
-
-showConfirm(
-
-"Approve Referral Bonus",
-
-"Approve this referral bonus and add it to the referrer's balance and referral earnings?",
-
-async function(){
-
-try{
-
-await db.runTransaction(
-async function(transaction){
-
-const bonusRef =
-db
-.collection("referralBonuses")
-.doc(id);
-
-
-const bonusSnap =
-await transaction.get(
-bonusRef
-);
-
-
-if(!bonusSnap.exists){
-
-throw new Error(
-"Referral bonus not found."
-);
-
-}
-
-
-const bonus =
-bonusSnap.data();
-
-
-if(
-bonus.status !==
-"pending"
-){
-
-throw new Error(
-"This referral bonus has already been reviewed."
-);
-
-}
-
-
-const amount =
-Number(
-bonus.amount || 0
-);
-
-
-if(amount <= 0){
-
-throw new Error(
-"Invalid referral bonus amount."
-);
-
-}
-
-
-const referrerUid =
-bonus.referrerUid;
-
-
-if(!referrerUid){
-
-throw new Error(
-"Referrer UID is missing."
-);
-
-}
-
-
-const referrerRef =
-db
-.collection("users")
-.doc(referrerUid);
-
-
-const referrerSnap =
-await transaction.get(
-referrerRef
-);
-
-
-if(!referrerSnap.exists){
-
-throw new Error(
-"Referrer account was not found."
-);
-
-}
-
-
-const referrer =
-referrerSnap.data();
-
-
-const currentBalance =
-Number(
-referrer.balance || 0
-);
-
-
-const currentReferralEarnings =
-Number(
-referrer.referralEarnings || 0
-);
-
-
-const referredUserId =
-bonus.referredUserId;
-
-
-let referredUserRef = null;
-
-let referredUserSnap = null;
-
-if(referredUserId){
-
-referredUserRef =
-db
-.collection("users")
-.doc(referredUserId);
-
-referredUserSnap =
-await transaction.get(
-referredUserRef
-);
-
-}
-
-
-transaction.update(
-referrerRef,
-{
-
-balance:
-currentBalance + amount,
-
-referralEarnings:
-currentReferralEarnings + amount,
-
-lastReferralBonus:
-amount,
-
-lastReferralBonusFrom:
-referredUserId || "",
-
-referralBonusPaidAt:
-firebase.firestore
-.FieldValue
-.serverTimestamp()
-
-}
-);
-
-
-transaction.update(
-bonusRef,
-{
-
-status:"approved",
-
-reviewedAt:
-firebase.firestore
-.FieldValue
-.serverTimestamp(),
-
-reviewedBy:
-currentUser.uid
-
-}
-);
-
-
-if(
-referredUserSnap &&
-referredUserSnap.exists
-){
-
-transaction.update(
-referredUserRef,
-{
-
-referralBonusPaid:true
-
-}
-);
-
-}
-
-}
-);
-
-
-showMessage(
-"Referral bonus approved successfully. The referrer's balance and referral earnings have been updated.",
-"success"
-);
-
-
-loadReferralBonuses();
-
-loadUsers();
-
-
-}catch(error){
-
-console.error(
-"Approve referral:",
-error
-);
-
-showMessage(
-"Could not approve referral bonus: " +
-error.message,
-"error"
-);
-
-}
-
-}
-
-);
-
-}
-
-
-/* ==================================================
-   REJECT REFERRAL BONUS
-================================================== */
-
-function rejectReferralBonus(id){
-
-showConfirm(
-
-"Reject Referral Bonus",
-
-"Reject this referral bonus? No money will be added to the referrer's balance.",
-
-async function(){
-
-try{
-
-await db
-.collection("referralBonuses")
-.doc(id)
-.update({
-
-status:"rejected",
-
-reviewedAt:
-firebase.firestore
-.FieldValue
-.serverTimestamp(),
-
-reviewedBy:
-currentUser.uid
-
-});
-
-
-showMessage(
-"Referral bonus rejected.",
-"success"
-);
-
-
-loadReferralBonuses();
-
-
-}catch(error){
-
-console.error(error);
-
-showMessage(
-"Could not reject referral bonus: " +
-error.message,
-"error"
-);
-
-}
-
-}
-
-);
-
-}
-
-
-/* =========================
-   LOAD PROOFS
-========================= */
-
-async function loadProofs(){
-
-const list =
-document.getElementById(
-"proofsList"
-);
-
-
-try{
-
-const snapshot =
-await db
-.collection("submissions")
-.where(
-"status",
-"==",
-"pending"
-)
-.get();
-
-
-document.getElementById(
-"pendingProofs"
-).textContent =
-snapshot.size;
-
-
-if(snapshot.empty){
-
-list.innerHTML =
-"<p>No pending proof submissions.</p>";
-
-return;
-
-}
-
-
-let html = "";
-
-
-snapshot.forEach(
-function(doc){
-
-const data =
-doc.data();
-
-
-let proofHTML = "";
-
-
-if(data.proofImageUrl){
-
-proofHTML = `
-
-<div class="proof-image-box">
-
-<strong>🖼️ Submitted Proof:</strong>
-
-<img
-class="proof-image"
-src="${escapeHtml(
-data.proofImageUrl
-)}"
-alt="Task proof"
-loading="lazy"
->
-
-<a
-class="view-proof"
-href="${escapeHtml(
-data.proofImageUrl
-)}"
-target="_blank"
-rel="noopener noreferrer"
->
-🔍 View Full Picture
-</a>
-
-</div>
-
-`;
-
-}else if(data.proof){
-
-proofHTML = `
-
-<div class="info">
-
-<strong>Proof:</strong><br>
-
-${escapeHtml(
-data.proof
-)}
-
-</div>
-
-`;
-
-}else{
-
-proofHTML = `
-
-<div class="no-proof">
-
-No proof picture found.
-
-</div>
-
-`;
-
-}
-
-
-html += `
-
-<div class="request-card">
-
-<h3>
-Proof Submission
-</h3>
-
-
-<div class="info">
-
-<strong>User:</strong><br>
-
-${escapeHtml(
-data.userEmail ||
-data.userId ||
-""
-)}
-
-</div>
-
-
-<div class="info">
-
-<strong>Task:</strong>
-
-${escapeHtml(
-data.taskTitle ||
-data.taskId ||
-""
-)}
-
-</div>
-
-
-<div class="info">
-
-<strong>Reward:</strong>
-
-₦${Number(
-data.reward || 0
-).toLocaleString()}
-
-</div>
-
-
-${proofHTML}
-
-
-<div class="status">
-Pending
-</div>
-
-
-<div>
-
-<button
-class="approve"
-onclick="approveProof('${doc.id}')"
->
-Approve
-</button>
-
-
-<button
-class="reject"
-onclick="rejectProof('${doc.id}')"
->
-Reject
-</button>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-
-list.innerHTML =
-html;
-
-
-}catch(error){
-
-console.error(
-"Proofs:",
-error
-);
-
-
-document.getElementById(
-"pendingProofs"
-).textContent =
-"Error";
-
-
-list.innerHTML =
-"<p>Could not load submissions: " +
-escapeHtml(error.message) +
-"</p>";
-
-}
-
-}
-
-
-/* =========================
-   APPROVE PROOF
-========================= */
-
-function approveProof(id){
-
-showConfirm(
-
-"Approve Proof",
-
-"Approve this proof and add the task reward to the user's balance?",
-
-async function(){
-
-try{
-
-await db.runTransaction(
-async function(transaction){
-
-const submissionRef =
-db
-.collection("submissions")
-.doc(id);
-
-
-const submissionSnap =
-await transaction.get(
-submissionRef
-);
-
-
-if(!submissionSnap.exists){
-
-throw new Error(
-"Submission not found."
-);
-
-}
-
-
-const submission =
-submissionSnap.data();
-
-
-if(
-submission.status !==
-"pending"
-){
-
-throw new Error(
-"This submission has already been reviewed."
-);
-
-}
-
-
-const userRef =
-db
-.collection("users")
-.doc(
-submission.userId
-);
-
-
-const userSnap =
-await transaction.get(
-userRef
-);
-
-
-if(!userSnap.exists){
-
-throw new Error(
-"User account not found."
-);
-
-}
-
-
-const user =
-userSnap.data();
-
-
-const balance =
-Number(
-user.balance || 0
-);
-
-
-const reward =
-Number(
-submission.reward || 0
-);
-
-
-transaction.update(
-userRef,
-{
-
-balance:
-balance + reward
-
-}
-);
-
-
-transaction.update(
-submissionRef,
-{
-
-status:"approved",
-
-reviewedAt:
-firebase.firestore
-.FieldValue
-.serverTimestamp(),
-
-reviewedBy:
-currentUser.uid
-
-}
-);
-
-}
-);
-
-
-showMessage(
-"Proof approved and reward added.",
-"success"
-);
-
-
-loadProofs();
-
-loadUsers();
-
-
-}catch(error){
-
-console.error(error);
-
-showMessage(
-error.message,
-"error"
-);
-
-}
-
-}
-
-);
-
-}
-
-
-/* =========================
-   REJECT PROOF
-========================= */
-
-function rejectProof(id){
-
-showConfirm(
-
-"Reject Proof",
-
-"Reject this proof submission?",
-
-async function(){
-
-try{
-
-await db
-.collection("submissions")
-.doc(id)
-.update({
-
-status:"rejected",
-
-reviewedAt:
-firebase.firestore
-.FieldValue
-.serverTimestamp(),
-
-reviewedBy:
-currentUser.uid
-
-});
-
-
-showMessage(
-"Proof rejected.",
-"success"
-);
-
-
-loadProofs();
-
-
-}catch(error){
-
-console.error(error);
-
-showMessage(
-error.message,
-"error"
-);
-
-}
-
-}
-
-);
-
-}
-
-
-/* =========================
-   LOAD WITHDRAWALS
-========================= */
-
-async function loadWithdrawals(){
-
-const list =
-document.getElementById(
-"withdrawalsList"
-);
-
-
-try{
-
-const snapshot =
-await db
-.collection("withdrawals")
-.where(
-"status",
-"==",
-"pending"
-)
-.get();
-
-
-document.getElementById(
-"pendingWithdrawals"
-).textContent =
-snapshot.size;
-
-
-if(snapshot.empty){
-
-list.innerHTML =
-"<p>No pending withdrawal requests.</p>";
-
-return;
-
-}
-
-
-let html = "";
-
-
-snapshot.forEach(
-function(doc){
-
-const data =
-doc.data();
-
-
-html += `
-
-<div class="request-card">
-
-<h3>
-Withdrawal Request
-</h3>
-
-
-<div class="info">
-
-<strong>User:</strong><br>
-
-${escapeHtml(
-data.userEmail || ""
-)}
-
-</div>
-
-
-<div class="info">
-
-<strong>Amount:</strong>
-
-₦${Number(
-data.amount || 0
-).toLocaleString()}
-
-</div>
-
-
-<div class="info">
-
-<strong>Payment Method:</strong>
-
-${escapeHtml(
-data.paymentMethod || ""
-)}
-
-</div>
-
-
-<div class="info">
-
-<strong>Account Name:</strong>
-
-${escapeHtml(
-data.accountName || ""
-)}
-
-</div>
-
-
-<div class="info">
-
-<strong>Account Number:</strong>
-
-${escapeHtml(
-data.accountNumber || ""
-)}
-
-</div>
-
-
-<div class="info">
-
-<strong>Bank / Provider:</strong>
-
-${escapeHtml(
-data.bankName || ""
-)}
-
-</div>
-
-
-<div class="status">
-Pending
-</div>
-
-
-<div>
-
-<button
-class="approve"
-onclick="approveWithdrawal('${doc.id}')"
->
-Approve
-</button>
-
-
-<button
-class="reject"
-onclick="rejectWithdrawal('${doc.id}')"
->
-Reject
-</button>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-
-list.innerHTML =
-html;
-
-
-}catch(error){
-
-console.error(error);
-
-
-document.getElementById(
-"pendingWithdrawals"
-).textContent =
-"Error";
-
-
-list.innerHTML =
-"<p>Could not load withdrawals: " +
-escapeHtml(error.message) +
-"</p>";
-
-}
-
-}
-
-
-/* =========================
-   APPROVE WITHDRAWAL
-   WITH NOTIFICATION
-========================= */
-
-function approveWithdrawal(id){
-
-showConfirm(
-
-"Approve Withdrawal",
-
-"Only confirm after the legitimate payout has actually been completed. Continue?",
-
-async function(){
-
-try{
-
-await db.runTransaction(
-async function(transaction){
-
-const withdrawalRef =
-db
-.collection("withdrawals")
-.doc(id);
-
-
-const withdrawalSnap =
-await transaction.get(
-withdrawalRef
-);
-
-
-if(!withdrawalSnap.exists){
-
-throw new Error(
-"Withdrawal not found."
-);
-
-}
-
-
-const withdrawal =
-withdrawalSnap.data();
-
-
-if(
-withdrawal.status !==
-"pending"
-){
-
-throw new Error(
-"This withdrawal has already been reviewed."
-);
-
-}
-
-
-const userRef =
-db
-.collection("users")
-.doc(
-withdrawal.userId
-);
-
-
-const userSnap =
-await transaction.get(
-userRef
-);
-
-
-if(!userSnap.exists){
-
-throw new Error(
-"User account not found."
-);
-
-}
-
-
-const user =
-userSnap.data();
-
-
-const balance =
-Number(
-user.balance || 0
-);
-
-
-const amount =
-Number(
-withdrawal.amount || 0
-);
-
-
-if(amount <= 0){
-
-throw new Error(
-"Invalid withdrawal amount."
-);
-
-}
-
-
-if(amount > balance){
-
-throw new Error(
-"User does not have enough balance."
-);
-
-}
-
-
-/* =========================
-   DEDUCT BALANCE
-========================= */
-
-transaction.update(
-userRef,
-{
-
-balance:
-balance - amount
-
-}
-);
-
-
-/* =========================
-   APPROVE WITHDRAWAL
-========================= */
-
-transaction.update(
-withdrawalRef,
-{
-
-status:"approved",
-
-reviewedAt:
-firebase.firestore
-.FieldValue
-.serverTimestamp(),
-
-reviewedBy:
-currentUser.uid
-
-}
-);
-
-
-/* =========================
-   CREATE NOTIFICATION
-========================= */
-
-const notificationRef =
-db
-.collection("notifications")
-.doc();
-
-
-transaction.set(
-notificationRef,
-{
-
-userId:
-withdrawal.userId,
-
-title:
-"Withdrawal Approved",
-
-message:
-"Your withdrawal of ₦" +
-amount.toLocaleString() +
-" has been approved.",
-
-type:
-"withdrawal_approved",
-
-read:
-false,
-
-createdAt:
-firebase.firestore
-.FieldValue
-.serverTimestamp()
-
-}
-);
-
-}
-);
-
-
-showMessage(
-"Withdrawal approved, balance deducted, and notification sent.",
-"success"
-);
-
-
-loadWithdrawals();
-
-loadUsers();
-
-
-}catch(error){
-
-console.error(
-"Approve withdrawal:",
-error
-);
-
-showMessage(
-error.message,
-"error"
-);
-
-}
-
-}
-
-);
-
-}
-
-
-/* =========================
-   REJECT WITHDRAWAL
-   WITH NOTIFICATION
-========================= */
-
-function rejectWithdrawal(id){
-
-showConfirm(
-
-"Reject Withdrawal",
-
-"Reject this withdrawal request? The user's balance will remain unchanged.",
-
-async function(){
-
-try{
-
-const withdrawalRef =
-db
-.collection("withdrawals")
-.doc(id);
-
-
-/* =========================
-   GET WITHDRAWAL
-========================= */
-
-const withdrawalSnap =
-await withdrawalRef.get();
-
-
-if(!withdrawalSnap.exists){
-
-throw new Error(
-"Withdrawal not found."
-);
-
-}
-
-
-const withdrawal =
-withdrawalSnap.data();
-
-
-if(
-withdrawal.status !==
-"pending"
-){
-
-throw new Error(
-"This withdrawal has already been reviewed."
-);
-
-}
-
-
-/* =========================
-   REJECT WITHDRAWAL
-========================= */
-
-await withdrawalRef.update({
-
-status:"rejected",
-
-reviewedAt:
-firebase.firestore
-.FieldValue
-.serverTimestamp(),
-
-reviewedBy:
-currentUser.uid
-
-});
-
-
-/* =========================
-   CREATE NOTIFICATION
-========================= */
-
-await db
-.collection("notifications")
-.add({
-
-userId:
-withdrawal.userId,
-
-title:
-"Withdrawal Rejected",
-
-message:
-"Your withdrawal of ₦" +
-Number(
-withdrawal.amount || 0
-).toLocaleString() +
-" has been rejected. Your balance was not changed.",
-
-type:
-"withdrawal_rejected",
-
-read:
-false,
-
-createdAt:
-firebase.firestore
-.FieldValue
-.serverTimestamp()
-
-});
-
-
-showMessage(
-"Withdrawal rejected and notification sent. User balance was not changed.",
-"success"
-);
-
-
-loadWithdrawals();
-
-
-}catch(error){
-
-console.error(
-"Reject withdrawal:",
-error
-);
-
-showMessage(
-error.message,
-"error"
-);
-
-}
-
-}
-
-);
-
-}
-
-
-/* =========================
-   CONFIRM MODAL
-========================= */
-
-function showConfirm(
-title,
-message,
-action
-){
-
-document.getElementById(
-"modalTitle"
-).textContent =
-title;
-
-
-document.getElementById(
-"modalMessage"
-).textContent =
-message;
-
-
-pendingAction =
-action;
-
-
-document.getElementById(
-"confirmModal"
-).style.display =
-"flex";
-
-
-document.getElementById(
-"confirmButton"
-).onclick =
-function(){
-
-const actionToRun =
-pendingAction;
-
-
-closeModal();
-
-
-if(actionToRun){
-
-actionToRun();
-
-}
-
+loadReviewedWithdrawals();
+}
+
+/* SPONSORED POSTS */
+async function publishSponsoredPost(){
+if(!currentUser)return;
+
+const title=document.getElementById("sponsorTitle").value.trim();
+const imageUrl=document.getElementById("sponsorImage").value.trim();
+const copyText=document.getElementById("sponsorText").value.trim();
+const status=document.getElementById("sponsorStatus").value;
+
+const rewards={
+Spark:Number(document.getElementById("rewardSpark").value),
+Base:Number(document.getElementById("rewardBase").value),
+Voltage:Number(document.getElementById("rewardVoltage").value),
+Titan:Number(document.getElementById("rewardTitan").value),
+Supreme:Number(document.getElementById("rewardSupreme").value)
 };
 
+if(!title || !imageUrl || !copyText){
+showMessage("Enter the sponsor title, picture URL and copy text.","error");
+return;
 }
-
-
-function closeModal(){
-
-document.getElementById(
-"confirmModal"
-).style.display =
-"none";
-
-
-pendingAction =
-null;
-
-}
-
-
-/* =========================
-   MESSAGE
-========================= */
-
-function showMessage(
-text,
-type
-){
-
-const box =
-document.getElementById(
-"message"
-);
-
-
-box.textContent =
-text;
-
-
-box.className =
-"message " + type;
-
-
-box.style.display =
-"block";
-
-}
-
-
-/* =========================
-   ESCAPE HTML
-========================= */
-
-function escapeHtml(value){
-
-return String(value)
-
-.replace(
-/&/g,
-"&amp;"
-)
-
-.replace(
-/</g,
-"&lt;"
-)
-
-.replace(
-/>/g,
-"&gt;"
-)
-
-.replace(
-/"/g,
-"&quot;"
-)
-
-.replace(
-/'/g,
-"&#039;"
-);
-
-}
-
-
-/* =========================
-   LOGOUT
-========================= */
-
-async function logout(){
 
 try{
+const parsedUrl=new URL(imageUrl);
+if(parsedUrl.protocol!=="https:")throw new Error("Picture URL must use HTTPS.");
 
-await auth.signOut();
+for(const plan in rewards){
+if(!Number.isFinite(rewards[plan]) || rewards[plan]<=0){
+throw new Error("Enter a valid reward for "+plan+".");
+}
+}
 
-window.location.href =
-"login.html";
+await db.collection("sponsoredPosts").add({
+title:title,
+imageUrl:imageUrl,
+copyText:copyText,
+rewards:rewards,
+status:status,
+createdAt:firebase.firestore.FieldValue.serverTimestamp(),
+createdBy:currentUser.uid
+});
 
+document.getElementById("sponsorTitle").value="";
+document.getElementById("sponsorText").value="";
+showMessage("Sponsored post published successfully.","success");
+loadSponsoredPosts();
 
 }catch(error){
-
-console.error(error);
-
+showMessage("Could not publish sponsored post: "+error.message,"error");
+}
 }
 
+async function loadSponsoredPosts(){
+const list=document.getElementById("sponsoredPostsList");
+try{
+const snapshot=await db.collection("sponsoredPosts").get();
+if(snapshot.empty){
+list.innerHTML="<p>No sponsored posts have been published yet.</p>";
+return;
 }
 
+let html="";
+snapshot.forEach(doc=>{
+const p=doc.data();
+const rewards=p.rewards||{};
+const status=p.status||"inactive";
+html+=`
+<div class="task-card">
+<h3>${escapeHtml(p.title||"Sponsored Post")}</h3>
+<img class="sponsor-image" src="${escapeHtml(p.imageUrl||"")}" alt="Sponsor picture">
+<div class="info"><strong>Copy text:</strong><br>${escapeHtml(p.copyText||"")}</div>
+<div class="info"><strong>Spark:</strong> ₦${money(rewards.Spark)}</div>
+<div class="info"><strong>Base:</strong> ₦${money(rewards.Base)}</div>
+<div class="info"><strong>Voltage:</strong> ₦${money(rewards.Voltage)}</div>
+<div class="info"><strong>Titan:</strong> ₦${money(rewards.Titan)}</div>
+<div class="info"><strong>Supreme:</strong> ₦${money(rewards.Supreme)}</div>
+<div class="info"><strong>Status:</strong> ${escapeHtml(status)}</div>
+${status==="active"
+? `<button class="deactivate" onclick="changeSponsoredStatus('${doc.id}','inactive')">Deactivate</button>`
+: `<button class="activate" onclick="changeSponsoredStatus('${doc.id}','active')">Activate</button>`}
+<button class="reject" onclick="deleteSponsoredPost('${doc.id}')">Delete</button>
+</div>`;
+});
+list.innerHTML=html;
+}catch(error){
+list.innerHTML="<p>Could not load sponsored posts: "+escapeHtml(error.message)+"</p>";
+}
+}
+
+async function changeSponsoredStatus(id,status){
+if(!currentUser)return;
+try{
+await db.collection("sponsoredPosts").doc(id).update({
+status:status,
+updatedAt:firebase.firestore.FieldValue.serverTimestamp(),
+updatedBy:currentUser.uid
+});
+showMessage("Sponsored post updated.","success");
+loadSponsoredPosts();
+}catch(error){
+showMessage("Could not update post: "+error.message,"error");
+}
+}
+
+function deleteSponsoredPost(id){
+showConfirm("Delete Sponsored Post","Delete this sponsored post? This cannot be undone.",async function(){
+try{
+await db.collection("sponsoredPosts").doc(id).delete();
+showMessage("Sponsored post deleted.","success");
+loadSponsoredPosts();
+}catch(error){
+showMessage(error.message,"error");
+}
+});
+}
+
+/* USERS */
+async function loadUsers(){
+try{
+const snapshot=await db.collection("users").get();
+document.getElementById("totalUsers").textContent=snapshot.size;
+}catch(error){
+document.getElementById("totalUsers").textContent="Error";
+}
+}
+
+/* TASKS */
+async function addTask(){
+if(!currentUser)return;
+const title=document.getElementById("taskTitle").value.trim();
+const description=document.getElementById("taskDescription").value.trim();
+const reward=Number(document.getElementById("taskReward").value);
+const link=document.getElementById("taskLink").value.trim();
+const status=document.getElementById("taskStatus").value;
+
+if(!title||!description||!Number.isFinite(reward)||reward<=0){
+showMessage("Enter a title, description and valid reward.","error");
+return;
+}
+try{
+await db.collection("tasks").add({
+title,description,reward,link,status,
+createdAt:firebase.firestore.FieldValue.serverTimestamp()
+});
+document.getElementById("taskTitle").value="";
+document.getElementById("taskDescription").value="";
+document.getElementById("taskReward").value="";
+document.getElementById("taskLink").value="";
+showMessage("Task published successfully.","success");
+loadTasks();
+}catch(error){showMessage(error.message,"error");}
+}
+
+async function loadTasks(){
+const list=document.getElementById("tasksList");
+try{
+const snapshot=await db.collection("tasks").get();
+document.getElementById("totalTasks").textContent=snapshot.size;
+if(snapshot.empty){list.innerHTML="<p>No tasks found.</p>";return;}
+let html="";
+snapshot.forEach(doc=>{
+const t=doc.data();
+html+=`<div class="task-card">
+<h3>${escapeHtml(t.title||"Untitled Task")}</h3>
+<div class="info">${escapeHtml(t.description||"")}</div>
+<div class="info"><strong>Reward:</strong> ₦${money(t.reward)}</div>
+<div class="info"><strong>Status:</strong> ${escapeHtml(t.status||"active")}</div>
+${t.link?`<div class="info"><strong>Link:</strong> ${escapeHtml(t.link)}</div>`:""}
+</div>`;
+});
+list.innerHTML=html;
+}catch(error){list.innerHTML="<p>"+escapeHtml(error.message)+"</p>";}
+}
+
+/* REFERRAL BONUSES */
+async function loadReferralBonuses(){
+const list=document.getElementById("referralBonusesList");
+try{
+const snapshot=await db.collection("referralBonuses").where("status","==","pending").get();
+document.getElementById("pendingReferrals").textContent=snapshot.size;
+if(snapshot.empty){list.innerHTML="<p>No pending referral bonuses.</p>";return;}
+let html="";
+snapshot.forEach(doc=>{
+const d=doc.data();
+html+=`<div class="request-card">
+<h3>Referral Bonus</h3>
+<div class="info"><strong>Amount:</strong> ₦${money(d.amount)}</div>
+<div class="info"><strong>Plan:</strong> ${escapeHtml(d.planName||"Unknown")}</div>
+<div class="info"><strong>Referral Code:</strong> ${escapeHtml(d.referralCode||"")}</div>
+<div class="info"><strong>Referred User:</strong> ${escapeHtml(d.referredUserEmail||d.referredUserId||"Unknown")}</div>
+<div class="info"><strong>Referrer UID:</strong> ${escapeHtml(d.referrerUid||"Unknown")}</div>
+<span class="status">Pending</span><br>
+<button class="approve" onclick="approveReferralBonus('${doc.id}')">Approve</button>
+<button class="reject" onclick="rejectReferralBonus('${doc.id}')">Reject</button>
+</div>`;
+});
+list.innerHTML=html;
+}catch(error){list.innerHTML="<p>"+escapeHtml(error.message)+"</p>";}
+}
+
+function approveReferralBonus(id){
+showConfirm("Approve Referral Bonus","Approve and credit this referral bonus?",async function(){
+try{
+await db.runTransaction(async transaction=>{
+const ref=db.collection("referralBonuses").doc(id);
+const snap=await transaction.get(ref);
+if(!snap.exists||snap.data().status!=="pending")throw new Error("Bonus is no longer pending.");
+const b=snap.data(),amount=Number(b.amount||0);
+if(!b.referrerUid||!Number.isFinite(amount)||amount<=0)throw new Error("Invalid bonus details.");
+const userRef=db.collection("users").doc(b.referrerUid);
+const userSnap=await transaction.get(userRef);
+if(!userSnap.exists)throw new Error("Referrer not found.");
+const u=userSnap.data();
+transaction.update(userRef,{
+referralEarnings:Number(u.referralEarnings||0)+amount,
+lastReferralBonus:amount
+});
+transaction.update(ref,{
+status:"approved",
+reviewedAt:firebase.firestore.FieldValue.serverTimestamp(),
+reviewedBy:currentUser.uid
+});
+if(b.referredUserId){
+const referredRef=db.collection("users").doc(b.referredUserId);
+const referredSnap=await transaction.get(referredRef);
+if(referredSnap.exists)transaction.update(referredRef,{referralBonusPaid:true});
+}
+});
+showMessage("Referral bonus approved.","success");
+loadReferralBonuses();loadUsers();
+}catch(error){showMessage(error.message,"error");}
+});
+}
+
+function rejectReferralBonus(id){
+showConfirm("Reject Referral Bonus","Reject this referral bonus?",async function(){
+try{
+const ref=db.collection("referralBonuses").doc(id);
+await db.runTransaction(async transaction=>{
+const snap=await transaction.get(ref);
+if(!snap.exists||snap.data().status!=="pending")throw new Error("Bonus is no longer pending.");
+transaction.update(ref,{status:"rejected",reviewedAt:firebase.firestore.FieldValue.serverTimestamp(),reviewedBy:currentUser.uid});
+});
+showMessage("Referral bonus rejected.","success");loadReferralBonuses();
+}catch(error){showMessage(error.message,"error");}
+});
+}
+
+/* TASK PROOFS */
+async function loadProofs(){
+const list=document.getElementById("proofsList");
+try{
+const snapshot=await db.collection("submissions").where("status","==","pending").get();
+document.getElementById("pendingProofs").textContent=snapshot.size;
+if(snapshot.empty){list.innerHTML="<p>No pending proof submissions.</p>";return;}
+let html="";
+snapshot.forEach(doc=>{
+const d=doc.data();
+let proof=d.proofImageUrl
+? `<div class="proof-image-box"><strong>Submitted Proof:</strong><img class="proof-image" src="${escapeHtml(d.proofImageUrl)}" alt="Task proof"><a class="view-proof" href="${escapeHtml(d.proofImageUrl)}" target="_blank" rel="noopener">View Full Picture</a></div>`
+: `<div class="info"><strong>Proof:</strong><br>${escapeHtml(d.proof||"No proof supplied")}</div>`;
+html+=`<div class="request-card">
+<h3>Proof Submission</h3>
+<div class="info"><strong>User:</strong> ${escapeHtml(d.userEmail||d.userId||"")}</div>
+<div class="info"><strong>Task:</strong> ${escapeHtml(d.taskTitle||d.taskId||"")}</div>
+<div class="info"><strong>Reward:</strong> ₦${money(d.reward)}</div>
+${proof}<span class="status">Pending</span><br>
+<button class="approve" onclick="approveProof('${doc.id}')">Approve</button>
+<button class="reject" onclick="rejectProof('${doc.id}')">Reject</button>
+</div>`;
+});
+list.innerHTML=html;
+}catch(error){list.innerHTML="<p>"+escapeHtml(error.message)+"</p>";}
+}
+
+function approveProof(id){
+showConfirm("Approve Proof","Approve this proof and credit the user's task balance?",async function(){
+try{
+await db.runTransaction(async transaction=>{
+const ref=db.collection("submissions").doc(id);
+const snap=await transaction.get(ref);
+if(!snap.exists||snap.data().status!=="pending")throw new Error("Submission is no longer pending.");
+const d=snap.data(),reward=Number(d.reward||0);
+if(!d.userId||!Number.isFinite(reward)||reward<=0)throw new Error("Invalid submission details.");
+const userRef=db.collection("users").doc(d.userId);
+const userSnap=await transaction.get(userRef);
+if(!userSnap.exists)throw new Error("User not found.");
+transaction.update(userRef,{balance:Number(userSnap.data().balance||0)+reward});
+transaction.update(ref,{status:"approved",reviewedAt:firebase.firestore.FieldValue.serverTimestamp(),reviewedBy:currentUser.uid});
+});
+showMessage("Proof approved and balance updated.","success");loadProofs();loadUsers();
+}catch(error){showMessage(error.message,"error");}
+});
+}
+
+function rejectProof(id){
+showConfirm("Reject Proof","Reject this task proof?",async function(){
+try{
+const ref=db.collection("submissions").doc(id);
+await db.runTransaction(async transaction=>{
+const snap=await transaction.get(ref);
+if(!snap.exists||snap.data().status!=="pending")throw new Error("Submission is no longer pending.");
+transaction.update(ref,{status:"rejected",reviewedAt:firebase.firestore.FieldValue.serverTimestamp(),reviewedBy:currentUser.uid});
+});
+showMessage("Proof rejected.","success");loadProofs();
+}catch(error){showMessage(error.message,"error");}
+});
+}
+
+/* WITHDRAWALS */
+function walletName(type){
+if(type==="task")return "Task Earnings";
+if(type==="affiliate")return "Affiliate Earnings";
+return "Unknown wallet";
+}
+function walletClass(type){
+if(type==="task")return "wallet-task";
+if(type==="affiliate")return "wallet-affiliate";
+return "";
+}
+
+function withdrawalCard(doc,showActions){
+const d=doc.data(),type=d.walletType,status=String(d.status||"unknown");
+const known=type==="task"||type==="affiliate";
+let buttons="";
+if(showActions&&status==="pending"){
+buttons=`<div>${known?`<button class="approve" onclick="approveWithdrawal('${doc.id}')">Approve</button>`:`<p class="no-proof">Unknown wallet type. Cannot approve automatically.</p>`}<button class="reject" onclick="rejectWithdrawal('${doc.id}')">Reject</button></div>`;
+}
+if(!showActions&&status==="approved")buttons=`<button class="paid-btn" onclick="markWithdrawalPaid('${doc.id}')">Mark as Paid</button>`;
+return `<div class="request-card">
+<h3>Withdrawal Request</h3>
+<div class="info"><strong>User:</strong> ${escapeHtml(d.userEmail||d.userId||"Unknown")}</div>
+<div class="info"><strong>Wallet:</strong> <span class="wallet-tag ${walletClass(type)}">${escapeHtml(walletName(type))}</span></div>
+<div class="info"><strong>Amount:</strong> ₦${money(d.amount)}</div>
+<div class="info"><strong>Minimum Required:</strong> ₦${money(d.minimumRequired)}</div>
+<div class="info"><strong>Plan:</strong> ${escapeHtml(d.planName||"Not specified")}</div>
+<div class="info"><strong>Payment Method:</strong> ${escapeHtml(d.paymentMethod||"")}</div>
+<div class="info"><strong>Account Name:</strong> ${escapeHtml(d.accountName||"")}</div>
+<div class="info"><strong>Account Number:</strong> ${escapeHtml(d.accountNumber||"")}</div>
+<div class="info"><strong>Bank / Provider:</strong> ${escapeHtml(d.bankName||"")}</div>
+<div class="info"><strong>Status:</strong> ${escapeHtml(status.toUpperCase())}</div>
+${buttons}</div>`;
+}
+
+async function loadWithdrawals(){
+const list=document.getElementById("withdrawalsList");
+try{
+const snapshot=await db.collection("withdrawals").where("status","==","pending").get();
+document.getElementById("pendingWithdrawals").textContent=snapshot.size;
+if(snapshot.empty){list.innerHTML="<p>No pending withdrawal requests.</p>";return;}
+let html="";snapshot.forEach(doc=>html+=withdrawalCard(doc,true));list.innerHTML=html;
+}catch(error){list.innerHTML="<p>"+escapeHtml(error.message)+"</p>";}
+}
+
+async function loadReviewedWithdrawals(){
+const list=document.getElementById("reviewedWithdrawalsList");
+try{
+const snapshot=await db.collection("withdrawals").where("status","in",["approved","rejected","paid"]).get();
+if(snapshot.empty){list.innerHTML="<p>No reviewed withdrawals yet.</p>";return;}
+let html="";snapshot.forEach(doc=>html+=withdrawalCard(doc,false));list.innerHTML=html;
+}catch(error){list.innerHTML="<p>"+escapeHtml(error.message)+"</p>";}
+}
+
+function approveWithdrawal(id){
+showConfirm("Approve Withdrawal","This deducts the amount from the selected wallet. It does not send money.",async function(){
+try{
+await db.runTransaction(async transaction=>{
+const ref=db.collection("withdrawals").doc(id),snap=await transaction.get(ref);
+if(!snap.exists||snap.data().status!=="pending")throw new Error("Withdrawal is no longer pending.");
+const d=snap.data(),type=d.walletType,amount=Number(d.amount||0);
+if(!d.userId||(type!=="task"&&type!=="affiliate")||!Number.isFinite(amount)||amount<=0)throw new Error("Invalid withdrawal details.");
+if(Number(d.minimumRequired||0)>amount)throw new Error("Amount is below the recorded minimum.");
+const userRef=db.collection("users").doc(d.userId),userSnap=await transaction.get(userRef);
+if(!userSnap.exists)throw new Error("User not found.");
+const field=type==="task"?"balance":"referralEarnings",u=userSnap.data(),balance=Number(u[field]||0);
+if(amount>balance)throw new Error("Insufficient wallet balance.");
+transaction.update(userRef,{[field]:balance-amount});
+transaction.update(ref,{status:"approved",reviewedAt:firebase.firestore.FieldValue.serverTimestamp(),reviewedBy:currentUser.uid,deductedWalletField:field});
+const notificationRef=db.collection("notifications").doc();
+transaction.set(notificationRef,{userId:d.userId,title:"Withdrawal Approved",message:"Your withdrawal of ₦"+money(amount)+" has been approved. Payment must still be processed.",type:"withdrawal_approved",read:false,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+});
+showMessage("Withdrawal approved. Payment has NOT been sent automatically.","success");
+loadWithdrawals();loadReviewedWithdrawals();loadUsers();
+}catch(error){showMessage(error.message,"error");}
+});
+}
+
+function rejectWithdrawal(id){
+showConfirm("Reject Withdrawal","Reject this request? The user's wallet will not be changed.",async function(){
+try{
+await db.runTransaction(async transaction=>{
+const ref=db.collection("withdrawals").doc(id),snap=await transaction.get(ref);
+if(!snap.exists||snap.data().status!=="pending")throw new Error("Withdrawal is no longer pending.");
+const d=snap.data();
+transaction.update(ref,{status:"rejected",reviewedAt:firebase.firestore.FieldValue.serverTimestamp(),reviewedBy:currentUser.uid});
+const n=db.collection("notifications").doc();
+transaction.set(n,{userId:d.userId,title:"Withdrawal Rejected",message:"Your withdrawal request of ₦"+money(d.amount)+" was rejected. Your wallet was not changed.",type:"withdrawal_rejected",read:false,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+});
+showMessage("Withdrawal rejected.","success");loadWithdrawals();loadReviewedWithdrawals();
+}catch(error){showMessage(error.message,"error");}
+});
+}
+
+function markWithdrawalPaid(id){
+showConfirm("Mark Withdrawal as Paid","Only continue if you have actually sent the money.",async function(){
+try{
+await db.runTransaction(async transaction=>{
+const ref=db.collection("withdrawals").doc(id),snap=await transaction.get(ref);
+if(!snap.exists||snap.data().status!=="approved")throw new Error("Only approved withdrawals can be marked paid.");
+const d=snap.data();
+transaction.update(ref,{status:"paid",paidAt:firebase.firestore.FieldValue.serverTimestamp(),paidBy:currentUser.uid});
+const n=db.collection("notifications").doc();
+transaction.set(n,{userId:d.userId,title:"Withdrawal Paid",message:"Your withdrawal of ₦"+money(d.amount)+" has been marked as paid.",type:"withdrawal_paid",read:false,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+});
+showMessage("Withdrawal marked as paid.","success");loadReviewedWithdrawals();
+}catch(error){showMessage(error.message,"error");}
+});
+}
+
+/* MODAL AND HELPERS */
+function showConfirm(title,message,action){
+document.getElementById("modalTitle").textContent=title;
+document.getElementById("modalMessage").textContent=message;
+pendingAction=action;
+document.getElementById("confirmModal").style.display="flex";
+document.getElementById("confirmButton").onclick=async function(){
+const actionToRun=pendingAction;closeModal();if(actionToRun)await actionToRun();
+};
+}
+function closeModal(){
+document.getElementById("confirmModal").style.display="none";
+pendingAction=null;
+}
+function showMessage(text,type){
+const box=document.getElementById("message");
+box.textContent=text;
+box.className="message "+type;
+box.style.display="block";
+window.scrollTo({top:0,behavior:"smooth"});
+}
+function escapeHtml(value){
+return String(value==null?"":value)
+.replace(/&/g,"&amp;").replace(/</g,"&lt;")
+.replace(/>/g,"&gt;").replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+}
+function money(value){
+const amount=Number(value||0);
+if(!Number.isFinite(amount))return "0";
+return amount.toLocaleString("en-NG");
+}
+async function logout(){
+try{await auth.signOut();window.location.href="login.html";}
+catch(error){showMessage("Logout failed: "+error.message,"error");}
+}
 </script>
-
 </body>
 </html>
