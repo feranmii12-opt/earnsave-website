@@ -1,262 +1,114 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#080F24">
-<title>Dashboard | EarnSave</title><style>
+<title>Dashboard | EarnSave</title>
+
+<style>
 :root{
---bg:#080F24;
---panel:#101B35;
---panel2:#142344;
---blue:#2563EB;
---cyan:#38BDF8;
---purple:#8B5CF6;
---gold:#FBBF24;
---white:#F8FAFC;
---muted:#91A3C5;
---line:#243657;
---shadow:0 12px 30px rgba(0,0,0,.20);
+--bg:#080F24;--panel:#101B35;--panel2:#142344;
+--blue:#2563EB;--cyan:#38BDF8;--purple:#8B5CF6;
+--gold:#FBBF24;--white:#F8FAFC;--muted:#91A3C5;
+--line:#243657;--shadow:0 12px 30px rgba(0,0,0,.20);
 }
 *{box-sizing:border-box}
-body{
-margin:0;
-background:var(--bg);
-color:var(--white);
-font-family:Arial,Helvetica,sans-serif;
-padding-bottom:100px;
-}
+body{margin:0;background:var(--bg);color:var(--white);font-family:Arial,Helvetica,sans-serif;padding-bottom:100px}
 a,button{-webkit-tap-highlight-color:transparent}
 a{color:inherit;text-decoration:none}
 button{font:inherit;cursor:pointer}
-header{
-position:sticky;top:0;z-index:10;
-background:#0B1530;
-border-bottom:1px solid var(--line);
-}
-.header-inner{
-max-width:1100px;margin:auto;padding:13px 16px;
-display:flex;align-items:center;justify-content:space-between;gap:12px;
-}
+header{position:sticky;top:0;z-index:10;background:#0B1530;border-bottom:1px solid var(--line)}
+.header-inner{max-width:1100px;margin:auto;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{display:flex;align-items:center;gap:10px}
-.logo-icon{
-width:44px;height:44px;border-radius:15px;
-background:linear-gradient(145deg,var(--cyan),var(--blue),var(--purple));
-display:grid;place-items:center;color:white;
-font-size:25px;font-weight:900;
-box-shadow:0 5px 20px #2563eb55;
-}
+.logo-icon{width:44px;height:44px;border-radius:15px;background:linear-gradient(145deg,var(--cyan),var(--blue),var(--purple));display:grid;place-items:center;color:white;font-size:25px;font-weight:900;box-shadow:0 5px 20px #2563eb55}
 .logo{font-size:22px;font-weight:900;letter-spacing:-.7px}
 .logo span{color:var(--cyan)}
 .subtitle{font-size:9px;letter-spacing:1px;color:var(--muted);margin-top:4px}
 .header-actions{display:flex;align-items:center;gap:8px}
-.icon-button{
-width:40px;height:40px;border-radius:13px;
-display:grid;place-items:center;background:#172747;
-border:1px solid var(--line);font-size:20px;
-}
-.logout{
-border:1px solid #63343D;background:#351C2A;color:#FF9AA8;
-padding:11px 13px;border-radius:12px;font-size:12px;font-weight:800;
-}
+.icon-button{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:#172747;border:1px solid var(--line);font-size:20px}
+.logout{border:1px solid #63343D;background:#351C2A;color:#FF9AA8;padding:11px 13px;border-radius:12px;font-size:12px;font-weight:800}
 .container{max-width:1100px;margin:auto;padding:20px 15px}
 #loading{text-align:center;padding:75px 20px;color:var(--cyan)}
-.spinner{
-width:35px;height:35px;border:3px solid #243657;
-border-top-color:var(--cyan);border-radius:50%;
-margin:0 auto 14px;animation:spin .8s linear infinite;
-}
+.spinner{width:35px;height:35px;border:3px solid #243657;border-top-color:var(--cyan);border-radius:50%;margin:0 auto 14px;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 #loginMessage{display:none;text-align:center;margin:65px auto;padding:25px;max-width:400px}
-.login-btn,.primary-btn{
-display:inline-block;background:linear-gradient(120deg,var(--blue),var(--purple));
-color:white;padding:12px 17px;border-radius:12px;
-font-weight:800;font-size:13px;
-}
-.error{
-display:none;background:#351C2A;border:1px solid #713746;
-color:#FFADB8;padding:13px;border-radius:12px;
-margin-bottom:15px;overflow-wrap:anywhere;
-}
-.welcome{
-background:linear-gradient(125deg,#0B1530,#123D85,#1764C5);
-border:1px solid #2859A0;border-radius:23px;
-padding:23px 19px;color:white;display:flex;
-align-items:center;justify-content:space-between;
-gap:12px;margin:3px 0 18px;position:relative;overflow:hidden;
-box-shadow:0 12px 30px #0b3b8a35;
-}
-.welcome:after{
-content:"";position:absolute;width:180px;height:180px;
-border:1px solid #ffffff30;border-radius:50%;
-right:-50px;top:-90px;
-box-shadow:0 0 0 25px #ffffff0c,0 0 0 50px #ffffff08;
-}
+.login-btn,.primary-btn{display:inline-block;background:linear-gradient(120deg,var(--blue),var(--purple));color:white;padding:12px 17px;border-radius:12px;font-weight:800;font-size:13px}
+.error{display:none;background:#351C2A;border:1px solid #713746;color:#FFADB8;padding:13px;border-radius:12px;margin-bottom:15px;overflow-wrap:anywhere}
+.welcome{background:linear-gradient(125deg,#0B1530,#123D85,#1764C5);border:1px solid #2859A0;border-radius:23px;padding:23px 19px;color:white;display:flex;align-items:center;justify-content:space-between;gap:12px;margin:3px 0 18px;position:relative;overflow:hidden;box-shadow:0 12px 30px #0b3b8a35}
+.welcome:after{content:"";position:absolute;width:180px;height:180px;border:1px solid #ffffff30;border-radius:50%;right:-50px;top:-90px;box-shadow:0 0 0 25px #ffffff0c,0 0 0 50px #ffffff08}
 .welcome h1{font-size:23px;margin:0 0 7px;letter-spacing:-.6px}
 .welcome p{font-size:12px;color:#D8E9FF;margin:0;overflow-wrap:anywhere}
-.welcome-badge{
-position:relative;z-index:1;white-space:nowrap;
-background:#ffffff18;border:1px solid #ffffff40;
-border-radius:30px;padding:9px 11px;font-size:10px;font-weight:800;
-}
+.welcome-badge{position:relative;z-index:1;white-space:nowrap;background:#ffffff18;border:1px solid #ffffff40;border-radius:30px;padding:9px 11px;font-size:10px;font-weight:800}
 .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#5DF5B0;margin-right:5px}
 .setup-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-bottom:20px}
-.setup-card{
-display:flex;align-items:center;gap:10px;
-background:var(--panel);border:1px solid var(--line);
-box-shadow:var(--shadow);border-radius:16px;padding:13px 11px;min-width:0;
-}
-.setup-icon{
-width:40px;height:40px;flex-shrink:0;display:grid;place-items:center;
-border-radius:13px;background:#172E58;font-size:20px;
-}
+.setup-card{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:16px;padding:13px 11px;min-width:0}
+.setup-icon{width:40px;height:40px;flex-shrink:0;display:grid;place-items:center;border-radius:13px;background:#172E58;font-size:20px}
 .setup-card strong{display:block;font-size:12px;margin-bottom:5px}
 .setup-card small{display:block;color:var(--muted);font-size:10px;line-height:1.4}
 .chevron{margin-left:auto;color:var(--cyan);font-size:22px}
-.section-heading,.wallet-heading{
-display:flex;align-items:center;justify-content:space-between;
-gap:10px;margin:23px 1px 12px;
-}
+.section-heading,.wallet-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:23px 1px 12px}
 .section-heading h2,.wallet-heading h2{font-size:17px;margin:0;letter-spacing:-.3px}
 .section-heading a{font-size:11px;color:var(--cyan);font-weight:800}
 .wallet-heading span{font-size:10px;color:var(--muted)}
-.wallet-track{
-display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;
-padding:2px 1px 13px;scrollbar-width:none;
-}
+.wallet-track{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 1px 13px;scrollbar-width:none}
 .wallet-track::-webkit-scrollbar{display:none}
-.wallet-card{
-scroll-snap-align:start;flex:0 0 86%;min-height:184px;
-max-width:390px;position:relative;overflow:hidden;
-border-radius:21px;padding:20px;color:white;
-background:linear-gradient(125deg,#10265C,#2563EB,#38BDF8);
-box-shadow:0 12px 25px #2563eb30;
-}
+.wallet-card{scroll-snap-align:start;flex:0 0 86%;min-height:184px;max-width:390px;position:relative;overflow:hidden;border-radius:21px;padding:20px;color:white;background:linear-gradient(125deg,#10265C,#2563EB,#38BDF8);box-shadow:0 12px 25px #2563eb30}
 .wallet-card.blue{background:linear-gradient(125deg,#30206D,#6346D9,#8B5CF6)}
 .wallet-card.light{background:linear-gradient(125deg,#075985,#0284C7,#38BDF8)}
-.wallet-card:after{
-content:"";position:absolute;width:180px;height:180px;
-border-radius:50%;border:1px solid #ffffff35;
-right:-60px;top:-85px;
-box-shadow:0 0 0 22px #ffffff0c,0 0 0 44px #ffffff09;
-}
+.wallet-card:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;border:1px solid #ffffff35;right:-60px;top:-85px;box-shadow:0 0 0 22px #ffffff0c,0 0 0 44px #ffffff09}
 .wallet-top,.wallet-amount,.wallet-bottom{position:relative;z-index:1}
 .wallet-top{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#E4F3FF}
-.eye{
-border:1px solid #ffffff55;background:#ffffff1c;color:white;
-border-radius:9px;padding:6px 9px;font-size:11px;
-}
-.wallet-amount{
-font-size:clamp(29px,7vw,37px);font-weight:900;
-letter-spacing:-1px;margin:22px 0 19px;overflow-wrap:anywhere;
-}
-.wallet-bottom{
-display:flex;justify-content:space-between;align-items:center;
-gap:8px;border-top:1px solid #ffffff40;
-padding-top:13px;font-size:10px;color:#E4F3FF;
-}
+.eye{border:1px solid #ffffff55;background:#ffffff1c;color:white;border-radius:9px;padding:6px 9px;font-size:11px}
+.wallet-amount{font-size:clamp(29px,7vw,37px);font-weight:900;letter-spacing:-1px;margin:22px 0 19px;overflow-wrap:anywhere}
+.wallet-bottom{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #ffffff40;padding-top:13px;font-size:10px;color:#E4F3FF}
 .wallet-bottom a{background:white;color:#1747A5;padding:9px 12px;border-radius:9px;font-weight:800}
 .dots{text-align:center;color:#60769C;font-size:12px;letter-spacing:4px;margin:-2px 0 14px}
 .shortcuts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
-.shortcut{
-background:var(--panel);border:1px solid var(--line);
-border-radius:16px;text-align:center;padding:14px 3px 12px;
-box-shadow:var(--shadow);min-width:0;
-}
-.shortcut-icon{
-width:43px;height:43px;border-radius:14px;margin:0 auto 9px;
-display:grid;place-items:center;background:#172E58;font-size:21px;
-}
+.shortcut{background:var(--panel);border:1px solid var(--line);border-radius:16px;text-align:center;padding:14px 3px 12px;box-shadow:var(--shadow);min-width:0}
+.shortcut-icon{width:43px;height:43px;border-radius:14px;margin:0 auto 9px;display:grid;place-items:center;background:#172E58;font-size:21px}
 .shortcut span:last-child{font-size:10px;font-weight:800;display:block;overflow-wrap:anywhere}
-.stat{
-background:var(--panel);border:1px solid var(--line);
-border-radius:16px;padding:14px 10px;min-width:0;box-shadow:var(--shadow);
-}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px 10px;min-width:0;box-shadow:var(--shadow)}
 .overview{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
 .stat-icon{font-size:20px;margin-bottom:10px}
 .stat h3{font-size:clamp(13px,3.5vw,19px);margin:0 0 6px;overflow-wrap:anywhere}
 .stat p{font-size:10px;color:var(--muted);margin:0;line-height:1.4}
 .layout{display:grid;gap:17px}
-.panel,.referral-panel,.plan-panel,.no-plan{
-background:var(--panel);border:1px solid var(--line);
-border-radius:18px;padding:16px;box-shadow:var(--shadow);min-width:0;
-}
+.panel,.referral-panel,.plan-panel,.no-plan{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow);min-width:0}
 .notification-count{background:#172E58;color:var(--cyan);border-radius:20px;padding:5px 9px;font-size:11px;font-weight:800}
-.notification-item{
-padding:12px;background:#14213C;border:1px solid var(--line);
-border-radius:12px;margin-top:10px;overflow-wrap:anywhere;
-}
+.notification-item{padding:12px;background:#14213C;border:1px solid var(--line);border-radius:12px;margin-top:10px;overflow-wrap:anywhere}
 .notification-item.unread{border-left:3px solid var(--cyan);background:#152B4D}
 .notification-title{font-size:12px;font-weight:800;margin-bottom:5px}
 .notification-message{font-size:11px;color:#B7C5DD;line-height:1.6}
 .notification-date{font-size:10px;color:#8195B8;margin-top:7px}
 .no-notifications{color:var(--muted);font-size:12px;text-align:center;padding:17px 4px}
-.referral-panel{
-background:linear-gradient(135deg,#10264B,#142344);
-border-color:#29436D;
-}
+.referral-panel{background:linear-gradient(135deg,#10264B,#142344);border-color:#29436D}
 .referral-amount{font-size:29px;color:var(--cyan);font-weight:900;margin:15px 0 7px;overflow-wrap:anywhere}
 .note{font-size:11px;color:var(--muted);line-height:1.6}
-.referral-btn{
-display:inline-block;margin-top:13px;padding:11px 14px;
-border-radius:11px;background:linear-gradient(120deg,var(--blue),var(--purple));
-color:white;font-size:12px;font-weight:800;
-}
-.plan-status{
-display:inline-block;background:#3A2D13;border:1px solid #6C531D;
-color:#FFD66B;border-radius:20px;padding:6px 8px;font-size:9px;font-weight:800;
-}
+.referral-btn{display:inline-block;margin-top:13px;padding:11px 14px;border-radius:11px;background:linear-gradient(120deg,var(--blue),var(--purple));color:white;font-size:12px;font-weight:800}
+.plan-status{display:inline-block;background:#3A2D13;border:1px solid #6C531D;color:#FFD66B;border-radius:20px;padding:6px 8px;font-size:9px;font-weight:800}
 .plan-name{font-size:22px;font-weight:900;margin:15px 0}
 .plan-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
 .plan-detail{background:#14213C;border:1px solid var(--line);border-radius:11px;padding:11px;min-width:0}
 .plan-detail span{display:block;font-size:10px;color:var(--muted);margin-bottom:7px}
 .plan-detail strong{font-size:14px;overflow-wrap:anywhere}
-.plan-note{
-margin-top:12px;background:#282344;border:1px solid #4B407A;
-color:#D5CBFF;border-radius:10px;padding:11px;font-size:10px;line-height:1.6;
-}
+.plan-note{margin-top:12px;background:#282344;border:1px solid #4B407A;color:#D5CBFF;border-radius:10px;padding:11px;font-size:10px;line-height:1.6}
 .action-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.action-card{
-display:flex;align-items:flex-start;gap:10px;padding:13px 11px;
-background:var(--panel);border:1px solid var(--line);
-border-radius:15px;box-shadow:var(--shadow);min-width:0;
-}
-.action-icon{
-flex-shrink:0;width:38px;height:38px;display:grid;
-place-items:center;border-radius:12px;background:#172E58;font-size:19px;
-}
+.action-card{display:flex;align-items:flex-start;gap:10px;padding:13px 11px;background:var(--panel);border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow);min-width:0}
+.action-icon{flex-shrink:0;width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:#172E58;font-size:19px}
 .action-card h3{font-size:12px;margin:2px 0 5px}
 .action-card p{font-size:10px;color:var(--muted);line-height:1.5;margin:0}
-.activity-row{
-padding:12px 0;border-bottom:1px solid var(--line);
-display:flex;justify-content:space-between;gap:12px;font-size:11px;
-}
+.activity-row{padding:12px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;font-size:11px}
 .activity-row:last-child{border-bottom:0}
 .activity-row strong{display:block;font-size:12px;margin-bottom:4px}
 .activity-row small{color:var(--muted)}
-.activity-status{
-color:#FFD66B;background:#3A2D13;border-radius:20px;
-padding:5px 8px;font-size:9px;height:max-content;
-}
+.activity-status{color:#FFD66B;background:#3A2D13;border-radius:20px;padding:5px 8px;font-size:9px;height:max-content}
 footer{text-align:center;color:#8195B8;font-size:10px;padding:25px 8px 14px;line-height:1.7}
-.bottom-nav{
-position:fixed;left:0;right:0;bottom:0;z-index:20;
-display:flex;justify-content:space-around;background:#0B1530;
-border-top:1px solid var(--line);
-padding:9px 3px calc(9px + env(safe-area-inset-bottom));
-box-shadow:0 -5px 20px #0005;
-}
-.bottom-nav a{
-flex:1;min-width:0;display:flex;flex-direction:column;
-align-items:center;gap:4px;color:#8195B8;font-size:10px;
-}
+.bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:space-around;background:#0B1530;border-top:1px solid var(--line);padding:9px 3px calc(9px + env(safe-area-inset-bottom));box-shadow:0 -5px 20px #0005}
+.bottom-nav a{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px;color:#8195B8;font-size:10px}
 .bottom-nav .nav-icon{font-size:20px}
 .bottom-nav a.active{color:var(--cyan);font-weight:900}
-.toast{
-display:none;position:fixed;bottom:90px;left:50%;
-transform:translateX(-50%);z-index:50;background:#172747;
-color:white;border:1px solid #34517E;border-radius:12px;
-padding:12px 16px;font-size:12px;max-width:90%;box-shadow:var(--shadow);
-}
+.toast{display:none;position:fixed;bottom:90px;left:50%;transform:translateX(-50%);z-index:50;background:#172747;color:white;border:1px solid #34517E;border-radius:12px;padding:12px 16px;font-size:12px;max-width:90%;box-shadow:var(--shadow)}
 @media(min-width:760px){
 .container{padding-top:27px}
 .wallet-card{flex-basis:330px}
@@ -279,7 +131,10 @@ padding:12px 16px;font-size:12px;max-width:90%;box-shadow:var(--shadow);
 .action-card{gap:7px;padding:11px 8px}
 .action-icon{width:33px;height:33px}
 }
-</style></head><body>
+</style>
+</head>
+
+<body>
 <header>
 <div class="header-inner">
 <div class="brand">
@@ -294,21 +149,31 @@ padding:12px 16px;font-size:12px;max-width:90%;box-shadow:var(--shadow);
 <button class="logout" id="logout">Logout ↗</button>
 </div>
 </div>
-</header><div id="loading">
+</header>
+
+<div id="loading">
 <div class="spinner"></div>
 <div>Connecting to EarnSave...</div>
-</div><div id="loginMessage">
+</div>
+
+<div id="loginMessage">
 <h2>Login Required</h2>
 <p style="color:#91A3C5;line-height:1.7">Please log in to access your dashboard.</p>
 <a href="login.html" class="login-btn">Go to Login</a>
-</div><div class="container" id="content" style="display:none">
-<div class="error" id="error"></div><div class="welcome">
+</div>
+
+<div class="container" id="content" style="display:none">
+<div class="error" id="error"></div>
+
+<div class="welcome">
 <div>
 <h1>Welcome back 👋</h1>
 <p id="email">Loading account...</p>
 </div>
 <div class="welcome-badge"><span class="dot"></span>ACCOUNT</div>
-</div><div class="setup-grid">
+</div>
+
+<div class="setup-grid">
 <a href="profile.html" class="setup-card">
 <span class="setup-icon">🏦</span>
 <span><strong>Add Bank Account</strong><small>Set up payout details</small></span>
@@ -319,10 +184,14 @@ padding:12px 16px;font-size:12px;max-width:90%;box-shadow:var(--shadow);
 <span><strong>Activate a Plan</strong><small>View your plan options</small></span>
 <span class="chevron">›</span>
 </a>
-</div><div class="wallet-heading">
+</div>
+
+<div class="wallet-heading">
 <h2>My Wallet</h2>
 <span>Swipe to view balances →</span>
-</div><div class="wallet-track" id="walletTrack">
+</div>
+
+<div class="wallet-track" id="walletTrack">
 <section class="wallet-card">
 <div class="wallet-top">
 <span>Available Balance</span>
@@ -333,13 +202,17 @@ padding:12px 16px;font-size:12px;max-width:90%;box-shadow:var(--shadow);
 <span>Current account balance</span>
 <a href="withdrawal.html">Withdraw ↗</a>
 </div>
-</section><section class="wallet-card blue">
+</section>
+
+<section class="wallet-card blue">
 <div class="wallet-top"><span>Total Earned</span><span>▤</span></div>
 <div class="wallet-amount" id="earnedWallet">₦0</div>
 <div class="wallet-bottom">
 <span>Recorded in your profile</span><span>EarnSave</span>
 </div>
-</section><section class="wallet-card light">
+</section>
+
+<section class="wallet-card light">
 <div class="wallet-top"><span>Referral Earnings</span><span>♧</span></div>
 <div class="wallet-amount" id="referralWallet">₦0</div>
 <div class="wallet-bottom">
@@ -347,56 +220,87 @@ padding:12px 16px;font-size:12px;max-width:90%;box-shadow:var(--shadow);
 <a href="referral.html">View ↗</a>
 </div>
 </section>
-</div><div class="dots">● ● ●</div><div class="section-heading"><h2>Explore EarnSave</h2></div>
+</div>
+
+<div class="dots">● ● ●</div>
+
+<div class="section-heading"><h2>Explore EarnSave</h2></div>
+
 <div class="shortcuts">
 <a href="tasks.html" class="shortcut"><span class="shortcut-icon">📝</span><span>Tasks</span></a>
 <a href="history.html" class="shortcut"><span class="shortcut-icon">📋</span><span>History</span></a>
 <a href="referral.html" class="shortcut"><span class="shortcut-icon">👥</span><span>Invite</span></a>
 <a href="activation.html" class="shortcut"><span class="shortcut-icon">⭐</span><span>Upgrade</span></a>
 <a href="withdrawal.html" class="shortcut"><span class="shortcut-icon">💸</span><span>Withdraw</span></a>
-<a href="#" class="shortcut coming-soon"><span class="shortcut-icon">🎯</span><span>Sponsored</span></a>
+
+<!-- Sponsored shortcut is now connected -->
+<a href="sponsored.html" class="shortcut">
+<span class="shortcut-icon">🎯</span>
+<span>Sponsored</span>
+</a>
+
 <a href="#" class="shortcut coming-soon"><span class="shortcut-icon">🤝</span><span>Team</span></a>
 <a href="#" class="shortcut coming-soon"><span class="shortcut-icon">🏆</span><span>Contest</span></a>
-</div><div class="section-heading"><h2>Account Overview</h2></div>
+</div>
+
+<div class="section-heading"><h2>Account Overview</h2></div>
+
 <div class="overview">
 <div class="stat"><div class="stat-icon">⏳</div><h3 id="pending">₦0</h3><p>Pending Earnings</p></div>
 <div class="stat"><div class="stat-icon">👥</div><h3 id="referralCount">0</h3><p>Referrals</p></div>
 <div class="stat"><div class="stat-icon">⭐</div><h3 id="planMini">None</h3><p>Activation Plan</p></div>
-</div><div class="layout">
+</div>
+
+<div class="layout">
 <div class="layout-main">
 <div class="section-heading"><h2>Quick Actions</h2></div>
+
 <div class="action-grid">
 <a href="tasks.html" class="action-card"><span class="action-icon">📝</span><span><h3>Available Tasks</h3><p>View tasks and submit proof.</p></span></a>
 <a href="history.html" class="action-card"><span class="action-icon">📋</span><span><h3>Task History</h3><p>Review your submissions.</p></span></a>
 <a href="withdrawal.html" class="action-card"><span class="action-icon">💸</span><span><h3>Withdrawals</h3><p>View and track requests.</p></span></a>
 <a href="profile.html" class="action-card"><span class="action-icon">👤</span><span><h3>My Profile</h3><p>Manage your account.</p></span></a>
-</div><div class="section-heading">
+</div>
+
+<div class="section-heading">
 <h2>Recent Activity</h2>
 <a href="history.html">View history →</a>
 </div>
+
 <div class="panel" id="activityList">
 <div class="no-notifications">Loading recent activity...</div>
 </div>
-</div><div class="layout-side">
+</div>
+
+<div class="layout-side">
 <div class="section-heading">
 <h2>Notifications</h2>
 <span class="notification-count" id="notificationCount">0</span>
 </div>
+
 <div class="panel" style="margin-top:0">
 <div id="notificationList">
 <div class="no-notifications">Loading notifications...</div>
 </div>
-</div><div class="section-heading"><h2>Referral Summary</h2></div>
+</div>
+
+<div class="section-heading"><h2>Referral Summary</h2></div>
+
 <div class="referral-panel">
 <div style="font-size:14px;font-weight:800">👥 Referral Earnings</div>
 <div class="referral-amount" id="referralEarnings">₦0</div>
 <div class="note">Referral earnings recorded in your account.</div>
-<a href="referral.html" class="referral-btn">Manage Referrals →</a><div style="margin-top:15px;border-top:1px solid #29436D;padding-top:13px">
+<a href="referral.html" class="referral-btn">Manage Referrals →</a>
+
+<div style="margin-top:15px;border-top:1px solid #29436D;padding-top:13px">
 <div class="note">Your referral code</div>
 <strong id="referralCode" style="display:block;margin-top:6px;overflow-wrap:anywhere">Loading...</strong>
 <button id="copyReferral" class="referral-btn" style="border:0;cursor:pointer">Copy Code</button>
 </div>
-</div><div class="section-heading"><h2>My Activation Plan</h2></div>
+</div>
+
+<div class="section-heading"><h2>My Activation Plan</h2></div>
+
 <div class="plan-panel" id="planCard" style="display:none">
 <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
 <strong>⭐ Activation Plan</strong>
@@ -411,20 +315,34 @@ padding:12px 16px;font-size:12px;max-width:90%;box-shadow:var(--shadow);
 </div>
 <div class="plan-note">Displayed plan figures are account information only. They are not guaranteed returns and are not automatically added to your balance.</div>
 <a href="activation.html" class="primary-btn" style="margin-top:13px">View Plan →</a>
-</div><div class="no-plan" id="noPlan" style="display:none">
+</div>
+
+<div class="no-plan" id="noPlan" style="display:none">
 <strong>⭐ Activate Your Account</strong>
 <p class="note">You have not selected an activation plan yet. View the available plans to continue.</p>
 <a href="activation.html" class="primary-btn">View Activation Plans →</a>
 </div>
 </div>
-</div><footer>EarnSave · Account dashboard<br>Balance figures reflect data stored in your account.</footer>
-</div><nav class="bottom-nav" aria-label="Main navigation">
+</div>
+
+<footer>EarnSave · Account dashboard<br>Balance figures reflect data stored in your account.</footer>
+</div>
+
+<nav class="bottom-nav" aria-label="Main navigation">
 <a href="dashboard.html" class="active"><span class="nav-icon">⌂</span><span>Home</span></a>
 <a href="tasks.html"><span class="nav-icon">▤</span><span>Tasks</span></a>
 <a href="referral.html"><span class="nav-icon">♧</span><span>Team</span></a>
 <a href="withdrawal.html"><span class="nav-icon">↗</span><span>Withdraw</span></a>
 <a href="profile.html"><span class="nav-icon">◉</span><span>Profile</span></a>
-</nav><div class="toast" id="toast"></div><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script><script>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+<script>
 const firebaseConfig={
 apiKey:"AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
 authDomain:"earnsave-e7a88.firebaseapp.com",
@@ -717,5 +635,6 @@ window.location.href="login.html";
 alert("Logout failed: "+e.message);
 });
 });
-</script></body>
+</script>
+</body>
 </html>
