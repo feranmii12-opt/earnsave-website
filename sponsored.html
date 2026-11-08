@@ -3,98 +3,236 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EarnSave - Sponsored Posts</title>
+<title>EarnSave - Sponsored</title>
 
 <style>
 *{box-sizing:border-box}
 body{
   margin:0;
+  background:#080f24;
+  color:#f5f7ff;
   font-family:Arial,sans-serif;
-  background:#f3f6fc;
-  color:#17233d;
+  padding-bottom:90px;
 }
 header{
-  background:linear-gradient(135deg,#101b45,#315bea);
-  color:white;
-  padding:23px 18px;
-  border-radius:0 0 22px 22px;
+  padding:17px 16px;
+  background:#101b35;
+  border-bottom:1px solid #26385e;
 }
-header h2{margin:0 0 7px}
-header p{margin:0;color:#dce5ff;font-size:14px}
-.container{max-width:650px;margin:20px auto;padding:0 15px}
-.back{
-  display:inline-block;
-  margin-bottom:15px;
-  color:#315bea;
-  text-decoration:none;
+.top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.brand{font-size:20px;font-weight:800;color:#fff}
+.brand span{color:#19c8ff}
+.profile{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.avatar{
+  width:38px;height:38px;border-radius:50%;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,#315bea,#13c9ed);
   font-weight:bold;
 }
-.plan{
-  background:white;
-  border-radius:14px;
-  padding:16px;
+.small{font-size:11px;color:#9baacb}
+.container{max-width:650px;margin:auto;padding:16px}
+.welcome{margin:18px 0}
+.welcome h2{font-size:20px;margin:0 0 5px}
+.welcome p{font-size:12px;color:#9baacb;margin:0}
+.hero{
+  padding:20px;
+  border-radius:19px;
+  background:linear-gradient(135deg,#152b65,#244fd0,#087fae);
   margin-bottom:18px;
-  box-shadow:0 3px 12px #15264b0c;
 }
-.plan span{color:#315bea;font-weight:bold}
-.post{
-  background:white;
+.hero h2{margin:0 0 9px;font-size:21px}
+.hero p{margin:0;color:#e0ebff;font-size:13px;line-height:1.6}
+.demo{
+  background:#342b16;
+  color:#ffd77c;
+  border:1px solid #826321;
+  padding:12px;
+  border-radius:12px;
+  font-size:12px;
+  line-height:1.5;
+  margin-bottom:16px;
+}
+.card{
+  background:#101b35;
+  border:1px solid #26385e;
   border-radius:17px;
-  overflow:hidden;
-  margin-bottom:20px;
-  box-shadow:0 4px 15px #15264b12;
+  padding:17px;
+  margin-bottom:17px;
 }
-.post img{
-  width:100%;
-  max-height:350px;
-  object-fit:contain;
-  background:#e9eef9;
-  display:block;
+.section-title{
+  font-size:14px;
+  font-weight:bold;
+  margin-bottom:13px;
 }
-.post-content{padding:17px}
-.post h3{margin:0 0 10px}
-.message{
-  background:#f3f6fc;
-  padding:13px;
-  border-radius:10px;
-  line-height:1.6;
-  white-space:pre-wrap;
-  overflow-wrap:anywhere;
+.plan-row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+}
+.plan-name{font-size:20px;font-weight:bold}
+.badge{
+  background:#193b69;
+  color:#55d9ff;
+  padding:7px 11px;
+  border-radius:20px;
+  font-size:11px;
 }
 .reward{
-  background:#eaf8ef;
-  color:#13733b;
-  padding:12px;
-  border-radius:10px;
-  margin:13px 0;
-  font-weight:bold;
-}
-button{
-  border:0;
-  border-radius:10px;
+  margin-top:13px;
   padding:13px;
-  width:100%;
-  margin-top:9px;
-  font-size:15px;
+  border-radius:12px;
+  background:#102b39;
+  color:#57e6bc;
   font-weight:bold;
-  cursor:pointer;
 }
-.copy{background:#315bea;color:white}
-.download{background:#14234a;color:white}
-button:disabled{opacity:.6}
+.post{
+  padding:0;
+  overflow:hidden;
+}
+.post-image{
+  width:100%;
+  max-height:340px;
+  object-fit:contain;
+  display:block;
+  background:#080f24;
+}
+.post-content{padding:16px}
+.post h3{margin:0 0 12px;font-size:18px}
+.message{
+  padding:13px;
+  background:#0a142b;
+  border:1px solid #26385e;
+  border-radius:12px;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  font-size:13px;
+  line-height:1.7;
+  color:#c7d4f1;
+}
+.instructions{
+  color:#a9b8d8;
+  font-size:12px;
+  line-height:1.7;
+}
+.caption{
+  width:100%;
+  min-height:125px;
+  resize:vertical;
+  padding:13px;
+  border-radius:12px;
+  background:#09142b;
+  color:white;
+  border:1px solid #26385e;
+  font:13px Arial;
+  line-height:1.6;
+}
+button,.share-link{
+  border:0;
+  border-radius:11px;
+  padding:13px;
+  font-weight:bold;
+  font-size:13px;
+  cursor:pointer;
+  text-align:center;
+  text-decoration:none;
+  display:block;
+}
+.primary{
+  width:100%;
+  color:white;
+  background:linear-gradient(100deg,#1769ff,#08bde9);
+  margin-top:11px;
+}
+.download{
+  width:100%;
+  color:white;
+  background:#1b2d53;
+  margin-top:10px;
+}
+.share-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px;
+}
+.facebook{background:#1769dc;color:white}
+.tiktok{background:#242b3c;color:white}
+.whatsapp{background:#118d58;color:white}
+.copylink{background:#26385e;color:#d9e7ff}
+.reward-box{
+  margin-top:18px;
+  border-top:1px solid #26385e;
+  padding-top:15px;
+}
+.reward-amount{
+  color:#55d9ff;
+  font-size:22px;
+  font-weight:bold;
+  margin:8px 0;
+}
 .status{
   text-align:center;
-  padding:25px 12px;
-  background:white;
-  border-radius:13px;
-  margin:15px 0;
-  color:#65718a;
+  padding:25px 15px;
+  background:#101b35;
+  color:#9baacb;
+  border-radius:14px;
+  line-height:1.6;
 }
-.note{
-  font-size:12px;
-  color:#78839a;
-  line-height:1.5;
-  margin-top:12px;
+.note{font-size:11px;color:#8595b8;line-height:1.6;margin-top:12px}
+.bottom-nav{
+  position:fixed;
+  bottom:0;left:0;right:0;
+  display:flex;
+  justify-content:space-around;
+  background:#0d1830;
+  border-top:1px solid #26385e;
+  padding:10px 3px calc(10px + env(safe-area-inset-bottom));
+  z-index:10;
+}
+.bottom-nav a{
+  color:#8595b8;
+  text-decoration:none;
+  text-align:center;
+  font-size:10px;
+  min-width:55px;
+}
+.bottom-nav a.active{color:#24d0ff}
+.nav-icon{display:block;font-size:19px;margin-bottom:4px}
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#000b;
+  z-index:30;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.modal-box{
+  background:#14213e;
+  border:1px solid #315bea;
+  border-radius:16px;
+  padding:22px;
+  width:100%;
+  max-width:340px;
+  text-align:center;
+}
+.modal-box p{font-size:13px;color:#bdcbed;line-height:1.6}
+.modal-actions{display:flex;gap:10px}
+.modal-actions button{flex:1}
+.cancel{background:#293754;color:white}
+@media(max-width:360px){
+  .brand{font-size:17px}
+  .bottom-nav a{min-width:45px;font-size:9px}
 }
 </style>
 </head>
@@ -102,26 +240,80 @@ button:disabled{opacity:.6}
 <body>
 
 <header>
-  <h2>EarnSave Sponsored Posts</h2>
-  <p>Discover sponsor posts and view your plan rewards.</p>
+  <div class="top">
+    <div class="brand">EARN<span>SAVE</span></div>
+    <div class="profile">
+      <div>
+        <div id="userName">Welcome</div>
+        <div class="small">Sponsored dashboard</div>
+      </div>
+      <div class="avatar" id="avatar">E</div>
+    </div>
+  </div>
 </header>
 
-<div class="container">
+<main class="container">
 
-<a class="back" href="dashboard.html">← Back to Dashboard</a>
-
-<div class="plan">
-  <div>Your Activation Plan</div>
-  <p id="planName">Checking your plan...</p>
-  <div>Sponsored post reward:
-    <span id="planReward">Loading...</span>
+  <div class="welcome">
+    <h2>Sponsored Posts</h2>
+    <p>Discover sponsored opportunities on EarnSave.</p>
   </div>
-</div>
 
-<div id="posts">
-  <div class="status">Connecting to EarnSave...</div>
-</div>
+  <div class="hero">
+    <h2>EarnSave Sponsored</h2>
+    <p>View sponsor posts, copy captions and share them on your social media platforms.</p>
+  </div>
 
+  <div id="demoBanner" class="demo" hidden>
+    DEMO MODE: You are viewing sample sponsored posts.
+    Displayed rewards are not real earnings and cannot be withdrawn.
+  </div>
+
+  <section class="card">
+    <div class="section-title">YOUR ACTIVATION PLAN</div>
+    <div class="plan-row">
+      <div class="plan-name" id="planName">Loading...</div>
+      <div class="badge" id="planBadge">CHECKING</div>
+    </div>
+    <div class="reward">
+      Sponsored post reward:
+      <span id="planReward">Loading...</span>
+    </div>
+  </section>
+
+  <div id="posts">
+    <div class="status">Connecting to EarnSave...</div>
+  </div>
+
+</main>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html">
+    <span class="nav-icon">⌂</span>Home
+  </a>
+  <a href="tasks.html">
+    <span class="nav-icon">⚡</span>Hustle
+  </a>
+  <a href="team.html">
+    <span class="nav-icon">♧</span>Team
+  </a>
+  <a href="sponsored.html" class="active">
+    <span class="nav-icon">◈</span>Sponsored
+  </a>
+  <a href="profile.html">
+    <span class="nav-icon">♙</span>Profile
+  </a>
+</nav>
+
+<div class="modal" id="downloadModal">
+  <div class="modal-box">
+    <h3>Download sponsor picture?</h3>
+    <p>The picture will open or download so you can save it to your phone.</p>
+    <div class="modal-actions">
+      <button class="cancel" id="cancelDownload">Cancel</button>
+      <button class="primary" id="confirmDownload">Download</button>
+    </div>
+  </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -139,46 +331,44 @@ const firebaseConfig = {
   measurementId: "G-3C742ZNKHB"
 };
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
 const db = firebase.firestore();
 
 const rewardTable = {
-  spark: 40,
-  base: 80,
-  voltage: 85,
-  titan: 170,
-  supreme: 580
+  spark:40,
+  base:80,
+  voltage:85,
+  titan:170,
+  supreme:580
 };
 
 let currentPlan = "";
+let demoMode = false;
+let selectedImage = "";
 
-function getReward(post) {
-  const rewards = post.rewards || {};
+function rewardForPlan(post){
   const plan = currentPlan.toLowerCase();
+  const rewards = post.rewards || {};
 
-  const keys = [
+  for(const key of [
     currentPlan,
     currentPlan.toUpperCase(),
-    currentPlan.toLowerCase(),
-    plan.charAt(0).toUpperCase() + plan.slice(1)
-  ];
-
-  for (const key of keys) {
-    if (rewards[key] !== undefined) {
+    plan,
+    plan.charAt(0).toUpperCase()+plan.slice(1)
+  ]){
+    if(rewards[key] !== undefined){
       return Number(rewards[key]) || 0;
     }
   }
 
-  const fieldNames = [
-    plan + "Reward",
-    plan + "Rewards",
-    plan + "Amount"
-  ];
-
-  for (const field of fieldNames) {
-    if (post[field] !== undefined) {
+  for(const field of [
+    plan+"Reward",
+    plan+"Rewards",
+    plan+"Amount"
+  ]){
+    if(post[field] !== undefined){
       return Number(post[field]) || 0;
     }
   }
@@ -186,40 +376,73 @@ function getReward(post) {
   return rewardTable[plan] || 0;
 }
 
-function safeText(value) {
-  return String(value || "");
+function showStatus(message){
+  const box = document.getElementById("posts");
+  box.className = "status";
+  box.textContent = message;
 }
 
-function showError(message) {
-  document.getElementById("posts").innerHTML =
-    '<div class="status">' + message + '</div>';
+function openDownloadModal(image){
+  selectedImage = image;
+  document.getElementById("downloadModal").style.display = "flex";
 }
 
-function renderPosts(snapshot) {
+document.getElementById("cancelDownload").onclick = function(){
+  document.getElementById("downloadModal").style.display = "none";
+  selectedImage = "";
+};
+
+document.getElementById("confirmDownload").onclick = function(){
+  if(!selectedImage) return;
+
+  const image = selectedImage;
+  document.getElementById("downloadModal").style.display = "none";
+
+  // Open the original image directly.
+  // This avoids an endless loading screen caused by blocked cross-origin downloads.
+  const opened = window.open(image, "_blank");
+
+  if(!opened){
+    window.location.href = image;
+  }
+
+  alert(
+    "Your sponsor picture is opening. If it does not download automatically, press and hold the picture and choose Download image or Save image."
+  );
+
+  selectedImage = "";
+};
+
+function renderPosts(snapshot){
   const container = document.getElementById("posts");
+  container.className = "";
+  container.innerHTML = "";
 
-  if (snapshot.empty) {
-    showError("No active sponsored posts available right now.");
+  if(snapshot.empty){
+    showStatus("No active sponsored posts available right now. Please check again later.");
     return;
   }
 
-  container.innerHTML = "";
-
-  snapshot.forEach(doc => {
+  snapshot.forEach(doc=>{
     const post = doc.data();
-    const title = safeText(post.title || "Sponsored Post");
-    const image = safeText(post.imageUrl || post.image || post.pictureUrl);
-    const message = safeText(post.copyText || post.text || post.description);
-    const reward = getReward(post);
 
-    const card = document.createElement("div");
-    card.className = "post";
+    const title = String(post.title || "Sponsored Post");
+    const image = String(post.imageUrl || post.image || post.pictureUrl || "");
+    const message = String(post.copyText || post.text || post.description || "");
+    const reward = rewardForPlan(post);
 
-    if (image) {
+    const card = document.createElement("section");
+    card.className = "card post";
+
+    if(image){
       const img = document.createElement("img");
+      img.className = "post-image";
       img.src = image;
       img.alt = title;
       img.loading = "lazy";
+      img.onerror = function(){
+        img.alt = "Sponsored picture could not be displayed";
+      };
       card.appendChild(img);
     }
 
@@ -229,135 +452,191 @@ function renderPosts(snapshot) {
     const heading = document.createElement("h3");
     heading.textContent = title;
 
-    const messageBox = document.createElement("div");
-    messageBox.className = "message";
-    messageBox.textContent = message || "No sponsor message available.";
+    const instructions = document.createElement("div");
+    instructions.className = "instructions";
+    instructions.textContent =
+      "INSTRUCTIONS: Download the picture attached to this post. Copy the caption and share it on your social media platform.";
 
-    const rewardBox = document.createElement("div");
-    rewardBox.className = "reward";
-    rewardBox.textContent =
-      "Your plan reward: ₦" + reward.toLocaleString("en-NG");
+    const captionTitle = document.createElement("p");
+    captionTitle.className = "section-title";
+    captionTitle.textContent = "COPY CAPTION";
+
+    const caption = document.createElement("textarea");
+    caption.className = "caption";
+    caption.readOnly = true;
+    caption.value = message;
 
     const copyButton = document.createElement("button");
-    copyButton.className = "copy";
-    copyButton.textContent = "Copy Sponsor Text";
+    copyButton.className = "primary";
+    copyButton.textContent = "Copy Caption";
 
-    copyButton.addEventListener("click", async () => {
-      try {
+    copyButton.onclick = async function(){
+      try{
         await navigator.clipboard.writeText(message);
-        copyButton.textContent = "Copied!";
-      } catch (error) {
-        const input = document.createElement("textarea");
-        input.value = message;
-        document.body.appendChild(input);
-        input.select();
+      }catch(error){
+        caption.select();
         document.execCommand("copy");
-        input.remove();
-        copyButton.textContent = "Copied!";
       }
-
-      setTimeout(() => {
-        copyButton.textContent = "Copy Sponsor Text";
-      }, 2000);
-    });
+      copyButton.textContent = "Caption Copied!";
+      setTimeout(()=>copyButton.textContent="Copy Caption",2000);
+    };
 
     const downloadButton = document.createElement("button");
     downloadButton.className = "download";
-    downloadButton.textContent = "Download Sponsor Picture";
-
-    downloadButton.addEventListener("click", async () => {
-      if (!image) {
+    downloadButton.textContent = "↓ Download Sponsor Picture";
+    downloadButton.onclick = function(){
+      if(!image){
         alert("This post has no picture.");
         return;
       }
+      openDownloadModal(image);
+    };
 
-      downloadButton.disabled = true;
-      downloadButton.textContent = "Preparing picture...";
+    const shareTitle = document.createElement("p");
+    shareTitle.className = "section-title";
+    shareTitle.style.marginTop = "20px";
+    shareTitle.textContent = "SHARE";
 
-      try {
-        const response = await fetch(image);
-        if (!response.ok) throw new Error("Download failed");
+    const shareInfo = document.createElement("div");
+    shareInfo.className = "instructions";
+    shareInfo.textContent =
+      "Choose a platform to open it. Your caption is copied so you can paste it into your post. Save the picture to your phone first if needed.";
 
-        const blob = await response.blob();
-        const objectUrl = URL.createObjectURL(blob);
+    const shareGrid = document.createElement("div");
+    shareGrid.className = "share-grid";
 
-        const link = document.createElement("a");
-        link.href = objectUrl;
-        link.download = "EarnSave-Sponsored-Post.jpg";
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
+    const shareTargets = [
+      ["Facebook","https://www.facebook.com/","facebook"],
+      ["TikTok","https://www.tiktok.com/","tiktok"],
+      ["WhatsApp","https://wa.me/","whatsapp"],
+      ["Copy Link",image,"copylink"]
+    ];
 
-        setTimeout(() => URL.revokeObjectURL(objectUrl), 3000);
-      } catch (error) {
-        window.open(image, "_blank");
-        alert("If the picture opens, use your browser menu to download it.");
-      }
+    shareTargets.forEach(([label,url,cls])=>{
+      const button = document.createElement("button");
+      button.className = cls;
+      button.textContent = label;
 
-      downloadButton.disabled = false;
-      downloadButton.textContent = "Download Sponsor Picture";
+      button.onclick = async function(){
+        if(label === "Copy Link"){
+          try{
+            await navigator.clipboard.writeText(image);
+            alert("Picture link copied.");
+          }catch(error){
+            window.prompt("Copy this picture link:",image);
+          }
+          return;
+        }
+
+        try{
+          await navigator.clipboard.writeText(message);
+        }catch(error){}
+
+        window.open(url,"_blank");
+        alert("Your caption has been copied. Paste it into your social media post and attach the saved picture.");
+      };
+
+      shareGrid.appendChild(button);
     });
 
-    const note = document.createElement("div");
-    note.className = "note";
-    note.textContent =
-      "Copying and downloading are not proof of sharing and do not automatically credit your wallet.";
+    const rewardBox = document.createElement("div");
+    rewardBox.className = "reward-box";
+
+    const rewardLabel = document.createElement("div");
+    rewardLabel.className = "small";
+    rewardLabel.textContent = "SPONSORED POST REWARD";
+
+    const rewardAmount = document.createElement("div");
+    rewardAmount.className = "reward-amount";
+    rewardAmount.textContent = "₦" + reward.toLocaleString("en-NG");
+
+    const rewardNote = document.createElement("div");
+    rewardNote.className = "note";
+    rewardNote.textContent = demoMode
+      ? "DEMO PREVIEW: This sample reward is not real money and is not added to your balance."
+      : "Displayed reward only. Wallet credits require separate verified reward processing.";
+
+    rewardBox.appendChild(rewardLabel);
+    rewardBox.appendChild(rewardAmount);
+    rewardBox.appendChild(rewardNote);
 
     content.appendChild(heading);
-    content.appendChild(messageBox);
-    content.appendChild(rewardBox);
+    content.appendChild(instructions);
+    content.appendChild(captionTitle);
+    content.appendChild(caption);
     content.appendChild(copyButton);
     content.appendChild(downloadButton);
-    content.appendChild(note);
+    content.appendChild(shareTitle);
+    content.appendChild(shareInfo);
+    content.appendChild(shareGrid);
+    content.appendChild(rewardBox);
 
     card.appendChild(content);
     container.appendChild(card);
   });
 }
 
-auth.onAuthStateChanged(async user => {
-  if (!user) {
+auth.onAuthStateChanged(async user=>{
+  if(!user){
     window.location.href = "login.html";
     return;
   }
 
-  try {
+  try{
     const userDoc = await db.collection("users").doc(user.uid).get();
 
-    if (!userDoc.exists) {
-      showError("Your EarnSave account could not be found.");
+    if(!userDoc.exists){
+      showStatus("Your EarnSave account could not be found.");
       return;
     }
 
-    const userData = userDoc.data();
+    const data = userDoc.data();
 
-    currentPlan = safeText(userData.selectedPlan).trim();
+    currentPlan = String(data.selectedPlan || "").trim();
+    const activationStatus = String(data.activationStatus || "")
+      .trim().toLowerCase();
+
+    const displayName = data.name || user.displayName || "EarnSave User";
+
+    document.getElementById("userName").textContent = displayName;
+    document.getElementById("avatar").textContent =
+      displayName.charAt(0).toUpperCase();
 
     document.getElementById("planName").textContent =
-      currentPlan || "No activation plan";
+      currentPlan || "No Plan";
 
     const planReward = rewardTable[currentPlan.toLowerCase()] || 0;
 
     document.getElementById("planReward").textContent =
-      currentPlan
-        ? "₦" + planReward.toLocaleString("en-NG")
-        : "Not available";
+      currentPlan ? "₦" + planReward.toLocaleString("en-NG") : "Not available";
 
-    if (!currentPlan ||
-        userData.activationStatus !== "active") {
-      showError("Please activate an EarnSave plan to view plan rewards.");
+    demoMode = activationStatus === "demo";
+
+    const realActive = activationStatus === "active";
+    const demoActive = demoMode && !!currentPlan;
+
+    if(!realActive && !demoActive){
+      document.getElementById("planBadge").textContent = "NOT ACTIVE";
+      showStatus("Please activate an EarnSave plan to view sponsored posts.");
       return;
     }
 
+    document.getElementById("planBadge").textContent =
+      demoMode ? "DEMO PLAN" : "ACTIVE PLAN";
+
+    if(demoMode){
+      document.getElementById("demoBanner").hidden = false;
+    }
+
     const snapshot = await db.collection("sponsoredPosts")
-      .where("status", "==", "active")
+      .where("status","==","active")
       .get();
 
     renderPosts(snapshot);
 
-  } catch (error) {
-    console.error(error);
-    showError("Could not load sponsored posts. Please refresh and try again.");
+  }catch(error){
+    console.error("Sponsored page error:",error);
+    showStatus("Could not load sponsored posts. Please refresh and try again.");
   }
 });
 </script>
