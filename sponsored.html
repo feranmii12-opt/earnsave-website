@@ -396,7 +396,62 @@ document.getElementById("confirmDownload").onclick = function(){
   if(!selectedImage) return;
 
   const image = selectedImage;
-  document.getElementById("downloadModal").style.display = "none";
+  const button = this;
+
+  button.disabled = true;
+  button.textContent = "Downloading...";
+
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
+
+    const response = await fetch(image, {
+      mode: "cors",
+      signal: controller.signal
+    });
+
+    clearTimeout(timeout);
+
+    if(!response.ok) {
+      throw new Error("Image download failed");
+    }
+
+    const blob = await response.blob();
+
+    if(!blob.size) {
+      throw new Error("Empty image");
+    }
+
+    const objectUrl = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = objectUrl;
+    link.download = "EarnSave-Sponsored-Post.png";
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(() => URL.revokeObjectURL(objectUrl), 30000);
+
+    document.getElementById("downloadModal").style.display = "none";
+    alert("Download started! Check your phone's Downloads folder.");
+
+  } catch(error) {
+    console.error("Download error:", error);
+
+    document.getElementById("downloadModal").style.display = "none";
+
+    alert("Automatic download was blocked. The picture will open. Press and hold it, then choose Download image or Save image.");
+
+    window.open(image, "_blank");
+
+  } finally {
+    button.disabled = false;
+    button.textContent = "Download";
+    selectedImage = "";
+  }
+}; document.getElementById("downloadModal").style.display = "none";
 
   // Open the original image directly.
   // This avoids an endless loading screen caused by blocked cross-origin downloads.
