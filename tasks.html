@@ -1,692 +1,1032 @@
-<!DOCTYPE html>
+ 
+   <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>EarnSave - Available Tasks</title>
+<meta name="theme-color" content="#080F24">
+<title>EarnSave - Hustle</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root{
+  --bg:#080F24;
+  --panel:#101B35;
+  --panel2:#142343;
+  --text:#F4F8FF;
+  --muted:#91A4C2;
+  --border:#233657;
+  --blue:#3478F6;
+  --cyan:#28D7E5;
+  --green:#27C982;
+  --purple:#8865F7;
+  --warning:#F4BD54;
 }
 
-:root {
-    --bg: #080d1c;
-    --panel: #111a30;
-    --panel2: #16223c;
-    --blue: #3985ff;
-    --purple: #9065ff;
-    --text: #f4f7ff;
-    --muted: #9aa8c7;
-    --green: #35e6a1;
-    --border: rgba(255,255,255,0.09);
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  padding-bottom:95px;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background:
-        radial-gradient(ellipse at top left,
-        rgba(57,133,255,0.14), transparent 40%),
-        var(--bg);
-    color: var(--text);
-    min-height: 100vh;
+body.light{
+  --bg:#F2F6FC;
+  --panel:#FFFFFF;
+  --panel2:#EAF1FC;
+  --text:#15233B;
+  --muted:#71819A;
+  --border:#DCE5F1;
 }
 
-header {
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    border-bottom: 1px solid var(--border);
-    background: rgba(8,13,28,0.92);
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    backdrop-filter: blur(15px);
+button,input{font:inherit}
+
+.header{
+  max-width:720px;
+  margin:auto;
+  padding:22px 17px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
 }
 
-.logo {
-    font-size: 23px;
-    font-weight: 800;
-    letter-spacing: -1px;
+.profile{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
 }
 
-.logo span {
-    color: var(--blue);
+.avatar{
+  width:49px;
+  height:49px;
+  flex-shrink:0;
+  border-radius:16px;
+  background:linear-gradient(135deg,var(--blue),var(--cyan));
+  display:grid;
+  place-items:center;
+  color:white;
+  font-weight:bold;
+  overflow:hidden;
 }
 
-.header-btn {
-    color: white;
-    background: var(--panel2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 10px 13px;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: bold;
-    cursor: pointer;
+.avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
-.container {
-    width: 100%;
-    max-width: 1100px;
-    margin: auto;
-    padding: 24px 16px 100px;
+.greeting small{
+  display:block;
+  color:var(--muted);
+  margin-bottom:5px;
+  font-size:12px;
 }
 
-.hero {
-    padding: 27px 22px;
-    border-radius: 22px;
-    border: 1px solid rgba(96,143,255,0.25);
-    background: linear-gradient(
-        130deg,
-        #182b52,
-        #171c40 55%,
-        #29204b
-    );
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 25px;
+.greeting h2{
+  font-size:19px;
+  overflow-wrap:anywhere;
 }
 
-.hero::after {
-    content: "✦";
-    position: absolute;
-    right: 18px;
-    top: 10px;
-    font-size: 105px;
-    color: rgba(255,255,255,0.06);
+.header-actions{display:flex;gap:8px}
+
+.round-btn{
+  width:43px;
+  height:43px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:var(--panel);
+  color:var(--text);
+  cursor:pointer;
+  font-size:19px;
 }
 
-.hero-label {
-    display: inline-block;
-    background: rgba(53,230,161,0.12);
-    color: var(--green);
-    border: 1px solid rgba(53,230,161,0.2);
-    padding: 7px 11px;
-    border-radius: 30px;
-    font-size: 11px;
-    font-weight: bold;
-    margin-bottom: 17px;
+.container{
+  max-width:720px;
+  margin:auto;
+  padding:0 16px 25px;
 }
 
-.hero h1 {
-    font-size: clamp(27px, 6vw, 38px);
-    margin-bottom: 12px;
-    line-height: 1.2;
-    position: relative;
-    z-index: 1;
+.balance-card{
+  padding:23px;
+  border-radius:23px;
+  background:linear-gradient(120deg,#1747A5,#176EDB,#16AFC5);
+  color:white;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:20px;
+  box-shadow:0 12px 30px rgba(20,105,220,.16);
 }
 
-.hero h1 span {
-    color: #72a8ff;
+.balance-title{
+  font-size:13px;
+  opacity:.9;
+  margin-bottom:9px;
 }
 
-.hero p {
-    color: #bdc9e7;
-    font-size: 14px;
-    line-height: 1.7;
-    max-width: 520px;
-    position: relative;
-    z-index: 1;
+.balance-amount{
+  font-size:30px;
+  font-weight:800;
+  overflow-wrap:anywhere;
 }
 
-.stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 13px;
-    margin-bottom: 28px;
+.today-box{
+  background:rgba(255,255,255,.16);
+  padding:13px 16px;
+  border-radius:16px;
+  text-align:center;
+  flex-shrink:0;
 }
 
-.stat-card {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 18px;
+.today-box small{font-size:11px}
+.today-box h3{font-size:23px;margin-top:5px}
+
+.plan-strip{
+  background:var(--panel);
+  border:1px solid var(--border);
+  padding:16px;
+  border-radius:18px;
+  margin-bottom:24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
 }
 
-.stat-icon {
-    font-size: 22px;
-    margin-bottom: 12px;
+.plan-strip small{
+  display:block;
+  color:var(--muted);
+  margin-bottom:5px;
+  font-size:12px;
 }
 
-.stat-number {
-    font-size: 25px;
-    font-weight: 800;
-    margin-bottom: 5px;
+.plan-strip strong{font-size:16px}
+
+.plan-badge{
+  background:rgba(40,215,229,.12);
+  color:var(--cyan);
+  padding:9px 12px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:bold;
+  white-space:nowrap;
 }
 
-.stat-label {
-    font-size: 12px;
-    color: var(--muted);
+.section{
+  margin-top:27px;
 }
 
-.section-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 18px;
+.section-heading{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:15px;
 }
 
-.section-heading h2 {
-    font-size: 21px;
+.section-heading h2{
+  font-size:20px;
 }
 
-.section-heading span {
-    font-size: 12px;
-    color: var(--muted);
+.section-heading span{
+  color:var(--muted);
+  font-size:12px;
 }
 
-.search-box {
-    width: 100%;
-    background: var(--panel);
-    color: white;
-    border: 1px solid var(--border);
-    border-radius: 13px;
-    padding: 15px;
-    outline: none;
-    font-size: 14px;
-    margin-bottom: 20px;
+.earning-summary{
+  background:linear-gradient(135deg,#112B55,#10203C);
+  border:1px solid #24436E;
+  border-radius:19px;
+  padding:17px;
+  margin-bottom:15px;
 }
 
-.search-box:focus {
-    border-color: var(--blue);
-    box-shadow: 0 0 0 3px rgba(57,133,255,0.1);
+body.light .earning-summary{
+  background:#E6F0FF;
+  border-color:#C7D9F5;
 }
 
-.search-box::placeholder {
-    color: #7583a3;
+.earning-summary small{
+  color:var(--muted);
+  font-size:12px;
 }
 
-.task-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 17px;
+.earning-summary strong{
+  display:block;
+  font-size:25px;
+  margin-top:7px;
+  color:var(--cyan);
 }
 
-.task-card {
-    background: linear-gradient(145deg, #141f38, #10182c);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 19px;
-    transition: transform 0.2s, border-color 0.2s;
-    min-width: 0;
+.task-search{
+  width:100%;
+  padding:15px;
+  border-radius:13px;
+  background:var(--panel);
+  color:var(--text);
+  border:1px solid var(--border);
+  outline:none;
+  margin-bottom:14px;
+  font-size:14px;
 }
 
-.task-card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(57,133,255,0.6);
+.task-search:focus{border-color:var(--cyan)}
+
+.task-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
 }
 
-.task-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 16px;
+.task-card{
+  min-width:0;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:15px;
 }
 
-.task-icon {
-    width: 44px;
-    height: 44px;
-    display: grid;
-    place-items: center;
-    background: linear-gradient(135deg, #286dff, #8c53ff);
-    border-radius: 13px;
-    font-size: 21px;
+.task-icon{
+  width:43px;
+  height:43px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  background:rgba(52,120,246,.15);
+  font-size:21px;
+  margin-bottom:13px;
 }
 
-.active-badge {
-    background: rgba(53,230,161,0.1);
-    color: var(--green);
-    padding: 6px 9px;
-    border-radius: 20px;
-    font-size: 10px;
-    font-weight: bold;
+.task-card h3{
+  font-size:15px;
+  margin-bottom:8px;
+  overflow-wrap:anywhere;
 }
 
-.task-card h3 {
-    font-size: 17px;
-    line-height: 1.4;
-    overflow-wrap: anywhere;
-    margin-bottom: 9px;
+.task-description{
+  font-size:12px;
+  line-height:1.6;
+  color:var(--muted);
+  margin-bottom:13px;
+  overflow-wrap:anywhere;
 }
 
-.task-description {
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.65;
-    margin-bottom: 20px;
-    overflow-wrap: anywhere;
-    white-space: pre-wrap;
+.reward-box{
+  background:var(--panel2);
+  border-radius:11px;
+  padding:11px;
+  margin-bottom:12px;
 }
 
-.reward-box {
-    background: rgba(57,133,255,0.09);
-    border: 1px solid rgba(57,133,255,0.18);
-    border-radius: 12px;
-    padding: 13px;
-    margin-bottom: 16px;
+.reward-box small{
+  display:block;
+  font-size:10px;
+  color:var(--muted);
+  margin-bottom:5px;
 }
 
-.reward-label {
-    color: var(--muted);
-    font-size: 11px;
-    margin-bottom: 6px;
+.reward-box strong{
+  color:var(--cyan);
+  font-size:18px;
 }
 
-.reward-amount {
-    color: var(--green);
-    font-size: 23px;
-    font-weight: 800;
-    overflow-wrap: anywhere;
+.action-btn{
+  width:100%;
+  display:block;
+  text-align:center;
+  text-decoration:none;
+  border:0;
+  border-radius:11px;
+  padding:12px 8px;
+  background:linear-gradient(100deg,#2867E8,#21BBD2);
+  color:white;
+  font-size:12px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.view-btn {
-    display: block;
-    width: 100%;
-    padding: 13px;
-    text-align: center;
-    text-decoration: none;
-    border: none;
-    border-radius: 11px;
-    background: linear-gradient(100deg, var(--blue), var(--purple));
-    color: white;
-    font-size: 13px;
-    font-weight: bold;
-    cursor: pointer;
+.sponsored-card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:17px;
+  margin-bottom:12px;
 }
 
-.view-btn:active {
-    transform: scale(0.98);
+.sponsored-top{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:12px;
 }
 
-.message-box {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    padding: 30px 18px;
-    border-radius: 16px;
-    text-align: center;
-    color: var(--muted);
-    line-height: 1.7;
-    grid-column: 1 / -1;
+.sponsored-icon{
+  width:47px;
+  height:47px;
+  display:grid;
+  place-items:center;
+  border-radius:14px;
+  background:rgba(136,101,247,.16);
+  font-size:23px;
 }
 
-.message-box strong {
-    display: block;
-    color: white;
-    font-size: 17px;
-    margin-bottom: 8px;
+.sponsored-top h3{font-size:15px}
+.sponsored-top small{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:5px;
 }
 
-footer {
-    text-align: center;
-    padding: 25px 15px;
-    border-top: 1px solid var(--border);
-    color: #7885a4;
-    font-size: 12px;
-    line-height: 1.8;
+.sponsored-card p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+  margin-bottom:13px;
 }
 
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 20;
-    display: flex;
-    justify-content: space-around;
-    background: rgba(12,19,37,0.97);
-    border-top: 1px solid var(--border);
-    padding: 11px 5px calc(11px + env(safe-area-inset-bottom));
-    backdrop-filter: blur(15px);
+.sponsored-reward{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:12px;
+  background:var(--panel2);
+  border-radius:12px;
+  margin-bottom:13px;
 }
 
-.bottom-nav a {
-    text-decoration: none;
-    color: var(--muted);
-    font-size: 11px;
-    text-align: center;
-    min-width: 55px;
+.sponsored-reward small{
+  color:var(--muted);
+  font-size:11px;
 }
 
-.bottom-nav a span {
-    display: block;
-    font-size: 19px;
-    margin-bottom: 5px;
+.sponsored-reward strong{
+  color:var(--cyan);
+  font-size:18px;
 }
 
-.bottom-nav a.current {
-    color: #75a9ff;
+.message-box{
+  grid-column:1/-1;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  text-align:center;
+  padding:25px 15px;
+  color:var(--muted);
+  line-height:1.7;
+  font-size:13px;
 }
 
-@media (max-width: 600px) {
-    header {
-        padding: 16px;
-    }
+.message-box strong{
+  display:block;
+  color:var(--text);
+  margin-bottom:6px;
+  font-size:15px;
+}
 
-    .logo {
-        font-size: 21px;
-    }
+.notice{
+  padding:14px;
+  border-radius:14px;
+  background:rgba(244,189,84,.10);
+  border:1px solid rgba(244,189,84,.25);
+  color:var(--warning);
+  font-size:12px;
+  line-height:1.6;
+  margin-bottom:15px;
+}
 
-    .container {
-        padding: 19px 13px 100px;
-    }
+.locked{
+  opacity:.75;
+}
 
-    .hero {
-        padding: 24px 18px;
-    }
+footer{
+  text-align:center;
+  padding:25px 10px;
+  color:var(--muted);
+  font-size:11px;
+}
 
-    .task-grid {
-        grid-template-columns: 1fr;
-        gap: 14px;
-    }
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:20;
+  display:flex;
+  justify-content:space-around;
+  background:var(--panel);
+  border-top:1px solid var(--border);
+  padding:11px 4px calc(11px + env(safe-area-inset-bottom));
+}
 
-    .task-card {
-        padding: 18px;
-    }
+.bottom-nav a{
+  color:var(--muted);
+  text-decoration:none;
+  text-align:center;
+  font-size:10px;
+  min-width:55px;
+}
 
-    .stats {
-        gap: 10px;
-    }
+.bottom-nav a span{
+  display:block;
+  font-size:20px;
+  margin-bottom:4px;
+}
 
-    .stat-card {
-        padding: 15px;
-    }
+.bottom-nav a.current{
+  color:var(--cyan);
+  font-weight:bold;
+}
 
-    .stat-number {
-        font-size: 22px;
-    }
+@media(max-width:370px){
+  .task-grid{gap:8px}
+  .task-card{padding:11px}
+  .balance-amount{font-size:24px}
+  .greeting h2{font-size:16px}
 }
 </style>
 </head>
 
 <body>
 
-<header>
-    <div class="logo">Earn<span>Save</span></div>
-    <div style="display:flex;gap:8px;">
-        <a href="dashboard.html" class="header-btn">Dashboard</a>
-        <button id="logoutBtn" class="header-btn">Logout</button>
+<header class="header">
+  <div class="profile">
+    <div class="avatar" id="avatar">ES</div>
+    <div class="greeting">
+      <small id="greetingText">Welcome to EarnSave</small>
+      <h2 id="userName">EarnSave User</h2>
     </div>
+  </div>
+
+  <div class="header-actions">
+    <button class="round-btn" id="themeBtn" type="button">☾</button>
+    <button class="round-btn" type="button"
+      onclick="location.href='notifications.html'">♧</button>
+  </div>
 </header>
 
 <main class="container">
 
-    <section class="hero">
-        <div class="hero-label">✦ YOUR TASK CENTER</div>
-        <h1>Find tasks.<br><span>Earn rewards.</span></h1>
-        <p>
-            Explore available tasks, follow their instructions,
-            and submit your proof for review. Approved rewards
-            are handled according to EarnSave's rules.
-        </p>
-    </section>
+  <section class="balance-card">
+    <div>
+      <div class="balance-title">Task Earnings Balance</div>
+      <div class="balance-amount" id="balance">₦0.00</div>
+    </div>
+    <div class="today-box">
+      <small>Tasks completed today</small>
+      <h3 id="todayCount">0</h3>
+    </div>
+  </section>
 
-    <section class="stats">
-        <div class="stat-card">
-            <div class="stat-icon">📋</div>
-            <div class="stat-number" id="taskCount">—</div>
-            <div class="stat-label">Available Tasks</div>
-        </div>
+  <section class="plan-strip">
+    <div>
+      <small>Your activation plan</small>
+      <strong id="planName">Checking plan...</strong>
+    </div>
+    <span class="plan-badge" id="planStatus">CHECKING</span>
+  </section>
 
-        <div class="stat-card">
-            <div class="stat-icon">⚡</div>
-            <div class="stat-number">₦</div>
-            <div class="stat-label">Rewards shown per task</div>
-        </div>
-    </section>
+  <div id="activationNotice" class="notice" hidden>
+    Your account does not currently have an active earning plan.
+    Activate a plan to access earning tasks.
+    <br><br>
+    <a href="activation.html" style="color:inherit;font-weight:bold">
+      View activation plans →
+    </a>
+  </div>
 
-    <section>
-        <div class="section-heading">
-            <h2>Available Tasks</h2>
-            <span id="resultLabel">Loading tasks...</span>
-        </div>
+  <section class="section">
+    <div class="section-heading">
+      <h2>Daily Earning Breakdown</h2>
+      <span>Your plan</span>
+    </div>
 
-        <input
-            type="search"
-            id="searchInput"
-            class="search-box"
-            placeholder="🔎 Search tasks by name..."
-            aria-label="Search available tasks"
-        >
+    <div class="earning-summary">
+      <small>Regular Tasks — Daily earning target</small>
+      <strong id="regularDaily">₦0</strong>
+    </div>
 
-        <div id="taskGrid" class="task-grid">
-            <div class="message-box">
-                <strong>Loading your tasks...</strong>
-                Please wait a moment.
-            </div>
-        </div>
-    </section>
+    <div class="earning-summary">
+      <small>Sponsored Post — Daily reward</small>
+      <strong id="sponsoredDaily">₦0</strong>
+    </div>
+
+    <div class="earning-summary">
+      <small>Combined daily earning target</small>
+      <strong id="totalDaily">₦0</strong>
+    </div>
+  </section>
+
+  <section class="section" id="regularSection">
+    <div class="section-heading">
+      <h2>Regular Tasks</h2>
+      <span id="regularCount">Loading...</span>
+    </div>
+
+    <input
+      type="search"
+      id="searchInput"
+      class="task-search"
+      placeholder="🔎 Search regular tasks..."
+    >
+
+    <div class="task-grid" id="taskGrid">
+      <div class="message-box">
+        <strong>Loading regular tasks...</strong>
+        Please wait.
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="sponsoredSection">
+    <div class="section-heading">
+      <h2>Sponsored Posts</h2>
+      <span id="sponsoredCount">Loading...</span>
+    </div>
+
+    <div class="notice">
+      One sponsored post per user per day. Copying text and downloading
+      a picture begins the completion process. Rewards require server-side
+      verification before real-money credit.
+    </div>
+
+    <div id="sponsoredGrid" class="task-grid">
+      <div class="message-box">
+        <strong>Loading sponsored posts...</strong>
+        Please wait.
+      </div>
+    </div>
+  </section>
 
 </main>
 
 <footer>
-    EarnSave © 2026<br>
-    Complete tasks honestly and follow each task's instructions.
+  EarnSave © 2026<br>
+  Earn • Save • Grow
 </footer>
 
 <nav class="bottom-nav">
-    <a href="dashboard.html">
-        <span>⌂</span>Home
-    </a>
-    <a href="tasks.html" class="current">
-        <span>▤</span>Tasks
-    </a>
-    <a href="withdrawal.html">
-        <span>⇧</span>Withdraw
-    </a>
-    <a href="profile.html">
-        <span>◉</span>Profile
-    </a>
+  <a href="dashboard.html">
+    <span>⌂</span>Home
+  </a>
+  <a href="tasks.html" class="current">
+    <span>☷</span>Hustle
+  </a>
+  <a href="team.html">
+    <span>♧</span>Team
+  </a>
+  <a href="sponsored.html">
+    <span>✦</span>Sponsored
+  </a>
+  <a href="profile.html">
+    <span>◉</span>Profile
+  </a>
 </nav>
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 
 <script>
 const firebaseConfig = {
-    apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
-    authDomain: "earnsave-e7a88.firebaseapp.com",
-    projectId: "earnsave-e7a88",
-    storageBucket: "earnsave-e7a88.firebasestorage.app",
-    messagingSenderId: "2806298963",
-    appId: "1:2806298963:web:f5f6fe584d51c7280be4aa",
-    measurementId: "G-3C742ZNKHB"
+  apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
+  authDomain: "earnsave-e7a88.firebaseapp.com",
+  projectId: "earnsave-e7a88",
+  storageBucket: "earnsave-e7a88.firebasestorage.app",
+  messagingSenderId: "2806298963",
+  appId: "1:2806298963:web:f5f6fe584d51c7280be4aa",
+  measurementId: "G-3C742ZNKHB"
 };
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-const taskGrid = document.getElementById("taskGrid");
-const taskCount = document.getElementById("taskCount");
-const resultLabel = document.getElementById("resultLabel");
-const searchInput = document.getElementById("searchInput");
-const logoutBtn = document.getElementById("logoutBtn");
+const $ = id => document.getElementById(id);
 
 let allTasks = [];
+let allSponsored = [];
+let currentUserData = null;
+let isActive = false;
 
-function showMessage(title, message) {
-    taskGrid.replaceChildren();
+const plans = {
+  spark: {
+    name:"Spark",
+    activation:1000,
+    regular:200,
+    sponsored:40
+  },
+  base: {
+    name:"Base",
+    activation:3000,
+    regular:300,
+    sponsored:80
+  },
+  voltage: {
+    name:"Voltage",
+    activation:5000,
+    regular:400,
+    sponsored:85
+  },
+  titan: {
+    name:"Titan",
+    activation:8500,
+    regular:900,
+    sponsored:170
+  },
+  supreme: {
+    name:"Supreme",
+    activation:14500,
+    regular:1000,
+    sponsored:580
+  }
+};
 
-    const box = document.createElement("div");
-    box.className = "message-box";
-
-    const heading = document.createElement("strong");
-    heading.textContent = title;
-
-    const paragraph = document.createElement("p");
-    paragraph.textContent = message;
-
-    box.append(heading, paragraph);
-    taskGrid.appendChild(box);
+function money(value) {
+  const amount = Number(value);
+  if (!Number.isFinite(amount)) return "₦0";
+  return "₦" + amount.toLocaleString("en-NG");
 }
 
-function formatNaira(value) {
-    const amount = Number(value);
+function greeting() {
+  const hour = new Date().getHours();
+  $("greetingText").textContent =
+    hour < 12 ? "Good morning" :
+    hour < 17 ? "Good afternoon" : "Good evening";
+}
+greeting();
 
-    if (!Number.isFinite(amount)) {
-        return "₦0";
-    }
+/* Theme */
+const themeBtn = $("themeBtn");
 
-    return "₦" + amount.toLocaleString("en-NG", {
-        maximumFractionDigits: 2
-    });
+try {
+  if (localStorage.getItem("earnsaveTheme") === "dark") {
+    document.body.classList.remove("light");
+    themeBtn.textContent = "☀";
+  } else if (localStorage.getItem("earnsaveTheme") === "light") {
+    document.body.classList.add("light");
+    themeBtn.textContent = "☾";
+  }
+} catch(e) {}
+
+themeBtn.addEventListener("click", () => {
+  document.body.classList.toggle("light");
+  const light = document.body.classList.contains("light");
+  themeBtn.textContent = light ? "☾" : "☀";
+  try {
+    localStorage.setItem("earnsaveTheme", light ? "light" : "dark");
+  } catch(e) {}
+});
+
+function showMessage(container, title, message) {
+  container.replaceChildren();
+
+  const box = document.createElement("div");
+  box.className = "message-box";
+
+  const heading = document.createElement("strong");
+  heading.textContent = title;
+
+  const paragraph = document.createElement("p");
+  paragraph.textContent = message;
+
+  box.append(heading, paragraph);
+  container.appendChild(box);
 }
 
+function getPlan(data) {
+  const selected = String(data.selectedPlan || "").toLowerCase().trim();
+  return plans[selected] || null;
+}
+
+function loadProfile(user, data) {
+  currentUserData = data;
+
+  const name =
+    data.firstName ||
+    data.fullName ||
+    user.displayName ||
+    "EarnSave User";
+
+  $("userName").textContent = name;
+
+  const initials = name.split(/\s+/)
+    .filter(Boolean)
+    .map(part => part.charAt(0))
+    .join("")
+    .substring(0,2)
+    .toUpperCase();
+
+  const avatar = $("avatar");
+
+  if (data.photoURL) {
+    const img = document.createElement("img");
+    img.src = data.photoURL;
+    img.alt = "Profile picture";
+    avatar.replaceChildren(img);
+  } else {
+    avatar.textContent = initials || "ES";
+  }
+
+  $("balance").textContent = money(data.balance || 0);
+  $("todayCount").textContent =
+    Number(data.tasksCompletedToday || 0);
+
+  const plan = getPlan(data);
+  const status = String(data.activationStatus || "").toLowerCase();
+
+  isActive = status === "active";
+
+  $("planName").textContent =
+    plan ? plan.name + " Plan" : "No selected plan";
+
+  $("planStatus").textContent =
+    isActive ? "ACTIVE" :
+    status === "demo" ? "DEMO" : "NOT ACTIVE";
+
+  $("activationNotice").hidden = isActive;
+
+  if (plan) {
+    $("regularDaily").textContent = money(plan.regular);
+    $("sponsoredDaily").textContent = money(plan.sponsored);
+    $("totalDaily").textContent =
+      money(plan.regular + plan.sponsored);
+  } else {
+    $("regularDaily").textContent = "₦0";
+    $("sponsoredDaily").textContent = "₦0";
+    $("totalDaily").textContent = "₦0";
+  }
+}
+
+/* Regular task card */
 function createTaskCard(task) {
-    const card = document.createElement("article");
-    card.className = "task-card";
+  const card = document.createElement("article");
+  card.className = "task-card";
 
-    const top = document.createElement("div");
-    top.className = "task-top";
+  const icon = document.createElement("div");
+  icon.className = "task-icon";
+  icon.textContent = "⚡";
 
-    const icon = document.createElement("div");
-    icon.className = "task-icon";
-    icon.textContent = "⚡";
+  const title = document.createElement("h3");
+  title.textContent = task.title || "Untitled Task";
 
-    const badge = document.createElement("span");
-    badge.className = "active-badge";
-    badge.textContent = "● ACTIVE";
+  const description = document.createElement("p");
+  description.className = "task-description";
+  description.textContent =
+    task.description || "Open this task to view its instructions.";
 
-    top.append(icon, badge);
+  const rewardBox = document.createElement("div");
+  rewardBox.className = "reward-box";
 
-    const title = document.createElement("h3");
-    title.textContent = task.title || "Untitled Task";
+  const label = document.createElement("small");
+  label.textContent = "TASK REWARD";
 
-    const description = document.createElement("p");
-    description.className = "task-description";
-    description.textContent =
-        task.description || "Open this task to view its instructions.";
+  const reward = document.createElement("strong");
+  reward.textContent = money(task.reward);
 
-    const rewardBox = document.createElement("div");
-    rewardBox.className = "reward-box";
+  rewardBox.append(label, reward);
 
-    const rewardLabel = document.createElement("div");
-    rewardLabel.className = "reward-label";
-    rewardLabel.textContent = "TASK REWARD";
+  const button = document.createElement("a");
+  button.className = "action-btn";
+  button.textContent = "View Task →";
+  button.href = "task.html?id=" + encodeURIComponent(task.id);
 
-    const rewardAmount = document.createElement("div");
-    rewardAmount.className = "reward-amount";
-    rewardAmount.textContent = formatNaira(task.reward);
-
-    rewardBox.append(rewardLabel, rewardAmount);
-
-    const viewButton = document.createElement("a");
-    viewButton.className = "view-btn";
-    viewButton.textContent = "View Task →";
-    viewButton.href =
-        "task.html?id=" + encodeURIComponent(task.id);
-
-    card.append(top, title, description, rewardBox, viewButton);
-
-    return card;
+  card.append(icon, title, description, rewardBox, button);
+  return card;
 }
 
 function renderTasks() {
-    const searchTerm = searchInput.value.trim().toLowerCase();
+  const term = $("searchInput").value.trim().toLowerCase();
 
-    const filteredTasks = allTasks.filter(task => {
-        const title = String(task.title || "").toLowerCase();
-        const description =
-            String(task.description || "").toLowerCase();
+  const filtered = allTasks.filter(task => {
+    const title = String(task.title || "").toLowerCase();
+    const description =
+      String(task.description || "").toLowerCase();
 
-        return title.includes(searchTerm) ||
-               description.includes(searchTerm);
-    });
+    return title.includes(term) || description.includes(term);
+  });
 
-    taskGrid.replaceChildren();
+  $("regularCount").textContent =
+    filtered.length + (filtered.length === 1 ? " task" : " tasks");
 
-    taskCount.textContent = allTasks.length;
-    resultLabel.textContent =
-        filteredTasks.length + " task" +
-        (filteredTasks.length === 1 ? "" : "s");
+  const grid = $("taskGrid");
+  grid.replaceChildren();
 
-    if (filteredTasks.length === 0) {
-        showMessage(
-            allTasks.length === 0
-                ? "No tasks available yet"
-                : "No matching tasks",
-            allTasks.length === 0
-                ? "Please check again later when new tasks are published."
-                : "Try searching with another word."
-        );
-        return;
-    }
+  if (!isActive) {
+    showMessage(
+      grid,
+      "Activation required",
+      "Activate an earning plan to access regular tasks."
+    );
+    return;
+  }
 
-    filteredTasks.forEach(task => {
-        taskGrid.appendChild(createTaskCard(task));
-    });
+  if (!filtered.length) {
+    showMessage(
+      grid,
+      allTasks.length ? "No matching tasks" : "No regular tasks yet",
+      allTasks.length
+        ? "Try another search."
+        : "Please check again later for new tasks."
+    );
+    return;
+  }
+
+  filtered.forEach(task => {
+    grid.appendChild(createTaskCard(task));
+  });
 }
 
-searchInput.addEventListener("input", renderTasks);
+$("searchInput").addEventListener("input", renderTasks);
 
-logoutBtn.addEventListener("click", async () => {
-    logoutBtn.disabled = true;
+/* Sponsored post cards */
+function createSponsoredCard(post) {
+  const card = document.createElement("article");
+  card.className = "sponsored-card";
 
-    try {
-        await auth.signOut();
-        window.location.href = "login.html";
-    } catch (error) {
-        console.error("Logout failed:", error);
-        alert("Unable to log out. Please try again.");
-        logoutBtn.disabled = false;
+  const top = document.createElement("div");
+  top.className = "sponsored-top";
+
+  const icon = document.createElement("div");
+  icon.className = "sponsored-icon";
+  icon.textContent = "✦";
+
+  const titleWrap = document.createElement("div");
+  const title = document.createElement("h3");
+  title.textContent = post.title || "Sponsored Post";
+
+  const subtitle = document.createElement("small");
+  subtitle.textContent = "EarnSave sponsored opportunity";
+
+  titleWrap.append(title, subtitle);
+  top.append(icon, titleWrap);
+
+  const description = document.createElement("p");
+  description.textContent =
+    post.description || "Open the sponsored page to view the post instructions.";
+
+  const rewardRow = document.createElement("div");
+  rewardRow.className = "sponsored-reward";
+
+  const label = document.createElement("small");
+  label.textContent = "POST REWARD";
+
+  const reward = document.createElement("strong");
+  reward.textContent = money(post.reward || 0);
+
+  rewardRow.append(label, reward);
+
+  const button = document.createElement("a");
+  button.className = "action-btn";
+  button.href = "sponsored.html";
+  button.textContent = "Open Sponsored Posts →";
+
+  card.append(top, description, rewardRow, button);
+  return card;
+}
+
+function renderSponsored() {
+  const grid = $("sponsoredGrid");
+  grid.replaceChildren();
+
+  $("sponsoredCount").textContent =
+    allSponsored.length +
+    (allSponsored.length === 1 ? " post" : " posts");
+
+  if (!isActive) {
+    showMessage(
+      grid,
+      "Activation required",
+      "Activate an earning plan to access sponsored earning opportunities."
+    );
+    return;
+  }
+
+  if (!allSponsored.length) {
+    showMessage(
+      grid,
+      "No sponsored posts available",
+      "Please check again later for new sponsored opportunities."
+    );
+    return;
+  }
+
+  allSponsored.forEach(post => {
+    grid.appendChild(createSponsoredCard(post));
+  });
+}
+
+/* Load regular tasks */
+async function loadTasks() {
+  try {
+    const snapshot = await db.collection("tasks")
+      .where("status", "==", "active")
+      .get();
+
+    allTasks = snapshot.docs.map(doc => ({
+      id:doc.id,
+      ...doc.data()
+    }));
+
+    renderTasks();
+  } catch(error) {
+    console.error("Regular task loading error:", error);
+    showMessage(
+      $("taskGrid"),
+      "Unable to load tasks",
+      "Check your internet connection or Firestore permissions."
+    );
+    $("regularCount").textContent = "Load failed";
+  }
+}
+
+/* Load sponsored posts */
+async function loadSponsored() {
+  try {
+    const snapshot = await db.collection("sponsoredPosts")
+      .where("status", "==", "active")
+      .get();
+
+    allSponsored = snapshot.docs.map(doc => ({
+      id:doc.id,
+      ...doc.data()
+    }));
+
+    renderSponsored();
+  } catch(error) {
+    console.error("Sponsored post loading error:", error);
+    showMessage(
+      $("sponsoredGrid"),
+      "Unable to load sponsored posts",
+      "Check your internet connection or sponsoredPosts Firestore permissions."
+    );
+    $("sponsoredCount").textContent = "Load failed";
+  }
+}
+
+/* Authentication */
+auth.onAuthStateChanged(async user => {
+  if (!user) {
+    location.replace("login.html");
+    return;
+  }
+
+  try {
+    const userDoc = await db.collection("users")
+      .doc(user.uid)
+      .get();
+
+    if (!userDoc.exists) {
+      showMessage(
+        $("taskGrid"),
+        "Account information not found",
+        "Please contact EarnSave support."
+      );
+      showMessage(
+        $("sponsoredGrid"),
+        "Account information not found",
+        "Please contact EarnSave support."
+      );
+      return;
     }
+
+    loadProfile(user, userDoc.data());
+
+    await Promise.all([
+      loadTasks(),
+      loadSponsored()
+    ]);
+
+  } catch(error) {
+    console.error("Account loading error:", error);
+
+    showMessage(
+      $("taskGrid"),
+      "Unable to load account",
+      "Please refresh the page and try again."
+    );
+  }
 });
 
-auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-    .then(() => {
-        auth.onAuthStateChanged(async user => {
-            if (!user) {
-                window.location.replace("login.html");
-                return;
-            }
-
-            showMessage("Loading tasks...", "Getting available tasks.");
-
-            try {
-                const snapshot = await db.collection("tasks")
-                    .where("status", "==", "active")
-                    .get();
-
-                allTasks = snapshot.docs.map(doc => ({
-                    id: doc.id,
-                    ...doc.data()
-                }));
-
-                renderTasks();
-
-            } catch (error) {
-                console.error("Could not load tasks:", error);
-
-                showMessage(
-                    "Unable to load tasks",
-                    error.code === "permission-denied"
-                        ? "Firestore denied access. Your database rules may need checking."
-                        : "Please check your internet connection and try again."
-                );
-
-                resultLabel.textContent = "Loading failed";
-            }
-        });
-    })
-    .catch(error => {
-        console.error("Firebase persistence error:", error);
-
-        showMessage(
-            "Connection problem",
-            "Please refresh the page and try again."
-        );
-    });
+/* Logout helper */
+window.logoutEarnSave = async function() {
+  try {
+    await auth.signOut();
+    location.href = "login.html";
+  } catch(error) {
+    console.error(error);
+    alert("Unable to log out. Please try again.");
+  }
+};
 </script>
 
 </body>
