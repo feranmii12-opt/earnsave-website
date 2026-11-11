@@ -1,5 +1,4 @@
- 
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -956,78 +955,4 @@ async function loadSponsored() {
       .where("status", "==", "active")
       .get();
 
-    allSponsored = snapshot.docs.map(doc => ({
-      id:doc.id,
-      ...doc.data()
-    }));
-
-    renderSponsored();
-  } catch(error) {
-    console.error("Sponsored post loading error:", error);
-    showMessage(
-      $("sponsoredGrid"),
-      "Unable to load sponsored posts",
-      "Check your internet connection or sponsoredPosts Firestore permissions."
-    );
-    $("sponsoredCount").textContent = "Load failed";
-  }
-}
-
-/* Authentication */
-auth.onAuthStateChanged(async user => {
-  if (!user) {
-    location.replace("login.html");
-    return;
-  }
-
-  try {
-    const userDoc = await db.collection("users")
-      .doc(user.uid)
-      .get();
-
-    if (!userDoc.exists) {
-      showMessage(
-        $("taskGrid"),
-        "Account information not found",
-        "Please contact EarnSave support."
-      );
-      showMessage(
-        $("sponsoredGrid"),
-        "Account information not found",
-        "Please contact EarnSave support."
-      );
-      return;
-    }
-
-    loadProfile(user, userDoc.data());
-
-    await Promise.all([
-      loadTasks(),
-      loadSponsored()
-    ]);
-
-  } catch(error) {
-    console.error("Account loading error:", error);
-
-    showMessage(
-      $("taskGrid"),
-      "Unable to load account",
-      "Please refresh the page and try again."
-    );
-  }
-});
-
-/* Logout helper */
-window.logoutEarnSave = async function() {
-  try {
-    await auth.signOut();
-    location.href = "login.html";
-  } catch(error) {
-    console.error(error);
-    alert("Unable to log out. Please try again.");
-  }
-};
-</script>
-
-</body>
-</html>
+    allSponsored =
