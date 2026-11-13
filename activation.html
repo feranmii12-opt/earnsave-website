@@ -135,8 +135,7 @@ header{background:linear-gradient(120deg,#071b45,#0758d9);color:white;padding:22
    <button onclick="activatePlan('Supreme',this)">Continue to Payment →</button>
   </div> </div> <div id="message" class="message" role="status" aria-live="polite"></div> <div class="footer">
   <a href="dashboard.html">← Back to Dashboard</a>
- </div>
-</main><div id="confirmModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+ </div></main><div id="confirmModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
  <div class="modal-box">
   <div class="modal-icon">💳</div>
   <h2 id="confirmTitle">Confirm Plan</h2>
@@ -164,6 +163,7 @@ const BACKEND_URL="https://earnsave-payment-verifier.onrender.com";
 
 let selectedPlan=null;
 let selectedButton=null;
+let checkoutInProgress=false;
 
 const modal=document.getElementById("confirmModal");
 const yesButton=document.getElementById("confirmYes");
@@ -201,6 +201,7 @@ function activatePlan(planName,button){
 }
 
 function closeModal(){
+ if(checkoutInProgress)return;
  modal.classList.remove("show");
  selectedPlan=null;
  selectedButton=null;
@@ -220,13 +221,18 @@ yesButton.addEventListener("click",async()=>{
  const plan=selectedPlan;
  const button=selectedButton;
 
- if(!plan||!button)return;
+ if(!plan||!button||checkoutInProgress)return;
+
+ checkoutInProgress=true;
 
  const originalText=button.textContent;
  button.disabled=true;
  button.textContent="Creating checkout...";
  yesButton.disabled=true;
  noButton.disabled=true;
+
+ // Close the popup so any error message can be seen.
+ modal.classList.remove("show");
 
  try{
   const user=auth.currentUser;
@@ -249,11 +255,15 @@ yesButton.addEventListener("click",async()=>{
   const result=await response.json().catch(()=>({}));
 
   if(!response.ok||!result.success){
-   throw new Error(result.message||result.error||"Unable to create checkout. Please try again.");
+   throw new Error(
+    result.message||result.error||
+    "Unable to create checkout. Please try again."
+   );
   }
 
-  if(!result.paymentLink||!/^https:\/\/checkout\.flutterwave\.com\//i.test(result.paymentLink)){
-   throw new Error("The payment service returned an invalid checkout link. Please contact EarnSave support.");
+  if(!result.paymentLink||
+     !/^https:\/\/checkout\.flutterwave\.com\//i.test(result.paymentLink)){
+   throw new Error("The payment service returned an invalid checkout link.");
   }
 
   showMessage("Your test checkout is ready. Redirecting to Flutterwave...","success");
@@ -262,16 +272,21 @@ yesButton.addEventListener("click",async()=>{
 
  }catch(error){
   console.error("EarnSave checkout error:",error);
-  showMessage(error.message||"Something went wrong. Please try again.","error");
+
+  showMessage(
+   error.message||"Something went wrong. Please try again.",
+   "error"
+  );
+
   button.disabled=false;
   button.textContent=originalText;
+
  }finally{
+  checkoutInProgress=false;
   yesButton.disabled=false;
   noButton.disabled=false;
-  if(!modal.classList.contains("show")){
-   selectedPlan=null;
-   selectedButton=null;
-  }
+  selectedPlan=null;
+  selectedButton=null;
  }
 });
 
