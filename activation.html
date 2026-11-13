@@ -1,8 +1,14 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EarnSave - Activation Plans</title><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script><style>
+<title>EarnSave - Activation Plans</title>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+
+<style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;background:#f5f7fb;color:#171923}
 header{background:linear-gradient(120deg,#071b45,#0758d9);color:white;padding:22px 18px}
@@ -33,15 +39,14 @@ header{background:linear-gradient(120deg,#071b45,#0758d9);color:white;padding:22
 .features{display:grid;grid-template-columns:1fr 1fr;gap:14px 9px;margin-bottom:22px}
 .feature{display:flex;align-items:flex-start;gap:8px;font-size:13px;font-weight:bold;line-height:1.45}
 .check{width:21px;height:21px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--soft);color:var(--accent);font-size:12px}
-.plan button{width:100%;border:0;padding:16px;border-radius:13px;background:linear-gradient(110deg,#075bea,#05b9e9);color:white;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 7px 15px rgba(0,100,220,.18)}
+.plan button{width:100%;border:0;padding:16px;border-radius:13px;background:linear-gradient(110deg,#075bea,#05b9e9);color:white;font-size:15px;font-weight:900;cursor:pointer}
 .plan button:disabled{opacity:.6;cursor:not-allowed}
 .message{display:none;padding:14px;border-radius:12px;margin-top:20px;font-size:13px;line-height:1.6;overflow-wrap:anywhere}
 .success{display:block;background:#e1f7e9;color:#176b36}
 .error{display:block;background:#ffe8e8;color:#a22222}
 .modal{display:none;position:fixed;inset:0;background:rgba(3,10,28,.82);z-index:9999;align-items:center;justify-content:center;padding:20px}
 .modal.show{display:flex}
-.modal-box{background:white;color:#172033;width:100%;max-width:370px;padding:27px 23px;border-radius:22px;text-align:center;box-shadow:0 15px 50px rgba(0,0,0,.3);animation:popup .2s ease-out}
-@keyframes popup{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-box{background:white;color:#172033;width:100%;max-width:370px;padding:27px 23px;border-radius:22px;text-align:center;box-shadow:0 15px 50px rgba(0,0,0,.3)}
 .modal-icon{width:65px;height:65px;border-radius:50%;background:#e8f2ff;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;font-size:32px}
 .modal-box h2{font-size:21px;margin-bottom:10px}
 .modal-box p{color:#687386;line-height:1.6;font-size:14px;margin-bottom:20px}
@@ -52,18 +57,33 @@ header{background:linear-gradient(120deg,#071b45,#0758d9);color:white;padding:22
 .footer{text-align:center;margin-top:28px}
 .footer a{color:#1766dc;text-decoration:none;font-size:14px;font-weight:bold}
 @media(min-width:650px){.plans{grid-template-columns:1fr 1fr}.intro h1{font-size:29px}}
-</style></head><body><header>
+</style>
+</head>
+
+<body>
+
+<header>
  <div class="header-inner">
   <div class="logo">Earn<span>Save</span></div>
   <a href="dashboard.html" class="back">← Dashboard</a>
  </div>
-</header><main class="container"> <div class="intro">
+</header>
+
+<main class="container">
+
+ <div class="intro">
   <h1>Choose a plan that suits you</h1>
   <p>Choose your preferred EarnSave activation plan. Review the terms before proceeding.</p>
- </div> <div class="notice">
+ </div>
+
+ <div class="notice">
   <strong>PAYMENT TEST MODE</strong><br>
-  Payments are currently being tested using Flutterwave test credentials. No real payment is collected. Displayed earning figures are illustrative, not guaranteed income or guaranteed returns.
- </div> <div class="plans">  <div class="plan spark">
+  Payments are being tested with Flutterwave test credentials. No real payment is collected. Displayed earning figures are illustrative and are not guaranteed income.
+ </div>
+
+ <div class="plans">
+
+  <div class="plan spark">
    <div class="plan-top">
     <div class="plan-name"><div class="plan-icon">🌱</div>SPARK</div>
     <span class="tag">Plan details</span>
@@ -77,7 +97,9 @@ header{background:linear-gradient(120deg,#071b45,#0758d9);color:white;padding:22
     <div class="feature"><span class="check">✓</span>₦7,000 minimum withdrawal</div>
    </div>
    <button onclick="activatePlan('Spark',this)">Continue to Payment →</button>
-  </div>  <div class="plan base">
+  </div>
+
+  <div class="plan base">
    <div class="plan-top">
     <div class="plan-name"><div class="plan-icon">🚀</div>BASE</div>
     <span class="tag">Plan details</span>
@@ -91,7 +113,9 @@ header{background:linear-gradient(120deg,#071b45,#0758d9);color:white;padding:22
     <div class="feature"><span class="check">✓</span>₦7,000 minimum withdrawal</div>
    </div>
    <button onclick="activatePlan('Base',this)">Continue to Payment →</button>
-  </div>  <div class="plan voltage">
+  </div>
+
+  <div class="plan voltage">
    <div class="plan-top">
     <div class="plan-name"><div class="plan-icon">🔥</div>VOLTAGE</div>
     <span class="tag">Plan details</span>
@@ -105,7 +129,9 @@ header{background:linear-gradient(120deg,#071b45,#0758d9);color:white;padding:22
     <div class="feature"><span class="check">✓</span>₦14,500 minimum withdrawal</div>
    </div>
    <button onclick="activatePlan('Voltage',this)">Continue to Payment →</button>
-  </div>  <div class="plan titan">
+  </div>
+
+  <div class="plan titan">
    <div class="plan-top">
     <div class="plan-name"><div class="plan-icon">💎</div>TITAN</div>
     <span class="tag">Plan details</span>
@@ -119,7 +145,9 @@ header{background:linear-gradient(120deg,#071b45,#0758d9);color:white;padding:22
     <div class="feature"><span class="check">✓</span>₦20,000 minimum withdrawal</div>
    </div>
    <button onclick="activatePlan('Titan',this)">Continue to Payment →</button>
-  </div>  <div class="plan supreme">
+  </div>
+
+  <div class="plan supreme">
    <div class="plan-top">
     <div class="plan-name"><div class="plan-icon">👑</div>SUPREME</div>
     <span class="tag">Plan details</span>
@@ -133,9 +161,18 @@ header{background:linear-gradient(120deg,#071b45,#0758d9);color:white;padding:22
     <div class="feature"><span class="check">✓</span>₦35,000 minimum withdrawal</div>
    </div>
    <button onclick="activatePlan('Supreme',this)">Continue to Payment →</button>
-  </div> </div> <div id="message" class="message" role="status" aria-live="polite"></div> <div class="footer">
+  </div>
+
+ </div>
+
+ <div id="message" class="message" role="status" aria-live="polite"></div>
+
+ <div class="footer">
   <a href="dashboard.html">← Back to Dashboard</a>
- </div></main><div id="confirmModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+ </div>
+</main>
+
+<div id="confirmModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
  <div class="modal-box">
   <div class="modal-icon">💳</div>
   <h2 id="confirmTitle">Confirm Plan</h2>
@@ -143,157 +180,204 @@ header{background:linear-gradient(120deg,#071b45,#0758d9);color:white;padding:22
   <button type="button" id="confirmYes" class="yes-btn">CONTINUE TO CHECKOUT</button>
   <button type="button" id="confirmNo" class="no-btn">CANCEL</button>
  </div>
-</div><script>
-const firebaseConfig={
- apiKey:"AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
- authDomain:"earnsave-e7a88.firebaseapp.com",
- projectId:"earnsave-e7a88",
- storageBucket:"earnsave-e7a88.firebasestorage.app",
- messagingSenderId:"2806298963",
- appId:"1:2806298963:web:f5f6fe584d51c7280be4aa",
- measurementId:"G-3C742ZNKHB"
+</div>
+
+<script>
+"use strict";
+
+const firebaseConfig = {
+ apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
+ authDomain: "earnsave-e7a88.firebaseapp.com",
+ projectId: "earnsave-e7a88",
+ storageBucket: "earnsave-e7a88.firebasestorage.app",
+ messagingSenderId: "2806298963",
+ appId: "1:2806298963:web:f5f6fe584d51c7280be4aa",
+ measurementId: "G-3C742ZNKHB"
 };
 
-if(!firebase.apps.length){
+if (!firebase.apps.length) {
  firebase.initializeApp(firebaseConfig);
 }
 
-const auth=firebase.auth();
-const BACKEND_URL="https://earnsave-payment-verifier.onrender.com";
+const auth = firebase.auth();
+const BACKEND_URL = "https://earnsave-payment-verifier.onrender.com";
 
-let selectedPlan=null;
-let selectedButton=null;
-let checkoutInProgress=false;
+const modal = document.getElementById("confirmModal");
+const yesButton = document.getElementById("confirmYes");
+const noButton = document.getElementById("confirmNo");
 
-const modal=document.getElementById("confirmModal");
-const yesButton=document.getElementById("confirmYes");
-const noButton=document.getElementById("confirmNo");
+let selectedPlan = null;
+let selectedButton = null;
+let requestInProgress = false;
 
-function showMessage(message,type){
- const box=document.getElementById("message");
- box.textContent=message;
- box.className="message "+type;
- box.scrollIntoView({behavior:"smooth",block:"nearest"});
+function showMessage(message, type) {
+ const box = document.getElementById("message");
+ box.textContent = message;
+ box.className = "message " + type;
+ box.scrollIntoView({behavior:"smooth", block:"nearest"});
 }
 
-function activatePlan(planName,button){
- if(!auth.currentUser){
-  showMessage("Please log in before continuing.","error");
-  setTimeout(()=>window.location.href="login.html",1800);
+function activatePlan(planName, button) {
+ if (!auth.currentUser) {
+  showMessage("Please log in before continuing.", "error");
+  setTimeout(() => {
+   window.location.href = "login.html";
+  }, 1800);
   return;
  }
 
- selectedPlan=planName;
- selectedButton=button;
+ selectedPlan = planName;
+ selectedButton = button;
 
- const prices={
-  Spark:"₦1,000",
-  Base:"₦3,000",
-  Voltage:"₦5,000",
-  Titan:"₦8,500",
-  Supreme:"₦14,500"
+ const prices = {
+  Spark: "₦1,000",
+  Base: "₦3,000",
+  Voltage: "₦5,000",
+  Titan: "₦8,500",
+  Supreme: "₦14,500"
  };
 
- document.getElementById("confirmText").textContent=
-  "You selected the "+planName+" plan ("+prices[planName]+"). You will be redirected to Flutterwave's TEST checkout. No real payment will be collected.";
+ document.getElementById("confirmText").textContent =
+  "You selected the " + planName + " plan (" +
+  prices[planName] +
+  "). You will be redirected to Flutterwave TEST checkout. No real payment will be collected.";
 
  modal.classList.add("show");
 }
 
-function closeModal(){
- if(checkoutInProgress)return;
+function closeModal() {
  modal.classList.remove("show");
- selectedPlan=null;
- selectedButton=null;
+ selectedPlan = null;
+ selectedButton = null;
 }
 
-noButton.addEventListener("click",closeModal);
+noButton.addEventListener("click", closeModal);
 
-modal.addEventListener("click",event=>{
- if(event.target===modal)closeModal();
+modal.addEventListener("click", event => {
+ if (event.target === modal && !requestInProgress) {
+  closeModal();
+ }
 });
 
-document.addEventListener("keydown",event=>{
- if(event.key==="Escape"&&modal.classList.contains("show"))closeModal();
+document.addEventListener("keydown", event => {
+ if (event.key === "Escape" &&
+     modal.classList.contains("show") &&
+     !requestInProgress) {
+  closeModal();
+ }
 });
 
-yesButton.addEventListener("click",async()=>{
- const plan=selectedPlan;
- const button=selectedButton;
+yesButton.addEventListener("click", async () => {
+ if (requestInProgress) return;
 
- if(!plan||!button||checkoutInProgress)return;
+ const plan = selectedPlan;
+ const button = selectedButton;
 
- checkoutInProgress=true;
+ if (!plan || !button) return;
 
- const originalText=button.textContent;
- button.disabled=true;
- button.textContent="Creating checkout...";
- yesButton.disabled=true;
- noButton.disabled=true;
+ requestInProgress = true;
 
- // Close the popup so any error message can be seen.
- modal.classList.remove("show");
+ const originalText = button.textContent;
+ button.disabled = true;
+ button.textContent = "Creating checkout...";
+ yesButton.disabled = true;
+ noButton.disabled = true;
 
- try{
-  const user=auth.currentUser;
+ try {
+  const user = auth.currentUser;
 
-  if(!user){
+  if (!user) {
    throw new Error("Your login session has expired. Please log in again.");
   }
 
-  const idToken=await user.getIdToken(true);
+  const idToken = await user.getIdToken(true);
 
-  const response=await fetch(BACKEND_URL+"/create-payment",{
-   method:"POST",
-   headers:{
-    "Content-Type":"application/json",
-    "Authorization":"Bearer "+idToken
+  const response = await fetch(BACKEND_URL + "/create-payment", {
+   method: "POST",
+   headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer " + idToken
    },
-   body:JSON.stringify({planName:plan})
+   body: JSON.stringify({planName: plan})
   });
 
-  const result=await response.json().catch(()=>({}));
+  const result = await response.json().catch(() => null);
 
-  if(!response.ok||!result.success){
+  if (!response.ok) {
    throw new Error(
-    result.message||result.error||
-    "Unable to create checkout. Please try again."
+    result?.message ||
+    result?.error ||
+    "The payment server returned an error (HTTP " + response.status + ")."
    );
   }
 
-  if(!result.paymentLink||
-     !/^https:\/\/checkout\.flutterwave\.com\//i.test(result.paymentLink)){
-   throw new Error("The payment service returned an invalid checkout link.");
+  if (!result || result.success !== true) {
+   throw new Error(
+    result?.message ||
+    result?.error ||
+    "The payment server did not confirm checkout creation."
+   );
   }
 
-  showMessage("Your test checkout is ready. Redirecting to Flutterwave...","success");
+  // Accept only a secure Flutterwave checkout URL.
+  const rawLink = result.paymentLink || result.link || "";
 
-  window.location.assign(result.paymentLink);
+  let checkoutUrl;
 
- }catch(error){
-  console.error("EarnSave checkout error:",error);
+  try {
+   checkoutUrl = new URL(String(rawLink).trim());
+  } catch (error) {
+   throw new Error(
+    "The server did not return a valid checkout URL. Please check the Render logs."
+   );
+  }
+
+  if (
+   checkoutUrl.protocol !== "https:" ||
+   checkoutUrl.hostname !== "checkout.flutterwave.com"
+  ) {
+   console.error("Unexpected checkout URL:", checkoutUrl.href);
+   throw new Error(
+    "The payment server returned an unexpected checkout address. Please contact EarnSave support."
+   );
+  }
+
+  if (!result.txRef) {
+   throw new Error(
+    "The payment server did not return a transaction reference."
+   );
+  }
 
   showMessage(
-   error.message||"Something went wrong. Please try again.",
+   "Checkout created successfully. Redirecting to Flutterwave TEST checkout...",
+   "success"
+  );
+
+  window.location.assign(checkoutUrl.href);
+
+ } catch (error) {
+  console.error("EarnSave checkout error:", error);
+
+  showMessage(
+   error.message || "Something went wrong. Please try again.",
    "error"
   );
 
-  button.disabled=false;
-  button.textContent=originalText;
+  button.disabled = false;
+  button.textContent = originalText;
 
- }finally{
-  checkoutInProgress=false;
-  yesButton.disabled=false;
-  noButton.disabled=false;
-  selectedPlan=null;
-  selectedButton=null;
+  requestInProgress = false;
+  yesButton.disabled = false;
+  noButton.disabled = false;
  }
 });
 
-auth.onAuthStateChanged(user=>{
- if(!user){
-  showMessage("Please log in to continue with plan activation.","error");
+auth.onAuthStateChanged(user => {
+ if (!user) {
+  showMessage("Please log in to continue with plan activation.", "error");
  }
 });
-</script></body>
+</script>
+
+</body>
 </html>
