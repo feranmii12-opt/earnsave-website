@@ -3,9 +3,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Activate Plan | EarnSave</title>  <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -45,6 +43,12 @@
       line-height: 1.5;
       margin-bottom: 20px;
       font-size: 14px;
+    }
+
+    .demo-notice {
+      background: #30264c;
+      border-color: #8b5cf6;
+      color: #e6d9ff;
     }
 
     .plans {
@@ -137,7 +141,6 @@
       line-height: 1.5;
     }
 
-    /* Confirmation popup */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -197,12 +200,13 @@
 
     .modal-actions {
       display: flex;
+      flex-direction: column;
       gap: 10px;
       margin-top: 22px;
     }
 
     .modal-actions button {
-      flex: 1;
+      width: 100%;
       min-height: 48px;
     }
 
@@ -216,337 +220,452 @@
       color: #fff;
     }
 
+    .demo-btn {
+      background: linear-gradient(100deg, #7542d8, #a855f7);
+      color: #fff;
+    }
+
     .modal-actions button:disabled {
       opacity: .5;
     }
-  </style></head><body>  <main class="container"><header>
-  <div class="logo">EarnSave</div>
-  <h1>Choose Your Activation Plan</h1>
-  <p>Select a plan to continue to secure Flutterwave checkout.</p>
-</header>
+  </style></head><body><main class="container">  <header>
+    <div class="logo">EarnSave</div>
+    <h1>Choose Your Activation Plan</h1>
+    <p>Select a plan and choose how you want to continue.</p>
+  </header>  <div class="notice">
+    <strong>Payment activation:</strong>
+    Payments are processed through secure Flutterwave checkout and verified by the EarnSave server.
+  </div>  <div class="notice demo-notice">
+    <strong>Demo mode:</strong>
+    You can activate a test plan without payment. Demo activation does not provide real earnings, referral bonuses, or withdrawable money.
+  </div>  <div id="message" role="alert" aria-live="polite"></div>  <section class="plans"><article class="plan">
+  <h2>Spark</h2>
+  <div class="price">₦1,000</div>
+  <p>Referral bonus: ₦600</p>
+  <p>Displayed daily earnings: ₦240</p>
+  <p>Minimum withdrawal: ₦7,000</p>
+  <button class="choose-btn" type="button" data-plan="Spark">
+    Choose Spark
+  </button>
+</article>
 
-<div class="notice">
-  Review the plan price and terms carefully before continuing.
-  Payments must be verified by the EarnSave payment server.
-</div>
+<article class="plan">
+  <h2>Base</h2>
+  <div class="price">₦3,000</div>
+  <p>Referral bonus: ₦2,000</p>
+  <p>Displayed daily earnings: ₦380</p>
+  <p>Minimum withdrawal: ₦7,000</p>
+  <button class="choose-btn" type="button" data-plan="Base">
+    Choose Base
+  </button>
+</article>
 
-<div id="message" role="alert"></div>
+<article class="plan">
+  <h2>Voltage</h2>
+  <div class="price">₦5,000</div>
+  <p>Referral bonus: ₦3,000</p>
+  <p>Displayed daily earnings: ₦485</p>
+  <p>Minimum withdrawal: ₦14,500</p>
+  <button class="choose-btn" type="button" data-plan="Voltage">
+    Choose Voltage
+  </button>
+</article>
 
-<section class="plans">
+<article class="plan">
+  <h2>Titan</h2>
+  <div class="price">₦8,500</div>
+  <p>Referral bonus: ₦5,000</p>
+  <p>Displayed daily earnings: ₦1,070</p>
+  <p>Minimum withdrawal: ₦20,000</p>
+  <button class="choose-btn" type="button" data-plan="Titan">
+    Choose Titan
+  </button>
+</article>
 
-  <article class="plan">
-    <h2>Spark</h2>
-    <div class="price">₦1,000</div>
-    <p>Referral bonus: ₦600</p>
-    <p>Displayed daily earnings: ₦240</p>
-    <p>Minimum withdrawal: ₦7,000</p>
-    <button class="choose-btn" type="button" data-plan="Spark">
-      Choose Spark
-    </button>
-  </article>
+<article class="plan">
+  <h2>Supreme</h2>
+  <div class="price">₦14,500</div>
+  <p>Referral bonus: ₦9,800</p>
+  <p>Displayed daily earnings: ₦1,580</p>
+  <p>Minimum withdrawal: ₦35,000</p>
+  <button class="choose-btn" type="button" data-plan="Supreme">
+    Choose Supreme
+  </button>
+</article>
 
-  <article class="plan">
-    <h2>Base</h2>
-    <div class="price">₦3,000</div>
-    <p>Referral bonus: ₦2,000</p>
-    <p>Displayed daily earnings: ₦380</p>
-    <p>Minimum withdrawal: ₦7,000</p>
-    <button class="choose-btn" type="button" data-plan="Base">
-      Choose Base
-    </button>
-  </article>
+  </section><a class="back" href="dashboard.html">← Back to Dashboard</a>
 
-  <article class="plan">
-    <h2>Voltage</h2>
-    <div class="price">₦5,000</div>
-    <p>Referral bonus: ₦3,000</p>
-    <p>Displayed daily earnings: ₦485</p>
-    <p>Minimum withdrawal: ₦14,500</p>
-    <button class="choose-btn" type="button" data-plan="Voltage">
-      Choose Voltage
-    </button>
-  </article>
+  <p class="small">
+    Demo plans are for testing only. They do not represent actual payments,
+    guaranteed returns, or withdrawable funds.
+  </p></main><!-- CONFIRMATION MODAL --><div
+  class="modal-overlay"
+  id="confirmModal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modalTitle"
+>
+  <div class="modal"><div class="modal-icon">?</div>
 
-  <article class="plan">
-    <h2>Titan</h2>
-    <div class="price">₦8,500</div>
-    <p>Referral bonus: ₦5,000</p>
-    <p>Displayed daily earnings: ₦1,070</p>
-    <p>Minimum withdrawal: ₦20,000</p>
-    <button class="choose-btn" type="button" data-plan="Titan">
-      Choose Titan
-    </button>
-  </article>
+<h2 id="modalTitle">Confirm Activation</h2>
 
-  <article class="plan">
-    <h2>Supreme</h2>
-    <div class="price">₦14,500</div>
-    <p>Referral bonus: ₦9,800</p>
-    <p>Displayed daily earnings: ₦1,580</p>
-    <p>Minimum withdrawal: ₦35,000</p>
-    <button class="choose-btn" type="button" data-plan="Supreme">
-      Choose Supreme
-    </button>
-  </article>
+<p>Choose how you want to activate this EarnSave plan.</p>
 
-</section>
+<div class="selected-plan" id="selectedPlan"></div>
 
-<a class="back" href="dashboard.html">← Back to Dashboard</a>
-
-<p class="small">
-  Payments are subject to server verification. Displayed earnings are
-  not guaranteed returns. Review all plan terms before paying.
+<p>
+  Demo activation is for testing only. Flutterwave activation requires
+  a verified payment.
 </p>
 
-  </main>  <!-- Confirmation popup -->  <div
-    class="modal-overlay"
-    id="confirmModal"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="modalTitle"
+<div class="modal-actions">
+
+  <button
+    type="button"
+    class="demo-btn"
+    id="demoBtn"
   >
-    <div class="modal">  <div class="modal-icon">?</div>
+    ACTIVATE DEMO PLAN
+  </button>
 
-  <h2 id="modalTitle">Confirm Activation</h2>
+  <button
+    type="button"
+    class="continue-btn"
+    id="continueBtn"
+  >
+    PAY WITH FLUTTERWAVE
+  </button>
 
-  <p>
-    Are you sure you want to continue with this EarnSave plan?
-  </p>
-
-  <div class="selected-plan" id="selectedPlan"></div>
-
-  <p>
-    You will be redirected to Flutterwave to complete your payment.
-  </p>
-
-  <div class="modal-actions">
-    <button type="button" class="cancel-btn" id="cancelBtn">
-      NO, CANCEL
-    </button>
-
-    <button type="button" class="continue-btn" id="continueBtn">
-      YES, CONTINUE
-    </button>
-  </div>
+  <button
+    type="button"
+    class="cancel-btn"
+    id="cancelBtn"
+  >
+    CANCEL
+  </button>
 
 </div>
 
-  </div>  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
-      authDomain: "earnsave-e7a88.firebaseapp.com",
-      projectId: "earnsave-e7a88",
-      storageBucket: "earnsave-e7a88.firebasestorage.app",
-      messagingSenderId: "2806298963",
-      appId: "1:2806298963:web:f5f6fe584d51c7280be4aa",
-      measurementId: "G-3C742ZNKHB"
-    };
+  </div>
+</div><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script><script>
+"use strict";
 
-    const BACKEND_URL =
-      "https://earnsave-payment-verifier.onrender.com";
+const firebaseConfig = {
+  apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
+  authDomain: "earnsave-e7a88.firebaseapp.com",
+  projectId: "earnsave-e7a88",
+  storageBucket: "earnsave-e7a88.firebasestorage.app",
+  messagingSenderId: "2806298963",
+  appId: "1:2806298963:web:f5f6fe584d51c7280be4aa",
+  measurementId: "G-3C742ZNKHB"
+};
 
-    firebase.initializeApp(firebaseConfig);
+const BACKEND_URL =
+  "https://earnsave-payment-verifier.onrender.com";
 
-    const auth = firebase.auth();
+firebase.initializeApp(firebaseConfig);
 
-    const messageBox = document.getElementById("message");
-    const modal = document.getElementById("confirmModal");
-    const selectedPlanText = document.getElementById("selectedPlan");
-    const cancelBtn = document.getElementById("cancelBtn");
-    const continueBtn = document.getElementById("continueBtn");
-    const planButtons = document.querySelectorAll("[data-plan]");
+const auth = firebase.auth();
 
-    let currentUser = null;
-    let selectedPlan = null;
-    let busy = false;
+const messageBox = document.getElementById("message");
+const modal = document.getElementById("confirmModal");
+const selectedPlanText = document.getElementById("selectedPlan");
 
-    function showMessage(message, type) {
-      messageBox.textContent = message;
-      messageBox.className = type;
+const cancelBtn = document.getElementById("cancelBtn");
+const continueBtn = document.getElementById("continueBtn");
+const demoBtn = document.getElementById("demoBtn");
+
+const planButtons = document.querySelectorAll("[data-plan]");
+
+let currentUser = null;
+let selectedPlan = null;
+let busy = false;
+
+function showMessage(message, type) {
+  messageBox.textContent = message;
+  messageBox.className = type;
+}
+
+function clearMessage() {
+  messageBox.textContent = "";
+  messageBox.className = "";
+}
+
+function openModal(planName) {
+  selectedPlan = planName;
+  selectedPlanText.textContent = planName + " Plan";
+  modal.classList.add("show");
+  cancelBtn.focus();
+}
+
+function closeModal() {
+  if (busy) return;
+
+  modal.classList.remove("show");
+  selectedPlan = null;
+}
+
+function setButtonsDisabled(disabled) {
+  planButtons.forEach(function(button) {
+    button.disabled = disabled;
+  });
+
+  continueBtn.disabled = disabled;
+  demoBtn.disabled = disabled;
+  cancelBtn.disabled = disabled;
+}
+
+async function getAuthToken() {
+  if (!currentUser) {
+    throw new Error("Please log in before continuing.");
+  }
+
+  return await currentUser.getIdToken(true);
+}
+
+auth.onAuthStateChanged(function(user) {
+  currentUser = user;
+
+  if (!user) {
+    showMessage(
+      "Please log in to your EarnSave account before activating a plan.",
+      "error"
+    );
+
+    setButtonsDisabled(true);
+
+    setTimeout(function() {
+      window.location.href = "login.html";
+    }, 1800);
+
+  } else {
+    clearMessage();
+    setButtonsDisabled(false);
+  }
+});
+
+planButtons.forEach(function(button) {
+  button.addEventListener("click", function() {
+    if (!currentUser) {
+      showMessage("Please log in before continuing.", "error");
+      return;
     }
 
-    function clearMessage() {
-      messageBox.textContent = "";
-      messageBox.className = "";
-    }
+    if (busy) return;
 
-    function openModal(planName) {
-      selectedPlan = planName;
+    clearMessage();
+    openModal(button.dataset.plan);
+  });
+});
 
-      selectedPlanText.textContent = planName + " Plan";
+cancelBtn.addEventListener("click", closeModal);
 
-      modal.classList.add("show");
-      cancelBtn.focus();
-    }
+modal.addEventListener("click", function(event) {
+  if (event.target === modal) {
+    closeModal();
+  }
+});
 
-    function closeModal() {
-      if (busy) return;
+document.addEventListener("keydown", function(event) {
+  if (
+    event.key === "Escape" &&
+    modal.classList.contains("show")
+  ) {
+    closeModal();
+  }
+});
 
-      modal.classList.remove("show");
-      selectedPlan = null;
-    }
+// ==========================================
+// DEMO ACTIVATION
+// ==========================================
 
-    function setButtonsDisabled(disabled) {
-      planButtons.forEach(function(button) {
-        button.disabled = disabled;
-      });
+demoBtn.addEventListener("click", async function() {
+  if (busy || !selectedPlan) return;
 
-      continueBtn.disabled = disabled;
-      cancelBtn.disabled = disabled;
-    }
+  if (!currentUser) {
+    closeModal();
+    showMessage("Please log in before continuing.", "error");
+    return;
+  }
 
-    auth.onAuthStateChanged(function(user) {
-      currentUser = user;
+  busy = true;
+  setButtonsDisabled(true);
 
-      if (!user) {
-        showMessage(
-          "Please log in to your EarnSave account before activating a plan.",
-          "error"
-        );
+  showMessage(
+    "Activating your demo plan. Please wait...",
+    "success"
+  );
 
-        setButtonsDisabled(true);
+  try {
+    const planToActivate = selectedPlan;
+    const token = await getAuthToken();
 
-        setTimeout(function() {
-          window.location.href = "login.html";
-        }, 1800);
-      } else {
-        clearMessage();
-        setButtonsDisabled(false);
+    const response = await fetch(
+      BACKEND_URL + "/demo-activate",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
+        },
+
+        body: JSON.stringify({
+          planName: planToActivate
+        })
       }
-    });
+    );
 
-    planButtons.forEach(function(button) {
-      button.addEventListener("click", function() {
-        if (!currentUser) {
-          showMessage("Please log in before continuing.", "error");
-          return;
-        }
+    let result;
 
-        if (busy) return;
-
-        clearMessage();
-        openModal(button.dataset.plan);
-      });
-    });
-
-    cancelBtn.addEventListener("click", function() {
-      closeModal();
-    });
-
-    modal.addEventListener("click", function(event) {
-      if (event.target === modal) {
-        closeModal();
-      }
-    });
-
-    document.addEventListener("keydown", function(event) {
-      if (event.key === "Escape" && modal.classList.contains("show")) {
-        closeModal();
-      }
-    });
-
-    continueBtn.addEventListener("click", async function() {
-      if (busy || !selectedPlan) return;
-
-      if (!currentUser) {
-        closeModal();
-        showMessage("Please log in before continuing.", "error");
-        return;
-      }
-
-      busy = true;
-      setButtonsDisabled(true);
-
-      showMessage(
-        "Connecting to the secure payment service. Please wait...",
-        "success"
+    try {
+      result = await response.json();
+    } catch (error) {
+      throw new Error(
+        "The server returned an invalid response."
       );
+    }
 
-      try {
-        const planToBuy = selectedPlan;
-        const token = await currentUser.getIdToken(true);
+    if (!response.ok || !result || result.success !== true) {
+      throw new Error(
+        result && result.message
+          ? result.message
+          : "Demo activation failed."
+      );
+    }
 
-        const response = await fetch(
-          BACKEND_URL + "/create-payment",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": "Bearer " + token
-            },
-            body: JSON.stringify({
-              planName: planToBuy
-            })
-          }
-        );
+    showMessage(
+      planToActivate +
+      " demo plan activated successfully. No real money was credited.",
+      "success"
+    );
 
-        let result;
+    modal.classList.remove("show");
 
-        try {
-          result = await response.json();
-        } catch (error) {
-          throw new Error(
-            "The payment server returned an invalid response."
-          );
-        }
+    setTimeout(function() {
+      window.location.href = "dashboard.html";
+    }, 1800);
 
-        if (!response.ok || !result || result.success !== true) {
-          throw new Error(
-            result && result.message
-              ? result.message
-              : result && result.error
-                ? result.error
-                : "Unable to create your checkout session."
-          );
-        }
+  } catch (error) {
+    console.error("Demo activation error:", error);
 
-        if (!result.paymentLink) {
-          throw new Error(
-            "The payment server did not return a checkout address."
-          );
-        }
+    showMessage(
+      error.message || "Unable to activate demo plan.",
+      "error"
+    );
 
-        const checkoutUrl = new URL(result.paymentLink);
-        const host = checkoutUrl.hostname.toLowerCase();
+    busy = false;
+    selectedPlan = null;
+    modal.classList.remove("show");
+    setButtonsDisabled(false);
+  }
+});
 
-        const trustedDomain =
-          host === "flutterwave.com" ||
-          host.endsWith(".flutterwave.com") ||
-          host === "dev-flutterwave.com" ||
-          host.endsWith(".dev-flutterwave.com");
+// ==========================================
+// FLUTTERWAVE PAYMENT
+// ==========================================
 
-        if (
-          checkoutUrl.protocol !== "https:" ||
-          !trustedDomain ||
-          checkoutUrl.username ||
-          checkoutUrl.password
-        ) {
-          throw new Error(
-            "The payment server returned an unexpected checkout address."
-          );
-        }
+continueBtn.addEventListener("click", async function() {
+  if (busy || !selectedPlan) return;
 
-        showMessage(
-          "Checkout created. Redirecting to Flutterwave...",
-          "success"
-        );
+  if (!currentUser) {
+    closeModal();
+    showMessage("Please log in before continuing.", "error");
+    return;
+  }
 
-        window.location.assign(checkoutUrl.href);
+  busy = true;
+  setButtonsDisabled(true);
 
-      } catch (error) {
-        console.error("EarnSave checkout error:", error);
+  showMessage(
+    "Connecting to the secure payment service. Please wait...",
+    "success"
+  );
 
-        modal.classList.remove("show");
+  try {
+    const planToBuy = selectedPlan;
+    const token = await getAuthToken();
 
-        showMessage(
-          error.message || "Something went wrong. Please try again.",
-          "error"
-        );
+    const response = await fetch(
+      BACKEND_URL + "/create-payment",
+      {
+        method: "POST",
 
-        busy = false;
-        selectedPlan = null;
-        setButtonsDisabled(false);
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
+        },
+
+        body: JSON.stringify({
+          planName: planToBuy
+        })
       }
-    });
-  </script></body>
+    );
+
+    let result;
+
+    try {
+      result = await response.json();
+    } catch (error) {
+      throw new Error(
+        "The payment server returned an invalid response."
+      );
+    }
+
+    if (!response.ok || !result || result.success !== true) {
+      throw new Error(
+        result && result.message
+          ? result.message
+          : "Unable to create your checkout session."
+      );
+    }
+
+    if (!result.paymentLink) {
+      throw new Error(
+        "The payment server did not return a checkout address."
+      );
+    }
+
+    const checkoutUrl = new URL(result.paymentLink);
+    const host = checkoutUrl.hostname.toLowerCase();
+
+    const trustedDomain =
+      host === "flutterwave.com" ||
+      host.endsWith(".flutterwave.com") ||
+      host === "dev-flutterwave.com" ||
+      host.endsWith(".dev-flutterwave.com");
+
+    if (
+      checkoutUrl.protocol !== "https:" ||
+      !trustedDomain ||
+      checkoutUrl.username ||
+      checkoutUrl.password
+    ) {
+      throw new Error(
+        "The payment server returned an unexpected checkout address."
+      );
+    }
+
+    showMessage(
+      "Checkout created. Redirecting to Flutterwave...",
+      "success"
+    );
+
+    window.location.assign(checkoutUrl.href);
+
+  } catch (error) {
+    console.error("EarnSave checkout error:", error);
+
+    showMessage(
+      error.message || "Something went wrong. Please try again.",
+      "error"
+    );
+
+    busy = false;
+    selectedPlan = null;
+    modal.classList.remove("show");
+    setButtonsDisabled(false);
+  }
+});
+</script></body>
 </html>
