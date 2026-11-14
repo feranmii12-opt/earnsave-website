@@ -3,232 +3,284 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EarnSave - Payment Verification</title><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script><style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{
- font-family:Arial,sans-serif;
- background:#081329;
- color:#fff;
- min-height:100vh;
- display:flex;
- align-items:center;
- justify-content:center;
- padding:20px;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-.box{
- width:100%;
- max-width:430px;
- background:#101f3c;
- border:1px solid #263b60;
- border-radius:22px;
- padding:30px 23px;
- text-align:center;
-}
-.logo{font-size:27px;font-weight:900;margin-bottom:25px}
-.logo span{color:#38bdf8}
-.icon{
- width:75px;height:75px;
- margin:0 auto 20px;
- border-radius:50%;
- background:#19365f;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:34px;
-}
-h1{font-size:22px;margin-bottom:12px}
-p{font-size:14px;color:#bdcbe0;line-height:1.7}
-.status{
- margin-top:20px;
- padding:15px;
- background:#172d50;
- border-radius:12px;
- font-size:13px;
- line-height:1.7;
- overflow-wrap:anywhere;
-}
-button{
- display:none;
- width:100%;
- margin-top:20px;
- border:0;
- border-radius:12px;
- padding:15px;
- background:linear-gradient(110deg,#075bea,#05b9e9);
- color:white;
- font-weight:bold;
- font-size:14px;
- cursor:pointer;
-}
-button.show{display:block}
-a{color:#55c9ff;text-decoration:none}
-.small{font-size:12px;margin-top:20px;color:#91a4c2}
-</style></head><body><div class="box">
- <div class="logo">Earn<span>Save</span></div> <div class="icon" id="icon">⏳</div> <h1 id="heading">Verifying your payment</h1> <p id="description">
-  Please wait while EarnSave checks your transaction securely.
- </p> <div class="status" id="status" role="status" aria-live="polite">
-  Connecting to the payment verification service...
- </div><button id="dashboardButton" type="button"
-onclick="window.location.href='dashboard.html'">
-Return to Dashboard
-</button>
 
-<button id="retryButton" type="button"
-onclick="verifyPayment()">
-Try Verification Again
-</button>
+body {
+  font-family: Arial, sans-serif;
+  background: #081329;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
 
- <div class="small">
-  EarnSave secure payment verification
- </div>
-</div><script>
-const firebaseConfig={
- apiKey:"AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
- authDomain:"earnsave-e7a88.firebaseapp.com",
- projectId:"earnsave-e7a88",
- storageBucket:"earnsave-e7a88.firebasestorage.app",
- messagingSenderId:"2806298963",
- appId:"1:2806298963:web:f5f6fe584d51c7280be4aa",
- measurementId:"G-3C742ZNKHB"
+.box {
+  width: 100%;
+  max-width: 430px;
+  background: #101f3c;
+  border: 1px solid #263b60;
+  border-radius: 22px;
+  padding: 30px 23px;
+  text-align: center;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: 900;
+  margin-bottom: 25px;
+}
+
+.logo span {
+  color: #38bdf8;
+}
+
+.icon {
+  width: 75px;
+  height: 75px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: #19365f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+}
+
+h1 {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+p {
+  font-size: 14px;
+  color: #bdcbe0;
+  line-height: 1.7;
+}
+
+.status {
+  margin-top: 20px;
+  padding: 15px;
+  background: #172d50;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+button {
+  display: none;
+  width: 100%;
+  margin-top: 20px;
+  border: 0;
+  border-radius: 12px;
+  padding: 15px;
+  background: linear-gradient(110deg,#075bea,#05b9e9);
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button.show {
+  display: block;
+}
+
+button:disabled {
+  opacity: .6;
+}
+
+.small {
+  font-size: 12px;
+  margin-top: 20px;
+  color: #91a4c2;
+}
+</style></head><body><div class="box">  <div class="logo">Earn<span>Save</span></div>  <div class="icon" id="icon">⏳</div>  <h1 id="heading">Verifying your payment</h1>  <p id="description">
+    Please wait while EarnSave checks your transaction securely.
+  </p>  <div class="status" id="status" role="status" aria-live="polite">
+    Connecting to the payment verification service...
+  </div>  <button id="dashboardButton" type="button">
+    Return to Dashboard
+  </button>  <button id="retryButton" type="button">
+    Try Verification Again
+  </button>  <div class="small">
+    EarnSave secure payment verification
+  </div></div><script>
+const firebaseConfig = {
+  apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
+  authDomain: "earnsave-e7a88.firebaseapp.com",
+  projectId: "earnsave-e7a88",
+  storageBucket: "earnsave-e7a88.firebasestorage.app",
+  messagingSenderId: "2806298963",
+  appId: "1:2806298963:web:f5f6fe584d51c7280be4aa",
+  measurementId: "G-3C742ZNKHB"
 };
 
-if(!firebase.apps.length){
- firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
 }
 
-const auth=firebase.auth();
+const auth = firebase.auth();
 
-const BACKEND_URL=
- "https://earnsave-payment-verifier.onrender.com";
+const BACKEND_URL =
+  "https://earnsave-payment-verifier.onrender.com";
 
-const params=new URLSearchParams(window.location.search);
+const params = new URLSearchParams(window.location.search);
 
-const paymentStatus=params.get("status");
-const transactionId=params.get("transaction_id");
-const txRef=params.get("tx_ref");
+const transactionId = params.get("transaction_id");
+const txRef = params.get("tx_ref");
+const returnedStatus = params.get("status");
 
-const heading=document.getElementById("heading");
-const description=document.getElementById("description");
-const statusBox=document.getElementById("status");
-const icon=document.getElementById("icon");
-const dashboardButton=document.getElementById("dashboardButton");
-const retryButton=document.getElementById("retryButton");
+const heading = document.getElementById("heading");
+const description = document.getElementById("description");
+const statusBox = document.getElementById("status");
+const icon = document.getElementById("icon");
 
-let verificationStarted=false;
+const dashboardButton =
+  document.getElementById("dashboardButton");
 
-function displayError(message){
- icon.textContent="❌";
- heading.textContent="Payment not verified";
- description.textContent=
-  "EarnSave could not confirm your payment. Please check the message below.";
- statusBox.textContent=message;
- retryButton.classList.add("show");
- dashboardButton.classList.add("show");
+const retryButton =
+  document.getElementById("retryButton");
+
+let verificationStarted = false;
+let currentUser = null;
+let authReady = false;
+
+function displayError(message) {
+  icon.textContent = "❌";
+  heading.textContent = "Payment not verified";
+
+  description.textContent =
+    "EarnSave could not confirm your payment.";
+
+  statusBox.textContent = message;
+
+  retryButton.classList.add("show");
+  dashboardButton.classList.add("show");
 }
 
-function displaySuccess(result){
- icon.textContent="✅";
+function displaySuccess(result) {
+  icon.textContent = "✅";
 
- if(result.testMode){
-  heading.textContent="Test payment verified";
-  description.textContent=
-   "Flutterwave confirmed the test transaction.";
-  statusBox.textContent=
-   "Your test transaction was verified successfully. TEST MODE does not activate your account or credit real withdrawable money. Your account remains unchanged.";
- }else{
-  heading.textContent="Payment verified";
-  description.textContent=
-   "Your transaction has been verified by EarnSave.";
-  statusBox.textContent=
-   "Verification completed. You can return to your dashboard to check your account status.";
- }
+  if (result.testMode) {
+    heading.textContent = "Test payment verified";
 
- dashboardButton.classList.add("show");
-}
+    description.textContent =
+      "Flutterwave confirmed the test transaction.";
 
-async function verifyPayment(){
+    statusBox.textContent =
+      "Your test transaction was verified. TEST MODE does not activate your account or credit withdrawable earnings. Your account remains unchanged.";
 
- if(verificationStarted)return;
+  } else {
+    heading.textContent = "Payment verified";
 
- verificationStarted=true;
- retryButton.classList.remove("show");
- dashboardButton.classList.remove("show");
+    description.textContent =
+      "Your transaction has been verified by EarnSave.";
 
- if(paymentStatus!=="successful"){
-  displayError(
-   "Flutterwave did not report a successful payment. No plan has been activated."
-  );
-  verificationStarted=false;
-  return;
- }
-
- if(!transactionId||!txRef){
-  displayError(
-   "The payment return URL is missing the transaction ID or reference. Please contact EarnSave support."
-  );
-  verificationStarted=false;
-  return;
- }
-
- try{
-
-  const user=auth.currentUser;
-
-  if(!user){
-   throw new Error(
-    "Please log in with the same EarnSave account used to start this payment, then reopen this page."
-   );
+    statusBox.textContent =
+      "Payment verification completed. Return to your dashboard to check your account status.";
   }
 
-  const idToken=await user.getIdToken(true);
-
-  statusBox.textContent=
-   "Sending transaction details to the secure EarnSave server...";
-
-  const response=await fetch(
-   BACKEND_URL+"/verify-payment",
-   {
-    method:"POST",
-    headers:{
-     "Content-Type":"application/json",
-     "Authorization":"Bearer "+idToken
-    },
-    body:JSON.stringify({
-     transactionId:transactionId,
-     txRef:txRef
-    })
-   }
-  );
-
-  const result=await response.json().catch(()=>({}));
-
-  if(!response.ok||!result.success){
-   throw new Error(
-    result.message||result.error||
-    "The transaction could not be verified."
-   );
-  }
-
-  displaySuccess(result);
-
- }catch(error){
-
-  console.error("EarnSave verification error:",error);
-  displayError(error.message||"Verification failed. Please try again.");
-
- }finally{
-  verificationStarted=false;
- }
+  retryButton.classList.remove("show");
+  dashboardButton.classList.add("show");
 }
 
-auth.onAuthStateChanged(user=>{
- if(!user){
-  displayError(
-   "You are not logged in. Please log in using the same account that started this payment."
-  );
-  return;
- }
+async function verifyPayment() {
+  if (verificationStarted) return;
 
- verifyPayment();
+  verificationStarted = true;
+
+  retryButton.classList.remove("show");
+  dashboardButton.classList.remove("show");
+
+  try {
+    if (!transactionId || !txRef) {
+      throw new Error(
+        "The payment return URL is missing the transaction ID or reference."
+      );
+    }
+
+    if (!currentUser) {
+      throw new Error(
+        "Please log in using the same EarnSave account that started this payment."
+      );
+    }
+
+    const idToken = await currentUser.getIdToken(true);
+
+    icon.textContent = "⏳";
+    heading.textContent = "Checking your payment";
+
+    description.textContent =
+      "EarnSave is asking Flutterwave to confirm your transaction.";
+
+    statusBox.textContent =
+      "Sending transaction details to the secure EarnSave server...";
+
+    const response = await fetch(
+      BACKEND_URL + "/verify-payment",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + idToken
+        },
+
+        body: JSON.stringify({
+          transactionId: transactionId,
+          txRef: txRef
+        })
+      }
+    );
+
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok || !result.success) {
+      throw new Error(
+        result.message ||
+        result.error ||
+        "The server could not verify this transaction."
+      );
+    }
+
+    displaySuccess(result);
+
+  } catch (error) {
+    console.error("EarnSave verification error:", error);
+
+    displayError(
+      error.message || "Verification failed. Please try again."
+    );
+
+  } finally {
+    verificationStarted = false;
+  }
+}
+
+dashboardButton.addEventListener("click", function() {
+  window.location.href = "dashboard.html";
+});
+
+retryButton.addEventListener("click", verifyPayment);
+
+auth.onAuthStateChanged(function(user) {
+  currentUser = user;
+  authReady = true;
+
+  if (!user) {
+    displayError(
+      "You are not logged in. Log in using the same account that started this payment, then try again."
+    );
+    return;
+  }
+
+  verifyPayment();
 });
 </script></body>
 </html>
