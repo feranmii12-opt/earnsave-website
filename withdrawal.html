@@ -58,14 +58,8 @@ header {
   background:linear-gradient(135deg,var(--blue),var(--cyan));
 }
 
-.greeting small {
-  color:var(--muted);
-}
-
-.greeting strong {
-  display:block;
-  margin-top:5px;
-}
+.greeting small {color:var(--muted)}
+.greeting strong {display:block;margin-top:5px}
 
 .icon-btn {
   width:43px;
@@ -76,9 +70,7 @@ header {
   font-size:20px;
 }
 
-.page {
-  padding:15px 22px 35px;
-}
+.page {padding:15px 22px 35px}
 
 .brand {
   color:var(--navy);
@@ -209,8 +201,7 @@ header {
   padding:23px 20px;
   border-radius:23px;
   color:white;
-  background:
-    linear-gradient(125deg,#080F24,#10245A 55%,#0757A5);
+  background:linear-gradient(125deg,#080F24,#10245A 55%,#0757A5);
 }
 
 .amount-top {
@@ -369,7 +360,7 @@ input:focus,select:focus {
   cursor:pointer;
 }
 
-.primary-btn:disabled {opacity:.6}
+.primary-btn:disabled {opacity:.6;cursor:not-allowed}
 
 .message {
   display:none;
@@ -456,10 +447,7 @@ input:focus,select:focus {
   color:#B52C3B;
 }
 
-.history-main {
-  flex:1;
-  min-width:0;
-}
+.history-main {flex:1;min-width:0}
 
 .history-main strong {
   display:block;
@@ -526,8 +514,6 @@ input:focus,select:focus {
 
 .bottom-nav a.active {color:var(--blue)}
 
-/* RECEIPT */
-
 .receipt-overlay {
   display:none;
   position:fixed;
@@ -559,9 +545,7 @@ input:focus,select:focus {
   text-align:center;
 }
 
-.receipt-header strong {
-  font-size:22px;
-}
+.receipt-header strong {font-size:22px}
 
 .receipt-header small {
   display:block;
@@ -576,8 +560,8 @@ input:focus,select:focus {
   width:72px;
   height:72px;
   border-radius:50%;
-  background:#E1F8EC;
-  color:var(--green);
+  background:#FFF3D8;
+  color:#A46B00;
   display:grid;
   place-items:center;
   font-size:37px;
@@ -602,7 +586,6 @@ input:focus,select:focus {
 }
 
 .receipt-row:nth-child(even) {background:#F5F8FC}
-
 .receipt-row span {color:var(--muted)}
 
 .receipt-row strong {
@@ -644,8 +627,9 @@ input:focus,select:focus {
   </div>
 
   <div>
-    <button class="icon-btn" onclick="location.href='dashboard.html'">⌂</button>
-    <button class="icon-btn" id="logoutBtn">↪</button>
+    <button class="icon-btn" type="button"
+      onclick="location.href='dashboard.html'">⌂</button>
+    <button class="icon-btn" type="button" id="logoutBtn">↪</button>
   </div>
 </header>
 
@@ -665,14 +649,14 @@ input:focus,select:focus {
 
   <section class="wallet-grid">
 
-    <article class="wallet selected" data-wallet="task" tabindex="0">
+    <article class="wallet selected" data-wallet="Task" tabindex="0">
       <div class="wallet-check">✓</div>
       <div class="wallet-icon">♙</div>
       <div class="wallet-title">Task Earnings</div>
       <div class="wallet-amount" id="taskBalance">₦0.00</div>
     </article>
 
-    <article class="wallet affiliate" data-wallet="affiliate" tabindex="0">
+    <article class="wallet affiliate" data-wallet="Affiliate" tabindex="0">
       <div class="wallet-check"></div>
       <div class="wallet-icon">◎</div>
       <div class="wallet-title">Affiliate Earnings</div>
@@ -691,15 +675,9 @@ input:focus,select:focus {
       </div>
     </div>
 
-    <input
-      class="amount-input"
-      type="number"
-      id="amount"
-      min="1"
-      step="1"
-      inputmode="numeric"
-      placeholder="₦ 0.00"
-    >
+    <input class="amount-input" type="number"
+      id="amount" min="1" step="1"
+      inputmode="numeric" placeholder="₦ 0.00">
 
     <div class="balance-row">
       <span>Balance: <strong id="selectedBalance">₦0.00</strong></span>
@@ -730,8 +708,8 @@ input:focus,select:focus {
     </p>
 
     <div class="notice">
-      Your wallet is deducted when your withdrawal request is successfully submitted.
-      Actual payment is made after admin verification.
+      Your wallet is deducted when your withdrawal request is successfully
+      submitted. Actual payment is made after admin verification.
     </div>
 
     <form id="withdrawForm">
@@ -779,7 +757,7 @@ input:focus,select:focus {
 
     <div class="history-toolbar">
       <h2>Recent Withdrawals</h2>
-      <button class="view-all" id="viewAllBtn">View All</button>
+      <button class="view-all" id="viewAllBtn" type="button">View All</button>
     </div>
 
     <div id="withdrawalHistory">
@@ -787,7 +765,9 @@ input:focus,select:focus {
     </div>
 
     <button class="refresh-btn" id="refreshHistoryBtn"
-      style="margin-top:15px">↻ Refresh History</button>
+      type="button" style="margin-top:15px">
+      ↻ Refresh History
+    </button>
 
   </section>
 
@@ -805,8 +785,6 @@ input:focus,select:focus {
   <a href="profile.html"><span>♙</span>Profile</a>
 </nav>
 
-<!-- WITHDRAWAL RECEIPT -->
-
 <div class="receipt-overlay" id="receiptOverlay">
   <div class="receipt">
 
@@ -816,8 +794,7 @@ input:focus,select:focus {
     </div>
 
     <div class="receipt-body">
-
-      <div class="receipt-symbol" id="receiptSymbol">✓</div>
+      <div class="receipt-symbol" id="receiptSymbol">…</div>
 
       <div class="receipt-title" id="receiptTitle">
         Withdrawal Pending
@@ -825,9 +802,11 @@ input:focus,select:focus {
 
       <div id="receiptDetails"></div>
 
-      <button class="receipt-done" id="receiptDone">Done</button>
-
+      <button class="receipt-done" id="receiptDone" type="button">
+        Done
+      </button>
     </div>
+
   </div>
 </div>
 
@@ -836,6 +815,15 @@ input:focus,select:focus {
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 
 <script>
+"use strict";
+
+// ==========================================
+// EARN SAVE CONFIGURATION
+// ==========================================
+
+const API_URL =
+  "https://earnsave-payment-verifier.onrender.com";
+
 const firebaseConfig = {
   apiKey:"AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
   authDomain:"earnsave-e7a88.firebaseapp.com",
@@ -846,23 +834,39 @@ const firebaseConfig = {
   measurementId:"G-3C742ZNKHB"
 };
 
-if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 const auth = firebase.auth();
 const db = firebase.firestore();
 
+// ==========================================
+// STATE
+// ==========================================
+
 let currentUser = null;
 let userData = {};
+
 let taskBalance = 0;
 let affiliateBalance = 0;
 let minimumTaskWithdrawal = 0;
+
 let balanceLoaded = false;
 let activePlan = false;
-let selectedWallet = "task";
+
+let selectedWallet = "Task";
 let allWithdrawals = [];
 let showAll = false;
 
+// Keep the same request ID when retrying the same submission.
+let pendingRequestId = null;
+
 const $ = id => document.getElementById(id);
+
+// ==========================================
+// HELPERS
+// ==========================================
 
 function formatNaira(value) {
   return "₦" + Number(value || 0).toLocaleString("en-NG", {
@@ -878,48 +882,76 @@ function showMessage(text, type) {
 
 function makeElement(tag, className, text) {
   const element = document.createElement(tag);
+
   if (className) element.className = className;
   if (text !== undefined) element.textContent = text;
+
   return element;
 }
 
+function createRequestId() {
+  if (
+    window.crypto &&
+    typeof window.crypto.randomUUID === "function"
+  ) {
+    return window.crypto.randomUUID().replace(/-/g, "_");
+  }
+
+  return (
+    Date.now().toString(36) + "_" +
+    Math.random().toString(36).slice(2) + "_" +
+    Math.random().toString(36).slice(2)
+  );
+}
+
 function getMinimumFromPlan(data) {
-  const value = Number(data.minimumWithdrawal);
-
-  if (Number.isFinite(value) && value > 0) return value;
-
-  const plan = String(data.selectedPlan || "").toLowerCase();
-
   const minimums = {
-    spark:7000,
-    base:7000,
-    voltage:14500,
-    titan:20000,
-    supreme:35000
+    Spark:7000,
+    Base:7000,
+    Voltage:14500,
+    Titan:20000,
+    Supreme:35000
   };
 
-  return minimums[plan] || 0;
+  const planName = String(data.selectedPlan || "");
+  const planMinimum = minimums[planName];
+
+  // Use the server's known plan configuration, not a value
+  // supplied by the withdrawal form.
+  return planMinimum || 0;
 }
 
 function isPlanActive(data) {
-  return String(data.activationStatus || "").toLowerCase() === "active"
-    && data.demoMode !== true;
+  return (
+    String(data.activationStatus || "").toLowerCase() === "active" &&
+    data.demoMode !== true
+  );
 }
 
 function getSelectedBalance() {
-  return selectedWallet === "task" ? taskBalance : affiliateBalance;
+  return selectedWallet === "Task"
+    ? taskBalance
+    : affiliateBalance;
 }
 
 function getSelectedMinimum() {
-  return selectedWallet === "task" ? minimumTaskWithdrawal : 1000;
+  return selectedWallet === "Task"
+    ? minimumTaskWithdrawal
+    : 1000;
 }
+
+// ==========================================
+// WALLET DISPLAY
+// ==========================================
 
 function updateAmountDisplay() {
   const balance = getSelectedBalance();
   const minimum = getSelectedMinimum();
 
   $("selectedWalletName").textContent =
-    selectedWallet === "task" ? "Task Earnings" : "Affiliate Earnings";
+    selectedWallet === "Task"
+      ? "Task Earnings"
+      : "Affiliate Earnings";
 
   $("selectedBalance").textContent = formatNaira(balance);
   $("selectedMinimum").textContent = formatNaira(minimum);
@@ -931,21 +963,30 @@ function updateAmountDisplay() {
 
   document.querySelectorAll(".wallet").forEach(card => {
     const active = card.dataset.wallet === selectedWallet;
+
     card.classList.toggle("selected", active);
-    card.querySelector(".wallet-check").textContent = active ? "✓" : "";
+
+    card.querySelector(".wallet-check").textContent =
+      active ? "✓" : "";
   });
 }
 
 function selectWallet(type) {
-  if (!["task","affiliate"].includes(type)) return;
+  if (!["Task","Affiliate"].includes(type)) return;
 
   selectedWallet = type;
   $("amount").value = "";
+
+  // A different wallet means a different withdrawal request.
+  pendingRequestId = null;
+
   updateAmountDisplay();
 }
 
 document.querySelectorAll(".wallet").forEach(card => {
-  card.addEventListener("click", () => selectWallet(card.dataset.wallet));
+  card.addEventListener("click", () => {
+    selectWallet(card.dataset.wallet);
+  });
 
   card.addEventListener("keydown", event => {
     if (event.key === "Enter" || event.key === " ") {
@@ -960,18 +1001,27 @@ $("amount").addEventListener("input", updateAmountDisplay);
 document.querySelectorAll("[data-percent]").forEach(button => {
   button.addEventListener("click", () => {
     const value = Math.floor(
-      getSelectedBalance() * Number(button.dataset.percent) / 100
+      getSelectedBalance() *
+      Number(button.dataset.percent) / 100
     );
 
     $("amount").value = value > 0 ? value : "";
+    pendingRequestId = null;
+
     updateAmountDisplay();
   });
 });
 
 $("maxBtn").addEventListener("click", () => {
   $("amount").value = Math.floor(getSelectedBalance()) || "";
+  pendingRequestId = null;
+
   updateAmountDisplay();
 });
+
+// ==========================================
+// AUTHENTICATION
+// ==========================================
 
 auth.onAuthStateChanged(async user => {
   if (!user) {
@@ -985,15 +1035,27 @@ auth.onAuthStateChanged(async user => {
   await loadWithdrawalHistory();
 });
 
+// ==========================================
+// LOAD WALLETS
+// ==========================================
+
 async function loadWallets() {
   if (!currentUser) return;
 
   try {
-    const doc = await db.collection("users").doc(currentUser.uid).get();
+    const doc = await db
+      .collection("users")
+      .doc(currentUser.uid)
+      .get();
 
     if (!doc.exists) {
       balanceLoaded = false;
-      showMessage("Your EarnSave profile could not be found.","error");
+
+      showMessage(
+        "Your EarnSave profile could not be found.",
+        "error"
+      );
+
       return;
     }
 
@@ -1006,11 +1068,18 @@ async function loadWallets() {
     activePlan = isPlanActive(userData);
 
     if (
-      !Number.isFinite(taskBalance) || taskBalance < 0 ||
-      !Number.isFinite(affiliateBalance) || affiliateBalance < 0
+      !Number.isSafeInteger(taskBalance) ||
+      taskBalance < 0 ||
+      !Number.isSafeInteger(affiliateBalance) ||
+      affiliateBalance < 0
     ) {
       balanceLoaded = false;
-      showMessage("Your wallet balances could not be verified.","error");
+
+      showMessage(
+        "Your wallet balances could not be verified.",
+        "error"
+      );
+
       return;
     }
 
@@ -1025,30 +1094,45 @@ async function loadWallets() {
       currentUser.displayName ||
       "Welcome";
 
-    if (userData.bankName) $("bankName").value = userData.bankName;
-    if (userData.bankAccountName) $("accountName").value = userData.bankAccountName;
-    if (userData.bankAccountNumber) $("accountNumber").value = userData.bankAccountNumber;
+    if (userData.bankName) {
+      $("bankName").value = userData.bankName;
+    }
+
+    if (userData.bankAccountName) {
+      $("accountName").value = userData.bankAccountName;
+    }
+
+    if (userData.bankAccountNumber) {
+      $("accountNumber").value = userData.bankAccountNumber;
+    }
 
     updateAmountDisplay();
 
   } catch (error) {
     console.error("Wallet loading error:", error);
+
     balanceLoaded = false;
-    showMessage("Could not load your wallets. Please refresh.","error");
+
+    showMessage(
+      "Could not load your wallets. Please refresh.",
+      "error"
+    );
   }
 }
 
-/*
-  IMPORTANT:
-  Wallet deduction and withdrawal creation happen together
-  in ONE atomic Firestore batch.
-*/
+// ==========================================
+// SUBMIT WITHDRAWAL TO RENDER SERVER
+// ==========================================
 
 $("withdrawForm").addEventListener("submit", async event => {
   event.preventDefault();
 
   if (!currentUser || !balanceLoaded) {
-    showMessage("Your account and wallet must be verified first.","error");
+    showMessage(
+      "Your account and wallet must be verified first.",
+      "error"
+    );
+
     return;
   }
 
@@ -1063,120 +1147,159 @@ $("withdrawForm").addEventListener("submit", async event => {
   const availableBalance = getSelectedBalance();
 
   if (!Number.isSafeInteger(amount) || amount <= 0) {
-    showMessage("Enter a valid whole-number amount.","error");
+    showMessage(
+      "Enter a valid whole-number amount.",
+      "error"
+    );
+
     return;
   }
 
-  if (walletType === "task" && !activePlan) {
-    showMessage("A verified paid plan is required for Task withdrawals.","error");
+  if (walletType === "Task" && !activePlan) {
+    showMessage(
+      "An active paid plan is required for Task withdrawals.",
+      "error"
+    );
+
     return;
   }
 
   if (!minimum || amount < minimum) {
-    showMessage("Minimum withdrawal is " + formatNaira(minimum) + ".","error");
+    showMessage(
+      "Minimum withdrawal is " + formatNaira(minimum) + ".",
+      "error"
+    );
+
     return;
   }
 
   if (amount > availableBalance) {
-    showMessage("Insufficient balance in this wallet.","error");
+    showMessage(
+      "Insufficient balance in this wallet.",
+      "error"
+    );
+
     return;
   }
 
-  if (!paymentMethod || !accountName || !bankName) {
-    showMessage("Complete all bank details.","error");
+  if (
+    !paymentMethod ||
+    accountName.length < 2 ||
+    bankName.length < 2
+  ) {
+    showMessage(
+      "Complete all bank details.",
+      "error"
+    );
+
     return;
   }
 
-  if (!/^[0-9]{10}$/.test(accountNumber)) {
-    showMessage("Enter a valid 10-digit account number.","error");
+  if (!/^\d{10}$/.test(accountNumber)) {
+    showMessage(
+      "Enter a valid 10-digit account number.",
+      "error"
+    );
+
     return;
   }
 
   const button = $("withdrawBtn");
+
   button.disabled = true;
-  button.textContent = "Processing...";
+  button.textContent = "Submitting securely...";
 
   try {
-    const userRef = db.collection("users").doc(currentUser.uid);
-    const withdrawalRef = db.collection("withdrawals").doc();
+    // Get a fresh Firebase ID token.
+    const idToken = await currentUser.getIdToken();
 
-    const batch = db.batch();
-
-    const storedWalletType =
-      walletType === "task" ? "Task" : "Affiliate";
-
-    const newBalance = availableBalance - amount;
-
-    const withdrawalData = {
-      userId:currentUser.uid,
-      userEmail:currentUser.email || "",
-      walletType:storedWalletType,
-      amount:amount,
-      minimumRequired:minimum,
-      planName:String(userData.selectedPlan || ""),
-      paymentMethod:paymentMethod,
-      accountName:accountName,
-      accountNumber:accountNumber,
-      bankName:bankName,
-      status:"pending",
-      requestedAt:firebase.firestore.FieldValue.serverTimestamp()
-    };
-
-    batch.set(withdrawalRef, withdrawalData);
-
-    if (walletType === "task") {
-      batch.update(userRef, {
-        balance:newBalance,
-        lastWithdrawalId:withdrawalRef.id
-      });
-    } else {
-      batch.update(userRef, {
-        referralEarnings:newBalance,
-        lastWithdrawalId:withdrawalRef.id
-      });
+    // Create one ID for this submission.
+    // It is reused if the network request needs retrying.
+    if (!pendingRequestId) {
+      pendingRequestId = createRequestId();
     }
 
-    await batch.commit();
+    const response = await fetch(
+      API_URL + "/request-withdrawal",
+      {
+        method:"POST",
 
-    // Update the visible balance after Firestore confirms the batch.
-    if (walletType === "task") {
-      taskBalance = newBalance;
-    } else {
-      affiliateBalance = newBalance;
+        headers:{
+          "Content-Type":"application/json",
+          "Authorization":"Bearer " + idToken
+        },
+
+        body:JSON.stringify({
+          walletType,
+          amount,
+          paymentMethod,
+          accountName,
+          accountNumber,
+          bankName,
+          requestId:pendingRequestId
+        })
+      }
+    );
+
+    let result;
+
+    try {
+      result = await response.json();
+    } catch (error) {
+      throw new Error(
+        "The server returned an invalid response. Refresh and check your withdrawal history."
+      );
     }
 
-    $("taskBalance").textContent = formatNaira(taskBalance);
-    $("affiliateBalance").textContent = formatNaira(affiliateBalance);
+    if (!response.ok || !result.success) {
+      throw new Error(
+        result.message || "Withdrawal request failed."
+      );
+    }
+
+    // Clear the request ID only after server confirmation.
+    pendingRequestId = null;
 
     $("amount").value = "";
+
     updateAmountDisplay();
 
     showMessage(
-      "Withdrawal request submitted successfully. " +
-      formatNaira(amount) +
+      "Withdrawal request submitted successfully! " +
+      formatNaira(result.amount) +
       " has been deducted from your " +
-      (walletType === "task" ? "Task" : "Affiliate") +
+      result.walletType +
       " wallet. Your request is pending admin review.",
       "success"
     );
 
+    // Read the actual wallet balance from Firestore again.
     await loadWallets();
+
+    // Load the withdrawal record created by the server.
     await loadWithdrawalHistory();
 
   } catch (error) {
-    console.error("Withdrawal transaction error:", error);
+    console.error("Withdrawal submission error:", error);
 
     showMessage(
-      "Withdrawal was not completed. Your wallet was not intentionally changed. " +
-      "Please refresh your balance and check your Firestore rules.",
+      error.message ||
+      "Unable to submit withdrawal. Please try again.",
       "error"
     );
 
+    // Keep the same request ID so a retry cannot create
+    // a second withdrawal if the first request succeeded
+    // but its response was lost.
   } finally {
     button.disabled = false;
     button.textContent = "Submit Withdrawal Request";
   }
 });
+
+// ==========================================
+// WITHDRAWAL HISTORY
+// ==========================================
 
 function getStatusClass(status) {
   const value = String(status || "pending").toLowerCase();
@@ -1190,8 +1313,10 @@ function getStatusClass(status) {
 }
 
 function getDate(item) {
-  if (item.requestedAt && item.requestedAt.toDate) {
-    return item.requestedAt.toDate().toLocaleString();
+  const dateValue = item.createdAt || item.requestedAt;
+
+  if (dateValue && dateValue.toDate) {
+    return dateValue.toDate().toLocaleString();
   }
 
   return "Date pending";
@@ -1211,11 +1336,16 @@ async function loadWithdrawalHistory() {
   if (!currentUser) return;
 
   history.replaceChildren(
-    makeElement("div","loading-history","Loading withdrawal history...")
+    makeElement(
+      "div",
+      "loading-history",
+      "Loading withdrawal history..."
+    )
   );
 
   try {
-    const snapshot = await db.collection("withdrawals")
+    const snapshot = await db
+      .collection("withdrawals")
       .where("userId","==",currentUser.uid)
       .get();
 
@@ -1229,21 +1359,29 @@ async function loadWithdrawalHistory() {
     });
 
     allWithdrawals.sort((a,b) => {
-      const dateA = a.requestedAt?.toMillis?.() || 0;
-      const dateB = b.requestedAt?.toMillis?.() || 0;
+      const dateA =
+        a.createdAt?.toMillis?.() ||
+        a.requestedAt?.toMillis?.() ||
+        0;
+
+      const dateB =
+        b.createdAt?.toMillis?.() ||
+        b.requestedAt?.toMillis?.() ||
+        0;
+
       return dateB - dateA;
     });
 
     renderWithdrawalHistory();
 
   } catch (error) {
-    console.error("History loading error:",error);
+    console.error("History loading error:", error);
 
     history.replaceChildren(
       makeElement(
         "div",
         "history-empty",
-        "Could not load withdrawal history. Check your connection and Firestore permissions."
+        "Could not load withdrawal history. Check your Firestore permissions."
       )
     );
   }
@@ -1251,12 +1389,20 @@ async function loadWithdrawalHistory() {
 
 function renderWithdrawalHistory() {
   const history = $("withdrawalHistory");
+
   history.replaceChildren();
 
   if (!allWithdrawals.length) {
     history.appendChild(
-      makeElement("div","history-empty","No withdrawals yet.")
+      makeElement(
+        "div",
+        "history-empty",
+        "No withdrawals yet."
+      )
     );
+
+    $("viewAllBtn").style.display = "none";
+
     return;
   }
 
@@ -1267,15 +1413,28 @@ function renderWithdrawalHistory() {
   records.forEach(item => {
     const status = getStatusClass(item.status);
 
-    const card = makeElement("article","withdrawal-card","");
+    const card = makeElement(
+      "article",
+      "withdrawal-card",
+      ""
+    );
+
     const icon = makeElement(
       "div",
       "history-icon " + status,
-      status === "rejected" ? "×" :
-      status === "pending" ? "…" : "✓"
+      status === "rejected"
+        ? "×"
+        : status === "pending"
+          ? "…"
+          : "✓"
     );
 
-    const main = makeElement("div","history-main","");
+    const main = makeElement(
+      "div",
+      "history-main",
+      ""
+    );
+
     const amount = makeElement(
       "strong",
       "",
@@ -1283,7 +1442,7 @@ function renderWithdrawalHistory() {
     );
 
     const walletName =
-      item.walletType === "Affiliate" || item.walletType === "affiliate"
+      item.walletType === "Affiliate"
         ? "Affiliate Wallet"
         : "Task Wallet";
 
@@ -1303,7 +1462,9 @@ function renderWithdrawalHistory() {
 
     card.append(icon,main,badge);
 
-    card.addEventListener("click",() => openReceipt(item));
+    card.addEventListener("click", () => {
+      openReceipt(item);
+    });
 
     history.appendChild(card);
   });
@@ -1312,47 +1473,65 @@ function renderWithdrawalHistory() {
     showAll ? "Show Less" : "View All";
 
   $("viewAllBtn").style.display =
-    allWithdrawals.length > 3 ? "inline-block" : "none";
+    allWithdrawals.length > 3
+      ? "inline-block"
+      : "none";
 }
 
-$("viewAllBtn").addEventListener("click",() => {
+$("viewAllBtn").addEventListener("click", () => {
   showAll = !showAll;
   renderWithdrawalHistory();
 });
 
-$("refreshHistoryBtn").addEventListener("click",async() => {
+$("refreshHistoryBtn").addEventListener("click", async () => {
   await loadWallets();
   await loadWithdrawalHistory();
 });
+
+// ==========================================
+// WITHDRAWAL RECEIPT
+// ==========================================
 
 function openReceipt(item) {
   const status = getStatusClass(item.status);
 
   $("receiptSymbol").textContent =
-    status === "rejected" ? "×" :
-    status === "pending" ? "…" : "✓";
+    status === "rejected"
+      ? "×"
+      : status === "pending"
+        ? "…"
+        : "✓";
 
   $("receiptTitle").textContent =
     status === "paid" || status === "completed"
       ? "Withdrawal Successful!"
       : status === "rejected"
         ? "Withdrawal Rejected"
-        : "Withdrawal Pending";
+        : status === "approved"
+          ? "Withdrawal Approved"
+          : "Withdrawal Pending";
 
   const walletName =
-    item.walletType === "Affiliate" || item.walletType === "affiliate"
+    item.walletType === "Affiliate"
       ? "Affiliate Wallet"
       : "Task Wallet";
 
   const details = $("receiptDetails");
+
   details.replaceChildren();
 
   function addRow(label,value) {
-    const row = makeElement("div","receipt-row","");
+    const row = makeElement(
+      "div",
+      "receipt-row",
+      ""
+    );
+
     row.append(
       makeElement("span","",label),
       makeElement("strong","",String(value || "N/A"))
     );
+
     details.appendChild(row);
   }
 
@@ -1368,22 +1547,29 @@ function openReceipt(item) {
   $("receiptOverlay").classList.add("show");
 }
 
-$("receiptDone").addEventListener("click",() => {
+$("receiptDone").addEventListener("click", () => {
   $("receiptOverlay").classList.remove("show");
 });
 
-$("receiptOverlay").addEventListener("click",event => {
+$("receiptOverlay").addEventListener("click", event => {
   if (event.target === $("receiptOverlay")) {
     $("receiptOverlay").classList.remove("show");
   }
 });
 
-$("logoutBtn").addEventListener("click",async() => {
+// ==========================================
+// LOGOUT
+// ==========================================
+
+$("logoutBtn").addEventListener("click", async () => {
   try {
     await auth.signOut();
     location.replace("login.html");
-  } catch(error) {
-    showMessage("Could not log out. Please try again.","error");
+  } catch (error) {
+    showMessage(
+      "Could not log out. Please try again.",
+      "error"
+    );
   }
 });
 </script>
