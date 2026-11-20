@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EarnSave Backend Test</title>
+</head>
+<body style="font-family:Arial;padding:20px">
+  <h2>EarnSave Backend Test</h2>
+  <p id="result">Checking connection...</p>
+
+  <script>
+    fetch("https://earnsave-payment-verifier.onrender.com/")
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("result").textContent =
+          JSON.stringify(data, null, 2);
+      })
+      .catch(error => {
+        document.getElementById("result").textContent =
+          "Connection failed: " + error.message;
+      });
+  </script>
+</body>
+</html>
