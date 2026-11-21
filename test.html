@@ -1,24 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>EarnSave Backend Test</title>
+  <title>EarnSave Withdrawal Test</title>
 </head>
 <body style="font-family:Arial;padding:20px">
-  <h2>EarnSave Backend Test</h2>
-  <p id="result">Checking connection...</p>
+  <h2>EarnSave Withdrawal Connection Test</h2>
+  <button id="test">Test Connection</button>
+  <pre id="result">Ready to test...</pre>
 
   <script>
-    fetch("https://earnsave-payment-verifier.onrender.com/")
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById("result").textContent =
-          JSON.stringify(data, null, 2);
-      })
-      .catch(error => {
-        document.getElementById("result").textContent =
-          "Connection failed: " + error.message;
-      });
+    document.getElementById("test").addEventListener("click", async () => {
+      const result = document.getElementById("result");
+      result.textContent = "Checking...";
+
+      try {
+        const response = await fetch(
+          "https://earnsave-payment-verifier.onrender.com/request-withdrawal",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({})
+          }
+        );
+
+        const data = await response.json();
+
+        if (response.status === 401) {
+          result.textContent =
+            "SUCCESS: Withdrawal endpoint responded and requires authentication.\n" +
+            JSON.stringify(data, null, 2);
+        } else {
+          result.textContent =
+            "HTTP " + response.status + "\n" +
+            JSON.stringify(data, null, 2);
+        }
+      } catch (error) {
+        result.textContent = "Connection error: " + error.message;
+      }
+    });
   </script>
 </body>
 </html>
