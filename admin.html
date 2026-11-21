@@ -10,51 +10,46 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
 <style>
-:root {
-    --bg:#080F24;
-    --panel:#101B35;
-    --panel2:#142342;
-    --blue:#2563EB;
-    --cyan:#38BDF8;
-    --purple:#8B5CF6;
-    --green:#22C55E;
-    --red:#EF4444;
-    --text:#F8FAFC;
-    --muted:#94A3B8;
-    --border:rgba(255,255,255,.09);
+:root{
+--bg:#080F24;
+--panel:#101B35;
+--panel2:#142342;
+--blue:#2563EB;
+--cyan:#38BDF8;
+--purple:#8B5CF6;
+--green:#22C55E;
+--red:#EF4444;
+--text:#F8FAFC;
+--muted:#94A3B8;
+--border:rgba(255,255,255,.09);
 }
 *{box-sizing:border-box}
 body{
-    margin:0;
-    background:var(--bg);
-    color:var(--text);
-    font-family:Arial,sans-serif;
+margin:0;background:var(--bg);color:var(--text);
+font-family:Arial,sans-serif
 }
 button,input,textarea,select{font:inherit}
 button{cursor:pointer}
 .hidden{display:none!important}
 .container{max-width:1200px;margin:auto;padding:18px}
 header{
-    display:flex;justify-content:space-between;align-items:center;
-    gap:12px;margin-bottom:22px;flex-wrap:wrap;
+display:flex;justify-content:space-between;
+align-items:center;gap:12px;margin-bottom:22px;flex-wrap:wrap
 }
 .logo{font-size:24px;font-weight:900;color:var(--cyan)}
 .logo span{color:white}
 .header-actions{display:flex;gap:9px;align-items:center}
 .card{
-    background:var(--panel);
-    border:1px solid var(--border);
-    border-radius:16px;
-    padding:17px;
-    margin-bottom:16px;
+background:var(--panel);border:1px solid var(--border);
+border-radius:16px;padding:17px;margin-bottom:16px
 }
 h1,h2,h3,p{margin-top:0}
 h2{font-size:19px}
 .muted{color:var(--muted)}
 .small{font-size:12px;color:var(--muted)}
 button{
-    border:0;border-radius:9px;padding:11px 15px;
-    color:white;background:var(--blue);font-weight:700;
+border:0;border-radius:9px;padding:11px 15px;
+color:white;background:var(--blue);font-weight:700
 }
 button.secondary{background:#263653}
 button.success{background:#15803D}
@@ -62,59 +57,86 @@ button.danger{background:#B91C1C}
 button.warning{background:#B45309}
 button:disabled{opacity:.5;cursor:not-allowed}
 input,textarea,select{
-    width:100%;padding:12px;margin:7px 0 13px;
-    background:#08152D;color:white;border:1px solid var(--border);
-    border-radius:9px;outline:none;
+width:100%;padding:12px;margin:7px 0 13px;
+background:#08152D;color:white;
+border:1px solid var(--border);border-radius:9px;outline:none
 }
 textarea{min-height:90px;resize:vertical}
 label{font-size:13px;color:#CBD5E1}
 .grid{
-    display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
-    gap:13px;
+display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+gap:13px
 }
 .stat strong{display:block;font-size:25px;margin-top:9px}
 .stat span{color:var(--muted);font-size:13px}
 .tabs{
-    display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;
-    margin-bottom:12px;
+display:flex;gap:8px;overflow-x:auto;
+padding-bottom:12px;margin-bottom:12px
 }
 .tabs button{white-space:nowrap;background:#172747}
 .tabs button.active{background:var(--blue)}
 .section{display:none}
 .section.active{display:block}
 .item{
-    background:var(--panel2);
-    border:1px solid var(--border);
-    padding:14px;border-radius:12px;margin:11px 0;
+background:var(--panel2);border:1px solid var(--border);
+padding:14px;border-radius:12px;margin:11px 0
 }
 .item-top{
-    display:flex;justify-content:space-between;
-    align-items:flex-start;gap:10px;flex-wrap:wrap;
+display:flex;justify-content:space-between;
+align-items:flex-start;gap:10px;flex-wrap:wrap
 }
 .item-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
 .badge{
-    display:inline-block;padding:5px 9px;border-radius:30px;
-    font-size:11px;font-weight:800;background:#334155;
+display:inline-block;padding:5px 9px;border-radius:30px;
+font-size:11px;font-weight:800;background:#334155
 }
 .badge.pending{background:#854D0E}
 .badge.approved,.badge.paid{background:#166534}
 .badge.rejected{background:#991B1B}
 .wallet-task{color:#38BDF8}
 .wallet-affiliate{color:#C4B5FD}
+.wallet-unknown{color:#FBBF24}
 .empty{text-align:center;color:var(--muted);padding:25px}
 .login-box{max-width:420px;margin:12vh auto;padding:25px}
 #message{
-    position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
-    background:#172747;padding:12px 18px;border-radius:10px;
-    display:none;z-index:9999;max-width:90%;
+position:fixed;bottom:18px;left:50%;
+transform:translateX(-50%);
+background:#172747;padding:12px 18px;
+border-radius:10px;display:none;z-index:9999;max-width:90%
 }
+
+/* CONFIRMATION MODAL */
+
+.modal-overlay{
+position:fixed;inset:0;background:rgba(0,0,0,.78);
+display:none;align-items:center;justify-content:center;
+padding:20px;z-index:10000
+}
+.modal-overlay.show{display:flex}
+.modal-box{
+width:100%;max-width:390px;background:#101B35;
+border:1px solid rgba(255,255,255,.13);
+border-radius:18px;padding:24px;text-align:center;
+box-shadow:0 20px 70px #0009
+}
+.modal-icon{font-size:38px;margin-bottom:12px}
+.modal-box h3{margin-bottom:9px}
+.modal-box p{color:#94A3B8;font-size:13px;line-height:1.6}
+.modal-actions{
+display:flex;gap:10px;margin-top:22px
+}
+.modal-actions button{flex:1}
+.modal-actions .cancel{background:#334155}
+.modal-actions .confirm{background:#15803D}
+.modal-actions .reject{background:#B91C1C}
+
 @media(max-width:750px){
-    .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .container{padding:12px}
+.grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.container{padding:12px}
 }
 @media(max-width:420px){
-    .grid{grid-template-columns:1fr 1fr}
-    .stat strong{font-size:21px}
+.grid{grid-template-columns:1fr 1fr}
+.stat strong{font-size:21px}
 }
 </style>
 </head>
@@ -122,159 +144,140 @@ label{font-size:13px;color:#CBD5E1}
 <body>
 
 <div id="loginScreen" class="card login-box">
-    <div class="logo">Earn<span>Save</span></div>
-    <h2>Admin Login</h2>
-    <p class="muted">Sign in with your authorized administrator account.</p>
+<div class="logo">Earn<span>Save</span></div>
+<h2>Admin Login</h2>
+<p class="muted">Sign in with your authorized administrator account.</p>
 
-    <label>Email</label>
-    <input id="loginEmail" type="email" placeholder="Admin email">
+<label>Email</label>
+<input id="loginEmail" type="email" placeholder="Admin email">
 
-    <label>Password</label>
-    <input id="loginPassword" type="password" placeholder="Password">
+<label>Password</label>
+<input id="loginPassword" type="password" placeholder="Password">
 
-    <button id="loginBtn" style="width:100%" onclick="loginAdmin()">Login</button>
-    <p id="loginError" class="small"></p>
+<button id="loginBtn" style="width:100%" onclick="loginAdmin()">Login</button>
+<p id="loginError" class="small"></p>
 </div>
 
 <div id="adminApp" class="hidden">
 <div class="container">
 
 <header>
-    <div>
-        <div class="logo">Earn<span>Save</span> Admin</div>
-        <div class="small">Platform management dashboard</div>
-    </div>
-    <div class="header-actions">
-        <span class="small" id="adminEmail"></span>
-        <button class="danger" onclick="logoutAdmin()">Logout</button>
-    </div>
+<div>
+<div class="logo">Earn<span>Save</span> Admin</div>
+<div class="small">Platform management dashboard</div>
+</div>
+<div class="header-actions">
+<span class="small" id="adminEmail"></span>
+<button class="danger" onclick="logoutAdmin()">Logout</button>
+</div>
 </header>
 
 <div class="grid">
-    <div class="card stat">
-        <span>Total Users</span>
-        <strong id="totalUsers">0</strong>
-    </div>
-    <div class="card stat">
-        <span>Total Tasks</span>
-        <strong id="totalTasks">0</strong>
-    </div>
-    <div class="card stat">
-        <span>Pending Proofs</span>
-        <strong id="pendingProofs">0</strong>
-    </div>
-    <div class="card stat">
-        <span>Pending Withdrawals</span>
-        <strong id="pendingWithdrawals">0</strong>
-    </div>
+<div class="card stat"><span>Total Users</span><strong id="totalUsers">0</strong></div>
+<div class="card stat"><span>Total Tasks</span><strong id="totalTasks">0</strong></div>
+<div class="card stat"><span>Pending Proofs</span><strong id="pendingProofs">0</strong></div>
+<div class="card stat"><span>Pending Withdrawals</span><strong id="pendingWithdrawals">0</strong></div>
 </div>
 
 <div class="tabs">
-    <button class="active" onclick="showSection('overview',this)">Overview</button>
-    <button onclick="showSection('tasks',this)">Tasks</button>
-    <button onclick="showSection('sponsors',this)">Sponsored Posts</button>
-    <button onclick="showSection('referrals',this)">Referral Bonuses</button>
-    <button onclick="showSection('proofs',this)">Proof Submissions</button>
-    <button onclick="showSection('withdrawals',this)">Withdrawals</button>
-    <button onclick="showSection('reviewed',this)">Reviewed Withdrawals</button>
+<button class="active" onclick="showSection('overview',this)">Overview</button>
+<button onclick="showSection('tasks',this)">Tasks</button>
+<button onclick="showSection('sponsors',this)">Sponsored Posts</button>
+<button onclick="showSection('referrals',this)">Referral Bonuses</button>
+<button onclick="showSection('proofs',this)">Proof Submissions</button>
+<button onclick="showSection('withdrawals',this)">Withdrawals</button>
+<button onclick="showSection('reviewed',this)">Reviewed Withdrawals</button>
 </div>
 
 <section id="overview" class="section active">
-    <div class="card">
-        <h2>Welcome to EarnSave Admin</h2>
-        <p class="muted">
-            Manage tasks, sponsored posts, referral bonuses, proof submissions
-            and withdrawal requests from this dashboard.
-        </p>
-        <button onclick="refreshAll()">Refresh Dashboard</button>
-    </div>
+<div class="card">
+<h2>Welcome to EarnSave Admin</h2>
+<p class="muted">Manage your EarnSave platform.</p>
+<button onclick="refreshAll()">Refresh Dashboard</button>
+</div>
 </section>
 
 <section id="tasks" class="section">
-    <div class="card">
-        <h2>Publish New Task</h2>
-
-        <label>Task Title</label>
-        <input id="taskTitle" placeholder="Enter task title">
-
-        <label>Description</label>
-        <textarea id="taskDescription" placeholder="Explain what users should do"></textarea>
-
-        <label>Reward (₦)</label>
-        <input id="taskReward" type="number" min="0" placeholder="Example: 100">
-
-        <label>Task Link</label>
-        <input id="taskLink" type="url" placeholder="https://">
-
-        <button onclick="publishTask()">Publish Task</button>
-    </div>
-
-    <div class="card">
-        <h2>Published Tasks</h2>
-        <div id="tasksList">Loading tasks...</div>
-    </div>
+<div class="card">
+<h2>Publish New Task</h2>
+<label>Task Title</label>
+<input id="taskTitle" placeholder="Task title">
+<label>Description</label>
+<textarea id="taskDescription"></textarea>
+<label>Reward (₦)</label>
+<input id="taskReward" type="number" min="1">
+<label>Task Link</label>
+<input id="taskLink" type="url" placeholder="https://">
+<button onclick="publishTask()">Publish Task</button>
+</div>
+<div class="card">
+<h2>Published Tasks</h2>
+<div id="tasksList">Loading...</div>
+</div>
 </section>
 
 <section id="sponsors" class="section">
-    <div class="card">
-        <h2>Add Sponsored Post</h2>
-
-        <label>Post Title</label>
-        <input id="sponsorTitle" placeholder="Sponsored post title">
-
-        <label>Description</label>
-        <textarea id="sponsorDescription" placeholder="Post description"></textarea>
-
-        <label>Image URL (optional)</label>
-        <input id="sponsorImage" placeholder="https://">
-
-        <label>Post Link</label>
-        <input id="sponsorLink" placeholder="https://">
-
-        <button onclick="publishSponsor()">Publish Sponsored Post</button>
-    </div>
-
-    <div class="card">
-        <h2>Published Sponsored Posts</h2>
-        <div id="sponsorsList">Loading posts...</div>
-    </div>
+<div class="card">
+<h2>Add Sponsored Post</h2>
+<label>Title</label>
+<input id="sponsorTitle">
+<label>Description</label>
+<textarea id="sponsorDescription"></textarea>
+<label>Image URL</label>
+<input id="sponsorImage">
+<label>Post Link</label>
+<input id="sponsorLink">
+<button onclick="publishSponsor()">Publish Sponsored Post</button>
+</div>
+<div class="card">
+<h2>Published Sponsored Posts</h2>
+<div id="sponsorsList">Loading...</div>
+</div>
 </section>
 
 <section id="referrals" class="section">
-    <div class="card">
-        <h2>Referral Bonuses</h2>
-        <div class="muted small">
-            Review referral bonus records. Approved records are credited once.
-        </div>
-        <div id="referralsList">Loading referrals...</div>
-    </div>
+<div class="card">
+<h2>Referral Bonuses</h2>
+<div id="referralsList">Loading...</div>
+</div>
 </section>
 
 <section id="proofs" class="section">
-    <div class="card">
-        <h2>Pending Proof Submissions</h2>
-        <div id="proofsList">Loading submissions...</div>
-    </div>
+<div class="card">
+<h2>Pending Proof Submissions</h2>
+<div id="proofsList">Loading...</div>
+</div>
 </section>
 
 <section id="withdrawals" class="section">
-    <div class="card">
-        <h2>Pending Withdrawals</h2>
-        <div class="small muted">
-            The backend deducts the wallet balance when the request is created.
-            Approval must not deduct it again.
-        </div>
-        <div id="withdrawalsList">Loading withdrawals...</div>
-    </div>
+<div class="card">
+<h2>Pending Withdrawals</h2>
+<p class="small">Approval does not deduct the wallet again. Rejection refunds the original wallet once.</p>
+<div id="withdrawalsList">Loading...</div>
+</div>
 </section>
 
 <section id="reviewed" class="section">
-    <div class="card">
-        <h2>Reviewed Withdrawals</h2>
-        <div id="reviewedList">Loading records...</div>
-    </div>
+<div class="card">
+<h2>Reviewed Withdrawals</h2>
+<div id="reviewedList">Loading...</div>
+</div>
 </section>
 
+</div>
+</div>
+
+<!-- CONFIRMATION WINDOW -->
+
+<div class="modal-overlay" id="confirmModal">
+<div class="modal-box">
+<div class="modal-icon" id="modalIcon">⚠️</div>
+<h3 id="modalTitle">Confirm Action</h3>
+<p id="modalText">Are you sure?</p>
+<div class="modal-actions">
+<button class="cancel" onclick="closeConfirm(false)">NO, CANCEL</button>
+<button class="confirm" id="modalYes" onclick="closeConfirm(true)">YES, CONTINUE</button>
+</div>
 </div>
 </div>
 
@@ -283,985 +286,958 @@ label{font-size:13px;color:#CBD5E1}
 <script>
 "use strict";
 
-/* =========================================
-   FIREBASE CONFIGURATION
-========================================= */
+/* FIREBASE */
 
-const firebaseConfig = {
-    apiKey: "AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
-    authDomain: "earnsave-e7a88.firebaseapp.com",
-    projectId: "earnsave-e7a88",
-    storageBucket: "earnsave-e7a88.firebasestorage.app",
-    messagingSenderId: "2806298963",
-    appId: "1:2806298963:web:f5f6fe584d51c7280be4aa",
-    measurementId: "G-3C742ZNKHB"
+const firebaseConfig={
+apiKey:"AIzaSyD640twUr5ZAPK7SMPGvJARHv3d1_uLbXY",
+authDomain:"earnsave-e7a88.firebaseapp.com",
+projectId:"earnsave-e7a88",
+storageBucket:"earnsave-e7a88.firebasestorage.app",
+messagingSenderId:"2806298963",
+appId:"1:2806298963:web:f5f6fe584d51c7280be4aa",
+measurementId:"G-3C742ZNKHB"
 };
 
 firebase.initializeApp(firebaseConfig);
 
-const auth = firebase.auth();
-const db = firebase.firestore();
+const auth=firebase.auth();
+const db=firebase.firestore();
 
-let currentAdmin = null;
+let currentAdmin=null;
+let confirmResolver=null;
 
-/* =========================================
-   GENERAL HELPERS
-========================================= */
-
-function money(value) {
-    return "₦" + Number(value || 0).toLocaleString("en-NG");
+function money(value){
+return "₦"+Number(value||0).toLocaleString("en-NG");
 }
 
-function escapeHTML(value) {
-    return String(value ?? "").replace(/[&<>"']/g, char => ({
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#039;"
-    })[char]);
+function escapeHTML(value){
+return String(value??"").replace(/[&<>"']/g,c=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+})[c]);
 }
 
-function notify(message) {
-    const box = document.getElementById("message");
-    box.textContent = message;
-    box.style.display = "block";
-
-    setTimeout(() => {
-        box.style.display = "none";
-    }, 3500);
+function notify(message){
+const box=document.getElementById("message");
+box.textContent=message;
+box.style.display="block";
+setTimeout(()=>box.style.display="none",3500);
 }
 
-function timestamp() {
-    return firebase.firestore.FieldValue.serverTimestamp();
+function timestamp(){
+return firebase.firestore.FieldValue.serverTimestamp();
 }
 
-function showSection(id, button) {
-    document.querySelectorAll(".section").forEach(section => {
-        section.classList.remove("active");
-    });
-
-    document.querySelectorAll(".tabs button").forEach(tab => {
-        tab.classList.remove("active");
-    });
-
-    document.getElementById(id).classList.add("active");
-    button.classList.add("active");
+function showSection(id,button){
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+button.classList.add("active");
 }
 
-function statusBadge(status) {
-    const value = String(status || "pending").toLowerCase();
-    return `<span class="badge ${escapeHTML(value)}">${escapeHTML(value)}</span>`;
+function statusBadge(status){
+const value=String(status||"pending").toLowerCase();
+return `<span class="badge ${escapeHTML(value)}">${escapeHTML(value)}</span>`;
 }
 
-function getUserId(data) {
-    return data.userId || data.uid || data.userID || "";
+function getUserId(data){
+return data.userId||data.uid||data.userID||data.user_id||"";
 }
 
-async function sendNotification(userId, title, message) {
-    if (!userId) return;
+/* CUSTOM YES/NO CONFIRMATION */
 
-    await db.collection("notifications").add({
-        userId: userId,
-        title: title,
-        message: message,
-        read: false,
-        createdAt: timestamp()
-    });
+function askConfirm(title,message,type="confirm"){
+return new Promise(resolve=>{
+confirmResolver=resolve;
+
+document.getElementById("modalTitle").textContent=title;
+document.getElementById("modalText").textContent=message;
+
+const yes=document.getElementById("modalYes");
+yes.className=type==="reject"?"reject":"confirm";
+yes.textContent=type==="reject"?"YES, REJECT AND REFUND":"YES, CONTINUE";
+
+document.getElementById("modalIcon").textContent=
+type==="reject"?"⚠️":"❓";
+
+document.getElementById("confirmModal").classList.add("show");
+});
 }
 
-/* =========================================
-   AUTHENTICATION AND ADMIN ACCESS
-========================================= */
+function closeConfirm(answer){
+document.getElementById("confirmModal").classList.remove("show");
 
-async function loginAdmin() {
-    const email = document.getElementById("loginEmail").value.trim();
-    const password = document.getElementById("loginPassword").value;
-    const error = document.getElementById("loginError");
-    const button = document.getElementById("loginBtn");
-
-    error.textContent = "";
-
-    if (!email || !password) {
-        error.textContent = "Enter your email and password.";
-        return;
-    }
-
-    button.disabled = true;
-    button.textContent = "Please wait...";
-
-    try {
-        await auth.signInWithEmailAndPassword(email, password);
-    } catch (err) {
-        error.textContent = err.message;
-    } finally {
-        button.disabled = false;
-        button.textContent = "Login";
-    }
+if(confirmResolver){
+const resolve=confirmResolver;
+confirmResolver=null;
+resolve(answer);
+}
 }
 
-async function logoutAdmin() {
-    await auth.signOut();
-    location.reload();
-}
-
-auth.onAuthStateChanged(async user => {
-    if (!user) {
-        currentAdmin = null;
-        document.getElementById("loginScreen").classList.remove("hidden");
-        document.getElementById("adminApp").classList.add("hidden");
-        return;
-    }
-
-    try {
-        const adminDoc = await db.collection("users").doc(user.uid).get();
-
-        if (!adminDoc.exists || adminDoc.data().role !== "admin") {
-            await auth.signOut();
-            document.getElementById("loginError").textContent =
-                "Access denied. This account is not an administrator.";
-            return;
-        }
-
-        currentAdmin = user;
-
-        document.getElementById("loginScreen").classList.add("hidden");
-        document.getElementById("adminApp").classList.remove("hidden");
-        document.getElementById("adminEmail").textContent = user.email || "";
-
-        await refreshAll();
-
-    } catch (error) {
-        console.error(error);
-        notify("Could not verify admin access: " + error.message);
-    }
+document.getElementById("confirmModal").addEventListener("click",e=>{
+if(e.target.id==="confirmModal")closeConfirm(false);
 });
 
-/* =========================================
-   DASHBOARD STATISTICS
-========================================= */
+/* AUTHENTICATION */
 
-async function loadStats() {
-    const [users, tasks, proofs, withdrawals] = await Promise.all([
-        db.collection("users").get(),
-        db.collection("tasks").get(),
-        db.collection("submissions").where("status", "==", "pending").get(),
-        db.collection("withdrawals").where("status", "==", "pending").get()
-    ]);
+async function loginAdmin(){
+const email=document.getElementById("loginEmail").value.trim();
+const password=document.getElementById("loginPassword").value;
+const error=document.getElementById("loginError");
+const btn=document.getElementById("loginBtn");
 
-    document.getElementById("totalUsers").textContent = users.size;
-    document.getElementById("totalTasks").textContent = tasks.size;
-    document.getElementById("pendingProofs").textContent = proofs.size;
-    document.getElementById("pendingWithdrawals").textContent = withdrawals.size;
+if(!email||!password){
+error.textContent="Enter your email and password.";
+return;
 }
 
-/* =========================================
-   TASK MANAGEMENT
-========================================= */
+btn.disabled=true;
+btn.textContent="Please wait...";
 
-async function publishTask() {
-    const title = document.getElementById("taskTitle").value.trim();
-    const description = document.getElementById("taskDescription").value.trim();
-    const reward = Number(document.getElementById("taskReward").value);
-    const link = document.getElementById("taskLink").value.trim();
-
-    if (!title || !description || !Number.isFinite(reward) || reward <= 0) {
-        notify("Enter a title, description and valid reward.");
-        return;
-    }
-
-    try {
-        await db.collection("tasks").add({
-            title,
-            description,
-            reward,
-            link,
-            status: "active",
-            createdAt: timestamp()
-        });
-
-        document.getElementById("taskTitle").value = "";
-        document.getElementById("taskDescription").value = "";
-        document.getElementById("taskReward").value = "";
-        document.getElementById("taskLink").value = "";
-
-        notify("Task published successfully.");
-        await loadTasks();
-        await loadStats();
-
-    } catch (error) {
-        notify("Task publishing failed: " + error.message);
-    }
+try{
+await auth.signInWithEmailAndPassword(email,password);
+}catch(e){
+error.textContent=e.message;
+}finally{
+btn.disabled=false;
+btn.textContent="Login";
+}
 }
 
-async function loadTasks() {
-    const box = document.getElementById("tasksList");
-
-    try {
-        const snapshot = await db.collection("tasks")
-            .orderBy("createdAt", "desc").get();
-
-        if (snapshot.empty) {
-            box.innerHTML = '<div class="empty">No tasks published yet.</div>';
-            return;
-        }
-
-        box.innerHTML = "";
-
-        snapshot.forEach(doc => {
-            const task = doc.data();
-
-            box.innerHTML += `
-                <div class="item">
-                    <div class="item-top">
-                        <div>
-                            <strong>${escapeHTML(task.title)}</strong>
-                            <p class="small">${escapeHTML(task.description)}</p>
-                            <strong>${money(task.reward)}</strong>
-                        </div>
-                        ${statusBadge(task.status)}
-                    </div>
-                    <div class="item-actions">
-                        <button class="danger" onclick="deleteTask('${doc.id}')">
-                            Delete Task
-                        </button>
-                    </div>
-                </div>
-            `;
-        });
-
-    } catch (error) {
-        box.textContent = "Could not load tasks: " + error.message;
-    }
+async function logoutAdmin(){
+await auth.signOut();
+location.reload();
 }
 
-async function deleteTask(id) {
-    if (!confirm("Delete this task?")) return;
-
-    try {
-        await db.collection("tasks").doc(id).delete();
-        notify("Task deleted.");
-        await loadTasks();
-        await loadStats();
-    } catch (error) {
-        notify("Could not delete task: " + error.message);
-    }
+auth.onAuthStateChanged(async user=>{
+if(!user){
+currentAdmin=null;
+document.getElementById("loginScreen").classList.remove("hidden");
+document.getElementById("adminApp").classList.add("hidden");
+return;
 }
 
-/* =========================================
-   SPONSORED POSTS
-========================================= */
+try{
+const doc=await db.collection("users").doc(user.uid).get();
 
-async function publishSponsor() {
-    const title = document.getElementById("sponsorTitle").value.trim();
-    const description = document.getElementById("sponsorDescription").value.trim();
-    const image = document.getElementById("sponsorImage").value.trim();
-    const link = document.getElementById("sponsorLink").value.trim();
-
-    if (!title || !description) {
-        notify("Enter the sponsored post title and description.");
-        return;
-    }
-
-    try {
-        await db.collection("sponsoredPosts").add({
-            title,
-            description,
-            image,
-            link,
-            status: "active",
-            createdAt: timestamp()
-        });
-
-        document.getElementById("sponsorTitle").value = "";
-        document.getElementById("sponsorDescription").value = "";
-        document.getElementById("sponsorImage").value = "";
-        document.getElementById("sponsorLink").value = "";
-
-        notify("Sponsored post published.");
-        await loadSponsors();
-
-    } catch (error) {
-        notify("Could not publish post: " + error.message);
-    }
+if(!doc.exists||doc.data().role!=="admin"){
+await auth.signOut();
+document.getElementById("loginError").textContent="Access denied.";
+return;
 }
 
-async function loadSponsors() {
-    const box = document.getElementById("sponsorsList");
+currentAdmin=user;
 
-    try {
-        const snapshot = await db.collection("sponsoredPosts")
-            .orderBy("createdAt", "desc").get();
+document.getElementById("loginScreen").classList.add("hidden");
+document.getElementById("adminApp").classList.remove("hidden");
+document.getElementById("adminEmail").textContent=user.email||"";
 
-        if (snapshot.empty) {
-            box.innerHTML = '<div class="empty">No sponsored posts.</div>';
-            return;
-        }
+await refreshAll();
 
-        box.innerHTML = "";
+}catch(e){
+notify("Admin verification failed: "+e.message);
+}
+});
 
-        snapshot.forEach(doc => {
-            const post = doc.data();
+/* STATISTICS */
 
-            box.innerHTML += `
-                <div class="item">
-                    <strong>${escapeHTML(post.title)}</strong>
-                    <p class="small">${escapeHTML(post.description)}</p>
-                    ${post.image ? `<p class="small">Image: ${escapeHTML(post.image)}</p>` : ""}
-                    <div class="item-actions">
-                        <button class="danger" onclick="deleteSponsor('${doc.id}')">
-                            Delete Post
-                        </button>
-                    </div>
-                </div>
-            `;
-        });
+async function loadStats(){
+const [u,t,p,w]=await Promise.all([
+db.collection("users").get(),
+db.collection("tasks").get(),
+db.collection("submissions").where("status","==","pending").get(),
+db.collection("withdrawals").where("status","==","pending").get()
+]);
 
-    } catch (error) {
-        box.textContent = "Could not load posts: " + error.message;
-    }
+totalUsers.textContent=u.size;
+totalTasks.textContent=t.size;
+pendingProofs.textContent=p.size;
+pendingWithdrawals.textContent=w.size;
 }
 
-async function deleteSponsor(id) {
-    if (!confirm("Delete this sponsored post?")) return;
+/* TASKS */
 
-    try {
-        await db.collection("sponsoredPosts").doc(id).delete();
-        notify("Sponsored post deleted.");
-        await loadSponsors();
-    } catch (error) {
-        notify("Could not delete post: " + error.message);
-    }
+async function publishTask(){
+const title=taskTitle.value.trim();
+const description=taskDescription.value.trim();
+const reward=Number(taskReward.value);
+const link=taskLink.value.trim();
+
+if(!title||!description||!Number.isFinite(reward)||reward<=0){
+notify("Enter valid task details.");
+return;
 }
 
-/* =========================================
-   REFERRAL BONUSES
-========================================= */
+try{
+await db.collection("tasks").add({
+title,description,reward,link,
+status:"active",createdAt:timestamp()
+});
 
-async function loadReferrals() {
-    const box = document.getElementById("referralsList");
+taskTitle.value="";
+taskDescription.value="";
+taskReward.value="";
+taskLink.value="";
 
-    try {
-        const snapshot = await db.collection("referralBonuses")
-            .where("status", "==", "pending").get();
-
-        if (snapshot.empty) {
-            box.innerHTML = '<div class="empty">No pending referral bonuses.</div>';
-            return;
-        }
-
-        box.innerHTML = "";
-
-        snapshot.forEach(doc => {
-            const item = doc.data();
-
-            box.innerHTML += `
-                <div class="item">
-                    <strong>Referral Bonus</strong>
-                    <p class="small">Referrer: ${escapeHTML(item.referrerId || item.userId || "Not supplied")}</p>
-                    <p>Amount: <strong>${money(item.amount)}</strong></p>
-                    ${statusBadge(item.status)}
-                    <div class="item-actions">
-                        <button class="success" onclick="approveReferralBonus('${doc.id}')">
-                            Approve Bonus
-                        </button>
-                        <button class="danger" onclick="rejectReferralBonus('${doc.id}')">
-                            Reject
-                        </button>
-                    </div>
-                </div>
-            `;
-        });
-
-    } catch (error) {
-        box.textContent = "Could not load referrals: " + error.message;
-    }
+notify("Task published.");
+await loadTasks();
+await loadStats();
+}catch(e){notify(e.message);}
 }
 
-async function approveReferralBonus(id) {
-    const ref = db.collection("referralBonuses").doc(id);
+async function loadTasks(){
+const box=document.getElementById("tasksList");
 
-    try {
-        await db.runTransaction(async transaction => {
-            const bonusDoc = await transaction.get(ref);
+try{
+const snap=await db.collection("tasks").orderBy("createdAt","desc").get();
 
-            if (!bonusDoc.exists) throw new Error("Referral record not found.");
-
-            const bonus = bonusDoc.data();
-
-            if (bonus.status !== "pending") {
-                throw new Error("This referral has already been reviewed.");
-            }
-
-            const referrerId = bonus.referrerId || bonus.userId;
-            const amount = Number(bonus.amount);
-
-            if (!referrerId || !Number.isFinite(amount) || amount <= 0) {
-                throw new Error("Referral record has missing or invalid details.");
-            }
-
-            const userRef = db.collection("users").doc(referrerId);
-            const userDoc = await transaction.get(userRef);
-
-            if (!userDoc.exists) throw new Error("Referrer account not found.");
-
-            transaction.update(userRef, {
-                referralEarnings: firebase.firestore.FieldValue.increment(amount)
-            });
-
-            transaction.update(ref, {
-                status: "approved",
-                approvedAt: timestamp(),
-                approvedBy: currentAdmin.uid,
-                credited: true
-            });
-        });
-
-        notify("Referral bonus approved.");
-        await loadReferrals();
-
-    } catch (error) {
-        notify(error.message);
-    }
+if(snap.empty){
+box.innerHTML='<div class="empty">No tasks yet.</div>';
+return;
 }
 
-async function rejectReferralBonus(id) {
-    if (!confirm("Reject this referral bonus?")) return;
+box.innerHTML="";
 
-    try {
-        const ref = db.collection("referralBonuses").doc(id);
-
-        await db.runTransaction(async transaction => {
-            const doc = await transaction.get(ref);
-
-            if (!doc.exists || doc.data().status !== "pending") {
-                throw new Error("This referral is no longer pending.");
-            }
-
-            transaction.update(ref, {
-                status: "rejected",
-                rejectedAt: timestamp(),
-                rejectedBy: currentAdmin.uid
-            });
-        });
-
-        notify("Referral bonus rejected.");
-        await loadReferrals();
-
-    } catch (error) {
-        notify(error.message);
-    }
+snap.forEach(doc=>{
+const d=doc.data();
+box.innerHTML+=`
+<div class="item">
+<strong>${escapeHTML(d.title)}</strong>
+<p class="small">${escapeHTML(d.description)}</p>
+<strong>${money(d.reward)}</strong>
+<div class="item-actions">
+<button class="danger" onclick="deleteTask('${doc.id}')">Delete Task</button>
+</div>
+</div>`;
+});
+}catch(e){box.textContent=e.message;}
 }
 
-/* =========================================
-   PROOF SUBMISSIONS
-========================================= */
-
-async function loadProofs() {
-    const box = document.getElementById("proofsList");
-
-    try {
-        const snapshot = await db.collection("submissions")
-            .where("status", "==", "pending").get();
-
-        if (snapshot.empty) {
-            box.innerHTML = '<div class="empty">No pending proofs.</div>';
-            return;
-        }
-
-        box.innerHTML = "";
-
-        snapshot.forEach(doc => {
-            const proof = doc.data();
-
-            box.innerHTML += `
-                <div class="item">
-                    <strong>Task Proof</strong>
-                    <p class="small">User: ${escapeHTML(getUserId(proof) || "Unknown")}</p>
-                    <p class="small">Task: ${escapeHTML(proof.taskId || "Not supplied")}</p>
-                    <p class="small">Proof: ${escapeHTML(proof.proof || proof.proofUrl || proof.link || "Not supplied")}</p>
-                    <p>Reward: <strong>${money(proof.reward)}</strong></p>
-                    <div class="item-actions">
-                        <button class="success" onclick="approveProof('${doc.id}')">
-                            Approve Proof
-                        </button>
-                        <button class="danger" onclick="rejectProof('${doc.id}')">
-                            Reject Proof
-                        </button>
-                    </div>
-                </div>
-            `;
-        });
-
-    } catch (error) {
-        box.textContent = "Could not load proofs: " + error.message;
-    }
+async function deleteTask(id){
+if(!await askConfirm("Delete Task","Are you sure you want to delete this task?","reject"))return;
+try{
+await db.collection("tasks").doc(id).delete();
+notify("Task deleted.");
+await loadTasks();
+await loadStats();
+}catch(e){notify(e.message);}
 }
 
-async function approveProof(id) {
-    const proofRef = db.collection("submissions").doc(id);
+/* SPONSORED POSTS */
 
-    try {
-        let userIdForNotification = "";
+async function publishSponsor(){
+const title=sponsorTitle.value.trim();
+const description=sponsorDescription.value.trim();
+const image=sponsorImage.value.trim();
+const link=sponsorLink.value.trim();
 
-        await db.runTransaction(async transaction => {
-            const proofDoc = await transaction.get(proofRef);
-
-            if (!proofDoc.exists) throw new Error("Submission not found.");
-
-            const proof = proofDoc.data();
-
-            if (proof.status !== "pending") {
-                throw new Error("This proof has already been reviewed.");
-            }
-
-            const userId = getUserId(proof);
-            const reward = Number(proof.reward);
-
-            if (!userId || !Number.isFinite(reward) || reward <= 0) {
-                throw new Error("Proof has missing user or reward information.");
-            }
-
-            const userRef = db.collection("users").doc(userId);
-            const userDoc = await transaction.get(userRef);
-
-            if (!userDoc.exists) throw new Error("User account not found.");
-
-            userIdForNotification = userId;
-
-            transaction.update(userRef, {
-                balance: firebase.firestore.FieldValue.increment(reward)
-            });
-
-            transaction.update(proofRef, {
-                status: "approved",
-                approvedAt: timestamp(),
-                approvedBy: currentAdmin.uid,
-                rewardCredited: true
-            });
-        });
-
-        await sendNotification(
-            userIdForNotification,
-            "Task proof approved",
-            "Your task proof has been approved and your task reward has been credited."
-        );
-
-        notify("Proof approved and reward credited.");
-        await loadProofs();
-        await loadStats();
-
-    } catch (error) {
-        notify(error.message);
-    }
+if(!title||!description){
+notify("Enter title and description.");
+return;
 }
 
-async function rejectProof(id) {
-    if (!confirm("Reject this proof submission?")) return;
+try{
+await db.collection("sponsoredPosts").add({
+title,description,image,link,
+status:"active",createdAt:timestamp()
+});
 
-    const ref = db.collection("submissions").doc(id);
+sponsorTitle.value="";
+sponsorDescription.value="";
+sponsorImage.value="";
+sponsorLink.value="";
 
-    try {
-        let userIdForNotification = "";
-
-        await db.runTransaction(async transaction => {
-            const doc = await transaction.get(ref);
-
-            if (!doc.exists || doc.data().status !== "pending") {
-                throw new Error("This proof is no longer pending.");
-            }
-
-            userIdForNotification = getUserId(doc.data());
-
-            transaction.update(ref, {
-                status: "rejected",
-                rejectedAt: timestamp(),
-                rejectedBy: currentAdmin.uid
-            });
-        });
-
-        await sendNotification(
-            userIdForNotification,
-            "Task proof rejected",
-            "Your task proof was not approved. Please check the task requirements."
-        );
-
-        notify("Proof rejected.");
-        await loadProofs();
-        await loadStats();
-
-    } catch (error) {
-        notify(error.message);
-    }
+notify("Sponsored post published.");
+await loadSponsors();
+}catch(e){notify(e.message);}
 }
 
-/* =========================================
-   WITHDRAWAL WALLET HELPERS
-========================================= */
+async function loadSponsors(){
+const box=document.getElementById("sponsorsList");
 
-function normalizeWalletType(type) {
-    const value = String(type || "").trim().toLowerCase();
+try{
+const snap=await db.collection("sponsoredPosts").orderBy("createdAt","desc").get();
 
-    if (value === "task" || value === "task earnings") return "Task";
-    if (value === "affiliate" || value === "affiliate earnings") return "Affiliate";
-
-    return "Unknown";
+if(snap.empty){
+box.innerHTML='<div class="empty">No sponsored posts.</div>';
+return;
 }
 
-function walletName(type) {
-    const wallet = normalizeWalletType(type);
+box.innerHTML="";
 
-    if (wallet === "Task") return "Task Earnings";
-    if (wallet === "Affiliate") return "Affiliate Earnings";
-
-    return "Unknown Wallet";
+snap.forEach(doc=>{
+const d=doc.data();
+box.innerHTML+=`
+<div class="item">
+<strong>${escapeHTML(d.title)}</strong>
+<p class="small">${escapeHTML(d.description)}</p>
+<div class="item-actions">
+<button class="danger" onclick="deleteSponsor('${doc.id}')">Delete Post</button>
+</div>
+</div>`;
+});
+}catch(e){box.textContent=e.message;}
 }
 
-function walletClass(type) {
-    const wallet = normalizeWalletType(type);
-
-    if (wallet === "Task") return "wallet-task";
-    if (wallet === "Affiliate") return "wallet-affiliate";
-
-    return "";
+async function deleteSponsor(id){
+if(!await askConfirm("Delete Post","Delete this sponsored post?","reject"))return;
+try{
+await db.collection("sponsoredPosts").doc(id).delete();
+notify("Post deleted.");
+await loadSponsors();
+}catch(e){notify(e.message);}
 }
 
-function walletField(type) {
-    const wallet = normalizeWalletType(type);
+/* NOTIFICATIONS */
 
-    if (wallet === "Task") return "balance";
-    if (wallet === "Affiliate") return "referralEarnings";
+async function sendNotification(userId,title,message){
+if(!userId)return;
 
-    throw new Error("Unknown wallet type. Refund stopped for safety.");
+await db.collection("notifications").add({
+userId,title,message,read:false,createdAt:timestamp()
+});
 }
 
-function withdrawalCard(id, data) {
-    const walletType = data.walletType || data.wallet || data.wallet_type || "";
-    const wallet = walletName(walletType);
-    const userId = getUserId(data);
+/* REFERRALS */
 
-    return `
-        <div class="item">
-            <div class="item-top">
-                <div>
-                    <strong>${money(data.amount)}</strong>
-                    <p class="${walletClass(walletType)}">${escapeHTML(wallet)}</p>
-                    <p class="small">User ID: ${escapeHTML(userId || "Unknown")}</p>
-                </div>
-                ${statusBadge(data.status)}
-            </div>
+async function loadReferrals(){
+const box=document.getElementById("referralsList");
 
-            <p class="small">Account Name: ${escapeHTML(data.accountName || "Not supplied")}</p>
-            <p class="small">Account Number: ${escapeHTML(data.accountNumber || "Not supplied")}</p>
-            <p class="small">Bank: ${escapeHTML(data.bankName || "Not supplied")}</p>
-            <p class="small">Payment Method: ${escapeHTML(data.paymentMethod || "Bank transfer")}</p>
+try{
+const snap=await db.collection("referralBonuses").where("status","==","pending").get();
 
-            <div class="item-actions">
-                <button class="success" onclick="approveWithdrawal('${id}')">
-                    Approve
-                </button>
-                <button class="danger" onclick="rejectWithdrawal('${id}')">
-                    Reject and Refund
-                </button>
-            </div>
-        </div>
-    `;
+if(snap.empty){
+box.innerHTML='<div class="empty">No pending referral bonuses.</div>';
+return;
 }
 
-/* =========================================
-   PENDING WITHDRAWALS
-========================================= */
+box.innerHTML="";
 
-async function loadWithdrawals() {
-    const box = document.getElementById("withdrawalsList");
+snap.forEach(doc=>{
+const d=doc.data();
 
-    try {
-        const snapshot = await db.collection("withdrawals")
-            .where("status", "==", "pending").get();
-
-        if (snapshot.empty) {
-            box.innerHTML = '<div class="empty">No pending withdrawals.</div>';
-            return;
-        }
-
-        box.innerHTML = "";
-
-        snapshot.forEach(doc => {
-            box.innerHTML += withdrawalCard(doc.id, doc.data());
-        });
-
-    } catch (error) {
-        box.textContent = "Could not load withdrawals: " + error.message;
-    }
+box.innerHTML+=`
+<div class="item">
+<strong>Referral Bonus</strong>
+<p class="small">Referrer: ${escapeHTML(d.referrerId||d.userId||"Unknown")}</p>
+<p>Amount: ${money(d.amount)}</p>
+${statusBadge(d.status)}
+<div class="item-actions">
+<button class="success" onclick="approveReferralBonus('${doc.id}')">Approve Bonus</button>
+<button class="danger" onclick="rejectReferralBonus('${doc.id}')">Reject</button>
+</div>
+</div>`;
+});
+}catch(e){box.textContent=e.message;}
 }
 
-/*
- IMPORTANT:
- The Render backend already deducts the wallet balance
- when a withdrawal request is successfully created.
+async function approveReferralBonus(id){
+if(!await askConfirm("Approve Referral Bonus","Credit this referral bonus to the user's affiliate wallet?"))return;
 
- Therefore approval only changes the withdrawal status.
- It MUST NOT deduct the wallet a second time.
-*/
+const ref=db.collection("referralBonuses").doc(id);
 
-async function approveWithdrawal(id) {
-    if (!confirm("Approve this withdrawal request?")) return;
+try{
+await db.runTransaction(async tx=>{
+const doc=await tx.get(ref);
 
-    const ref = db.collection("withdrawals").doc(id);
+if(!doc.exists||doc.data().status!=="pending")throw Error("Referral already reviewed.");
 
-    try {
-        let userIdForNotification = "";
+const d=doc.data();
+const uid=d.referrerId||d.userId;
+const amount=Number(d.amount);
 
-        await db.runTransaction(async transaction => {
-            const doc = await transaction.get(ref);
+if(!uid||!Number.isFinite(amount)||amount<=0)throw Error("Invalid referral details.");
 
-            if (!doc.exists) throw new Error("Withdrawal record not found.");
+const userRef=db.collection("users").doc(uid);
+const user=await tx.get(userRef);
 
-            const data = doc.data();
+if(!user.exists)throw Error("Referrer not found.");
 
-            if (data.status !== "pending") {
-                throw new Error("This withdrawal is no longer pending.");
-            }
+tx.update(userRef,{
+referralEarnings:firebase.firestore.FieldValue.increment(amount)
+});
 
-            userIdForNotification = getUserId(data);
+tx.update(ref,{
+status:"approved",
+approvedAt:timestamp(),
+approvedBy:currentAdmin.uid,
+credited:true
+});
+});
 
-            transaction.update(ref, {
-                status: "approved",
-                approvedAt: timestamp(),
-                approvedBy: currentAdmin.uid
-            });
-        });
-
-        await sendNotification(
-            userIdForNotification,
-            "Withdrawal approved",
-            "Your withdrawal request has been approved. Payment processing will follow."
-        );
-
-        notify("Withdrawal approved. No second wallet deduction was made.");
-        await loadWithdrawals();
-        await loadReviewedWithdrawals();
-        await loadStats();
-
-    } catch (error) {
-        notify(error.message);
-    }
+notify("Referral bonus approved and credited.");
+await loadReferrals();
+}catch(e){notify(e.message);}
 }
 
-/*
- REJECTION:
- The backend deducted the amount at request creation.
- Rejecting must refund the same wallet exactly once.
-*/
+async function rejectReferralBonus(id){
+if(!await askConfirm("Reject Bonus","Reject this referral bonus?","reject"))return;
 
-async function rejectWithdrawal(id) {
-    if (!confirm("Reject this withdrawal and refund the user's wallet?")) return;
+try{
+await db.runTransaction(async tx=>{
+const ref=db.collection("referralBonuses").doc(id);
+const doc=await tx.get(ref);
 
-    const withdrawalRef = db.collection("withdrawals").doc(id);
+if(!doc.exists||doc.data().status!=="pending")throw Error("Already reviewed.");
 
-    try {
-        let userIdForNotification = "";
+tx.update(ref,{
+status:"rejected",
+rejectedAt:timestamp(),
+rejectedBy:currentAdmin.uid
+});
+});
 
-        await db.runTransaction(async transaction => {
-            const withdrawalDoc = await transaction.get(withdrawalRef);
-
-            if (!withdrawalDoc.exists) {
-                throw new Error("Withdrawal record not found.");
-            }
-
-            const data = withdrawalDoc.data();
-
-            if (data.status !== "pending") {
-                throw new Error("This withdrawal is no longer pending.");
-            }
-
-            if (data.refundProcessed === true) {
-                throw new Error("This withdrawal has already been refunded.");
-            }
-
-            const userId = getUserId(data);
-            const amount = Number(data.amount);
-
-            if (!userId || !Number.isFinite(amount) || amount <= 0) {
-                throw new Error("Missing user ID or invalid withdrawal amount.");
-            }
-
-            const field = walletField(
-                data.walletType || data.wallet || data.wallet_type
-            );
-
-            const userRef = db.collection("users").doc(userId);
-            const userDoc = await transaction.get(userRef);
-
-            if (!userDoc.exists) {
-                throw new Error("User account not found. Refund was not processed.");
-            }
-
-            userIdForNotification = userId;
-
-            transaction.update(userRef, {
-                [field]: firebase.firestore.FieldValue.increment(amount)
-            });
-
-            transaction.update(withdrawalRef, {
-                status: "rejected",
-                rejectedAt: timestamp(),
-                rejectedBy: currentAdmin.uid,
-                refundProcessed: true,
-                refundedAt: timestamp(),
-                refundedWalletField: field
-            });
-        });
-
-        await sendNotification(
-            userIdForNotification,
-            "Withdrawal rejected",
-            "Your withdrawal request was rejected and the amount was returned to your wallet."
-        );
-
-        notify("Withdrawal rejected and wallet refunded.");
-        await loadWithdrawals();
-        await loadReviewedWithdrawals();
-        await loadStats();
-
-    } catch (error) {
-        notify(error.message);
-    }
+notify("Referral bonus rejected.");
+await loadReferrals();
+}catch(e){notify(e.message);}
 }
 
-/* =========================================
-   MARK APPROVED WITHDRAWAL AS PAID
-========================================= */
+/* PROOFS */
 
-async function markWithdrawalPaid(id) {
-    if (!confirm("Have you actually sent the payment to this user?")) {
-        return;
-    }
+async function loadProofs(){
+const box=document.getElementById("proofsList");
 
-    const ref = db.collection("withdrawals").doc(id);
+try{
+const snap=await db.collection("submissions").where("status","==","pending").get();
 
-    try {
-        let userIdForNotification = "";
-
-        await db.runTransaction(async transaction => {
-            const doc = await transaction.get(ref);
-
-            if (!doc.exists) throw new Error("Withdrawal not found.");
-
-            const data = doc.data();
-
-            if (data.status !== "approved") {
-                throw new Error("Only approved withdrawals can be marked paid.");
-            }
-
-            userIdForNotification = getUserId(data);
-
-            transaction.update(ref, {
-                status: "paid",
-                paidAt: timestamp(),
-                paidBy: currentAdmin.uid
-            });
-        });
-
-        await sendNotification(
-            userIdForNotification,
-            "Withdrawal paid",
-            "Your withdrawal has been marked as paid. Thank you for using EarnSave."
-        );
-
-        notify("Withdrawal marked as paid.");
-        await loadReviewedWithdrawals();
-
-    } catch (error) {
-        notify(error.message);
-    }
+if(snap.empty){
+box.innerHTML='<div class="empty">No pending proofs.</div>';
+return;
 }
 
-/* =========================================
+box.innerHTML="";
+
+snap.forEach(doc=>{
+const d=doc.data();
+
+box.innerHTML+=`
+<div class="item">
+<strong>Task Proof</strong>
+<p class="small">User: ${escapeHTML(getUserId(d)||"Unknown")}</p>
+<p class="small">Task: ${escapeHTML(d.taskId||"Not supplied")}</p>
+<p class="small">Proof: ${escapeHTML(d.proof||d.proofUrl||d.link||"Not supplied")}</p>
+<p>Reward: ${money(d.reward)}</p>
+<div class="item-actions">
+<button class="success" onclick="approveProof('${doc.id}')">Approve Proof</button>
+<button class="danger" onclick="rejectProof('${doc.id}')">Reject Proof</button>
+</div>
+</div>`;
+});
+}catch(e){box.textContent=e.message;}
+}
+
+async function approveProof(id){
+if(!await askConfirm("Approve Task Proof","Approve this proof and credit the task reward?"))return;
+
+const ref=db.collection("submissions").doc(id);
+let uid="";
+
+try{
+await db.runTransaction(async tx=>{
+const doc=await tx.get(ref);
+
+if(!doc.exists||doc.data().status!=="pending")throw Error("Proof already reviewed.");
+
+const d=doc.data();
+uid=getUserId(d);
+const amount=Number(d.reward);
+
+if(!uid||!Number.isFinite(amount)||amount<=0)throw Error("Invalid proof details.");
+
+const userRef=db.collection("users").doc(uid);
+const user=await tx.get(userRef);
+
+if(!user.exists)throw Error("User not found.");
+
+tx.update(userRef,{
+balance:firebase.firestore.FieldValue.increment(amount)
+});
+
+tx.update(ref,{
+status:"approved",
+approvedAt:timestamp(),
+approvedBy:currentAdmin.uid,
+rewardCredited:true
+});
+});
+
+await sendNotification(uid,"Task proof approved","Your task reward has been credited.");
+notify("Proof approved and reward credited.");
+await loadProofs();
+await loadStats();
+}catch(e){notify(e.message);}
+}
+
+async function rejectProof(id){
+if(!await askConfirm("Reject Task Proof","Reject this task proof?","reject"))return;
+
+try{
+const ref=db.collection("submissions").doc(id);
+let uid="";
+
+await db.runTransaction(async tx=>{
+const doc=await tx.get(ref);
+
+if(!doc.exists||doc.data().status!=="pending")throw Error("Proof already reviewed.");
+
+uid=getUserId(doc.data());
+
+tx.update(ref,{
+status:"rejected",
+rejectedAt:timestamp(),
+rejectedBy:currentAdmin.uid
+});
+});
+
+await sendNotification(uid,"Task proof rejected","Your task proof was not approved.");
+notify("Proof rejected.");
+await loadProofs();
+await loadStats();
+}catch(e){notify(e.message);}
+}
+
+/* =====================================
+   IMPROVED WALLET DETECTION
+===================================== */
+
+function normalizeWalletType(data){
+
+const values=[
+data.walletType,
+data.wallet_type,
+data.wallet,
+data.walletName,
+data.wallet_name,
+data.walletSource,
+data.wallet_source,
+data.earningType,
+data.earning_type,
+data.balanceType,
+data.balance_type,
+data.source
+];
+
+for(const item of values){
+
+if(!item)continue;
+
+const value=String(item).trim().toLowerCase().replace(/[\s_-]+/g,"");
+
+if([
+"task","tasks","taskwallet","taskearnings",
+"taskearning","balance","mainbalance"
+].includes(value))return "Task";
+
+if([
+"affiliate","affiliates","referral","referrals",
+"affiliatewallet","affiliateearnings",
+"referralearnings","referralwallet"
+].includes(value))return "Affiliate";
+}
+
+/* Check legacy wallet field values */
+
+if(data.walletField==="balance"||data.wallet_field==="balance")return "Task";
+
+if(
+data.walletField==="referralEarnings"||
+data.wallet_field==="referralEarnings"
+)return "Affiliate";
+
+/* Do not guess if the record contains no wallet information */
+
+return "Unknown";
+}
+
+function walletName(data){
+const type=normalizeWalletType(data);
+
+if(type==="Task")return "Task Earnings";
+if(type==="Affiliate")return "Affiliate Earnings";
+
+return "UNKNOWN WALLET";
+}
+
+function walletClass(data){
+const type=normalizeWalletType(data);
+
+if(type==="Task")return "wallet-task";
+if(type==="Affiliate")return "wallet-affiliate";
+
+return "wallet-unknown";
+}
+
+function walletField(data){
+const type=normalizeWalletType(data);
+
+if(type==="Task")return "balance";
+if(type==="Affiliate")return "referralEarnings";
+
+throw Error("Unknown wallet. Refund stopped for safety. Check the withdrawal wallet fields.");
+}
+
+/* =====================================
+   WITHDRAWAL CARD
+===================================== */
+
+function withdrawalCard(id,data){
+
+const type=normalizeWalletType(data);
+const uid=getUserId(data);
+const safeId=escapeHTML(id);
+
+return `
+<div class="item">
+
+<div class="item-top">
+<div>
+<strong>${money(data.amount)}</strong>
+
+<p class="${walletClass(data)}">
+${escapeHTML(walletName(data))}
+</p>
+
+<p class="small">User ID: ${escapeHTML(uid||"Unknown")}</p>
+</div>
+
+${statusBadge(data.status)}
+</div>
+
+<p class="small">Account Name: ${escapeHTML(data.accountName||"Not supplied")}</p>
+<p class="small">Account Number: ${escapeHTML(data.accountNumber||"Not supplied")}</p>
+<p class="small">Bank: ${escapeHTML(data.bankName||"Not supplied")}</p>
+<p class="small">Payment Method: ${escapeHTML(data.paymentMethod||"Bank transfer")}</p>
+
+${type==="Unknown"?`
+<div style="background:#422006;padding:12px;border-radius:9px;margin-top:12px">
+<strong style="color:#FBBF24">⚠️ Wallet information missing</strong>
+<p class="small">Available wallet fields: ${escapeHTML(JSON.stringify({
+walletType:data.walletType,
+wallet_type:data.wallet_type,
+wallet:data.wallet,
+walletName:data.walletName,
+walletSource:data.walletSource,
+earningType:data.earningType,
+source:data.source
+}))}</p>
+</div>`:""}
+
+<div class="item-actions">
+
+${data.status==="pending"?`
+<button class="success" onclick="approveWithdrawal('${safeId}')">
+Approve
+</button>
+
+<button class="danger" onclick="rejectWithdrawal('${safeId}')">
+Reject and Refund
+</button>
+`:""}
+
+</div>
+</div>`;
+}
+
+/* LOAD PENDING WITHDRAWALS */
+
+async function loadWithdrawals(){
+const box=document.getElementById("withdrawalsList");
+
+try{
+const snap=await db.collection("withdrawals").where("status","==","pending").get();
+
+if(snap.empty){
+box.innerHTML='<div class="empty">No pending withdrawals.</div>';
+return;
+}
+
+box.innerHTML="";
+
+snap.forEach(doc=>{
+box.innerHTML+=withdrawalCard(doc.id,doc.data());
+});
+
+}catch(e){box.textContent="Could not load withdrawals: "+e.message;}
+}
+
+/* =====================================
+   APPROVE WITHDRAWAL
+===================================== */
+
+async function approveWithdrawal(id){
+
+const yes=await askConfirm(
+"Approve Withdrawal",
+"Are you sure you want to approve this withdrawal? No additional wallet deduction will happen."
+);
+
+if(!yes)return;
+
+const ref=db.collection("withdrawals").doc(id);
+let uid="";
+
+try{
+
+await db.runTransaction(async tx=>{
+
+const doc=await tx.get(ref);
+
+if(!doc.exists)throw Error("Withdrawal not found.");
+
+const d=doc.data();
+
+if(String(d.status).toLowerCase()!=="pending"){
+throw Error("This withdrawal is no longer pending.");
+}
+
+uid=getUserId(d);
+
+if(!uid)throw Error("Withdrawal has no user ID.");
+
+tx.update(ref,{
+status:"approved",
+approvedAt:timestamp(),
+approvedBy:currentAdmin.uid
+});
+
+});
+
+/* Approval does not deduct the wallet again */
+
+await sendNotification(
+uid,
+"Withdrawal approved",
+"Your withdrawal has been approved. Payment processing will follow."
+);
+
+notify("Withdrawal approved successfully.");
+
+await loadWithdrawals();
+await loadReviewedWithdrawals();
+await loadStats();
+
+}catch(e){notify("Approval failed: "+e.message);}
+}
+
+/* =====================================
+   REJECT AND REFUND WITHDRAWAL
+===================================== */
+
+async function rejectWithdrawal(id){
+
+const yes=await askConfirm(
+"Reject Withdrawal",
+"Are you sure? This will reject the request and return the amount to the original wallet.",
+"reject"
+);
+
+if(!yes)return;
+
+const ref=db.collection("withdrawals").doc(id);
+let uid="";
+
+try{
+
+await db.runTransaction(async tx=>{
+
+const doc=await tx.get(ref);
+
+if(!doc.exists)throw Error("Withdrawal not found.");
+
+const d=doc.data();
+
+if(String(d.status).toLowerCase()!=="pending"){
+throw Error("This withdrawal is no longer pending.");
+}
+
+if(d.refundProcessed===true){
+throw Error("This withdrawal has already been refunded.");
+}
+
+uid=getUserId(d);
+
+const amount=Number(d.amount);
+
+if(!uid||!Number.isFinite(amount)||amount<=0){
+throw Error("Invalid user ID or withdrawal amount.");
+}
+
+const field=walletField(d);
+
+const userRef=db.collection("users").doc(uid);
+const user=await tx.get(userRef);
+
+if(!user.exists)throw Error("User account not found.");
+
+tx.update(userRef,{
+[field]:firebase.firestore.FieldValue.increment(amount)
+});
+
+tx.update(ref,{
+status:"rejected",
+rejectedAt:timestamp(),
+rejectedBy:currentAdmin.uid,
+refundProcessed:true,
+refundedAt:timestamp(),
+refundedWalletField:field
+});
+
+});
+
+await sendNotification(
+uid,
+"Withdrawal rejected",
+"Your withdrawal was rejected and the amount was returned to your wallet."
+);
+
+notify("Withdrawal rejected and refund processed.");
+
+await loadWithdrawals();
+await loadReviewedWithdrawals();
+await loadStats();
+
+}catch(e){notify("Refund failed: "+e.message);}
+}
+
+/* =====================================
+   MARK AS PAID
+===================================== */
+
+async function markWithdrawalPaid(id){
+
+const yes=await askConfirm(
+"Mark Withdrawal as Paid",
+"Have you actually transferred the money to the user's bank account?"
+);
+
+if(!yes)return;
+
+const ref=db.collection("withdrawals").doc(id);
+let uid="";
+
+try{
+
+await db.runTransaction(async tx=>{
+
+const doc=await tx.get(ref);
+
+if(!doc.exists)throw Error("Withdrawal not found.");
+
+const d=doc.data();
+
+if(String(d.status).toLowerCase()!=="approved"){
+throw Error("Only approved withdrawals can be marked paid.");
+}
+
+uid=getUserId(d);
+
+tx.update(ref,{
+status:"paid",
+paidAt:timestamp(),
+paidBy:currentAdmin.uid
+});
+
+});
+
+await sendNotification(
+uid,
+"Withdrawal paid",
+"Your withdrawal has been marked as paid. Thank you for using EarnSave."
+);
+
+notify("Withdrawal marked as paid.");
+
+await loadReviewedWithdrawals();
+await loadStats();
+
+}catch(e){notify(e.message);}
+}
+
+/* =====================================
    REVIEWED WITHDRAWALS
-========================================= */
+===================================== */
 
-async function loadReviewedWithdrawals() {
-    const box = document.getElementById("reviewedList");
+async function loadReviewedWithdrawals(){
 
-    try {
-        const snapshot = await db.collection("withdrawals")
-            .where("status", "in", ["approved", "rejected", "paid"])
-            .get();
+const box=document.getElementById("reviewedList");
 
-        if (snapshot.empty) {
-            box.innerHTML = '<div class="empty">No reviewed withdrawals yet.</div>';
-            return;
-        }
+try{
 
-        box.innerHTML = "";
+const snap=await db.collection("withdrawals")
+.where("status","in",["approved","rejected","paid"])
+.get();
 
-        snapshot.forEach(doc => {
-            const data = doc.data();
-
-            box.innerHTML += `
-                <div class="item">
-                    <div class="item-top">
-                        <div>
-                            <strong>${money(data.amount)}</strong>
-                            <p class="${walletClass(data.walletType || data.wallet || data.wallet_type)}">
-                                ${escapeHTML(walletName(data.walletType || data.wallet || data.wallet_type))}
-                            </p>
-                            <p class="small">User ID: ${escapeHTML(getUserId(data) || "Unknown")}</p>
-                        </div>
-                        ${statusBadge(data.status)}
-                    </div>
-
-                    <p class="small">Account: ${escapeHTML(data.accountName || "")}</p>
-                    <p class="small">Number: ${escapeHTML(data.accountNumber || "")}</p>
-                    <p class="small">Bank: ${escapeHTML(data.bankName || "")}</p>
-
-                    ${data.status === "approved" ? `
-                        <div class="item-actions">
-                            <button class="success" onclick="markWithdrawalPaid('${doc.id}')">
-                                Mark as Paid
-                            </button>
-                        </div>
-                    ` : ""}
-
-                    ${data.refundProcessed === true ? `
-                        <p class="small" style="color:#4ADE80">Refund processed</p>
-                    ` : ""}
-                </div>
-            `;
-        });
-
-    } catch (error) {
-        box.textContent = "Could not load reviewed withdrawals: " + error.message;
-    }
+if(snap.empty){
+box.innerHTML='<div class="empty">No reviewed withdrawals.</div>';
+return;
 }
 
-/* =========================================
-   REFRESH EVERYTHING
-========================================= */
+box.innerHTML="";
 
-async function refreshAll() {
-    if (!currentAdmin) return;
+snap.forEach(doc=>{
 
-    try {
-        await Promise.all([
-            loadStats(),
-            loadTasks(),
-            loadSponsors(),
-            loadReferrals(),
-            loadProofs(),
-            loadWithdrawals(),
-            loadReviewedWithdrawals()
-        ]);
+const d=doc.data();
 
-        notify("Dashboard refreshed.");
+box.innerHTML+=`
+<div class="item">
 
-    } catch (error) {
-        console.error(error);
-        notify("Some dashboard information could not load.");
-    }
+<div class="item-top">
+<div>
+<strong>${money(d.amount)}</strong>
+
+<p class="${walletClass(d)}">${escapeHTML(walletName(d))}</p>
+
+<p class="small">User ID: ${escapeHTML(getUserId(d)||"Unknown")}</p>
+</div>
+
+${statusBadge(d.status)}
+</div>
+
+<p class="small">Account: ${escapeHTML(d.accountName||"")}</p>
+<p class="small">Number: ${escapeHTML(d.accountNumber||"")}</p>
+<p class="small">Bank: ${escapeHTML(d.bankName||"")}</p>
+
+${d.status==="approved"?`
+<div class="item-actions">
+<button class="success" onclick="markWithdrawalPaid('${doc.id}')">
+Mark as Paid
+</button>
+</div>`:""}
+
+${d.refundProcessed===true?
+'<p style="color:#4ADE80;font-size:12px">✓ Refund processed</p>':""}
+
+</div>`;
+});
+
+}catch(e){box.textContent="Could not load records: "+e.message;}
 }
+
+/* REFRESH */
+
+async function refreshAll(){
+
+if(!currentAdmin)return;
+
+try{
+
+await Promise.all([
+loadStats(),
+loadTasks(),
+loadSponsors(),
+loadReferrals(),
+loadProofs(),
+loadWithdrawals(),
+loadReviewedWithdrawals()
+]);
+
+notify("Dashboard refreshed.");
+
+}catch(e){
+console.error(e);
+notify("Dashboard error: "+e.message);
+}
+}
+
 </script>
-
 </body>
 </html>
